@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="data">
+        <file alias="0炉子开关">./data/0炉子开关.txt</file>
+    </qresource>
+</RCC>

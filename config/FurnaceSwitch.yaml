@@ -1,0 +1,52 @@
+# 开关片选量
+switch_plate_selection:
+  LED: "00"
+  CCD: "00"
+  valve: "00"
+  acceleration: "00"
+  sample_box: "00"
+
+# LED使能设置
+LED_enable_settings:
+  LED1_enable: "33"
+  LED1_close: "30"
+  LED2_enable: "CC"
+  LED2_close: "C0"
+  tail: "001900"
+
+# CCD使能设置
+CCD_enable_settings:
+  CCD1_enable: "33"
+  CCD1_close: "30"
+  CCD2_enable: "CC"
+  CCD2_close: "C0"
+  tail: "001a00"
+
+# 阀门使能设置（氮气阀门开开~关复压开关开~关排废气切换开真空控制切换开废气/真空 开~关）
+valve_enable_settings:
+  # 氮气阀门
+  nitrogen_valve_open: "83"
+  nitrogen_valve_close: "80"
+  # 复压开关
+  re-pressing_open: "93"
+  re-pressing_close: "90"
+  # 排废气切换
+  exhaust_switching: "A3"
+  # 真空控制切换
+  vacuum_control: "B3"
+  # 废弃真空
+  exhaust_vacuum_open: "CC"
+  exhaust_vacuum_close: "C0"
+  tail: "001b00"
+
+# 加速度设置（加速度开~关）
+acceleration_settings:
+  open: "0F00"
+  close: "0000"
+  tail: "FA00"
+
+# 样品盒开关 （样品盒开~关）
+sample_box_settings:
+  open: "CC00"
+  close: "0000"
+  tail: "0201"
