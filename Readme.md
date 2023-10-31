@@ -45,12 +45,12 @@ experimental-flow-table-generation
 
 `mainwindow.ui`
 
-![image-20231031121353731](S:\PycharmProjects\experimental-flow-table-generation\imgs\image-20231031121353731.png)
+![image-20231031121353731](imgs/image-20231031121353731.png)
 
 `newflowitem.ui`
 
-![image-20231031121656484](S:\PycharmProjects\experimental-flow-table-generation\imgs\image-20231031121656484.png)
+![image-20231031121656484](imgs/image-20231031121656484.png)
 
 `furnaceswitch.ui`
 
-![image-20231031121749170](S:\PycharmProjects\experimental-flow-table-generation\imgs\image-20231031121749170.png)
+![image-20231031121749170](imgs/image-20231031121749170.png)
