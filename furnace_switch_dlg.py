@@ -14,7 +14,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
     def __init__(self):
         super(FurnaceSwitchDlg, self).__init__()
         # 最终生成参数配置的十六进制编码
-        self.config_hex = 0
+        self.config_hex = ""
         # 是否是新动作
         self.is_new_action = 0
         self.setupUi(self)
@@ -107,8 +107,8 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.commitPushButton.clicked.connect(self.commit_config)
 
     def commit_config(self):
-        # 发送信号
-        self.config_hex_signal.emit(self.action_id + self.config_hex, self.is_new_action)
+        # 发送信号(id的前两位和后两位要调换位置)
+        self.config_hex_signal.emit(self.action_id[2:] + self.action_id[0:2] + self.config_hex, self.is_new_action)
         # 发送完关闭窗口
         self.close()
 

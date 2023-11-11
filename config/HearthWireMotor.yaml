@@ -1,0 +1,151 @@
+# 电机参数片选
+motor_conf_select:
+  zhuan_ji_1: "00"
+  yang_ti_ji_2: "00"
+  lu_shang_ji_3: "00"
+  lu_zhong_ji_4: "00"
+  lu_xia_ji_5: "00"
+
+# 转机1参数动作设置
+zhuan_ji_1_settings:
+  # 细分和方向
+  subdivision_direction:
+    # 正转
+    forward_rotation: "B"
+    # 反转
+    backward_rotation: "0"
+    # 2相4拍
+    two_four: "0"
+    # 2细分
+    two: "1"
+    # 4细分
+    four: "2"
+    # 8细分
+    eight: "3"
+    # 尾部
+    tail: "002F00"
+  # 速度设置
+  velocity:
+    P: 97.66  # 丝杠螺距(mm)
+    i: 1  # 电机减速比
+    z1: 9 # 主动齿轮齿数
+    z2: 90  # 传动齿轮齿数
+    address_head: "3100"  # 速度16进制值前四位后面的拼接
+    address_tail: "3000"  # 速度16进制值后四位后面的拼接
+
+# 样提机2参数动作
+yang_ti_ji_2_settings:
+  # 细分和方向
+  subdivision_direction:
+    # 正转
+    forward_rotation: "B"
+    # 反转
+    backward_rotation: "0"
+    # 2相4拍
+    two_four: "0"
+    # 2细分
+    two: "1"
+    # 4细分
+    four: "2"
+    # 8细分
+    eight: "3"
+    # 尾部
+    tail: "004100"
+  # 速度设置
+  velocity:
+    P: 3  # 丝杠螺距(mm)
+    i: 1  # 电机减速比
+    z1: 0.2442 # 主动齿轮齿数
+    z2: 1  # 传动齿轮齿数
+    address_head: "4300"  # 拼接在速度计算所得的16进制值前四位后面
+    address_tail: "4200"  # 拼接在后四位后面
+
+# 炉上机3参数设置
+lu_shang_ji_3_settings:
+  # 细分和方向
+  subdivision_direction:
+    # 正转
+    forward_rotation: "B"
+    # 反转
+    backward_rotation: "0"
+    # 2相4拍
+    two_four: "0"
+    # 2细分
+    two: "1"
+    # 4细分
+    four: "2"
+    # 8细分
+    eight: "3"
+    # 尾部
+    tail: "005300"
+  # 速度设置
+  velocity:
+    P: 2  # 丝杠螺距(mm)
+    i: 27.1  # 电机减速比
+    z1: 1.95331 # 主动齿轮齿数
+    z2: 1  # 传动齿轮齿数
+    address_head: "5500"  # 拼接在速度计算所得的16进制值前四位后面
+    address_tail: "5400"  # 拼接在后四位后面
+
+# 炉中机4参数设置
+lu_zhong_ji_4_settings:
+  # 细分和方向
+  subdivision_direction:
+    # 正转
+    forward_rotation: "B"
+    # 反转
+    backward_rotation: "0"
+    # 2相4拍
+    two_four: "0"
+    # 2细分
+    two: "1"
+    # 4细分
+    four: "2"
+    # 8细分
+    eight: "3"
+    # 尾部
+    tail: "006500"
+  # 速度参数设置
+  velocity:
+    P: 2  # 丝杠螺距(mm)
+    i: 27.1  # 电机减速比
+    z1: 1.95331 # 主动齿轮齿数
+    z2: 1  # 传动齿轮齿数
+    address_head: "6700"  # 拼接在速度计算所得的16进制值前四位后面
+    address_tail: "6600"  # 拼接在后四位后面
+
+# 炉下机5参数设置
+lu_xia_ji_5_settings:
+  # 细分和方向
+  subdivision_direction:
+    # 正转
+    forward_rotation: "B"
+    # 反转
+    backward_rotation: "0"
+    # 2相4拍
+    two_four: "0"
+    # 2细分
+    two: "1"
+    # 4细分
+    four: "2"
+    # 8细分
+    eight: "3"
+    # 尾部
+    tail: "007700"
+  # 速度参数设置
+  velocity:
+    P: 2  # 丝杠螺距(mm)
+    i: 27.1  # 电机减速比
+    z1: 1.95331 # 主动齿轮齿数
+    z2: 1  # 传动齿轮齿数
+    address_head: "7900"  # 拼接在速度计算所得的16进制值前四位后面
+    address_tail: "7800"  # 拼接在后四位后面
+
+# 电机失步检测使能设置
+motor_enable_settings:
+  zhuan_ji_1: "00"
+  yang_ti_ji_2: "00"
+  lu_shang_ji_3: "00"
+  lu_zhong_ji_4: "00"
+  lu_xia_ji_5: "00"
+  tail: "2C00"

@@ -1,11 +1,8 @@
 import os
 import yaml
-from PySide6.QtCore import QFile, QIODevice
 
-import resources
-
-data_dict = {0: "0炉子开关"}
-conf_dict = {0: "FurnaceSwitch.yaml"}
+data_dict = {0: "0炉子开关.txt", 1: "1炉丝电机.txt"}
+conf_dict = {0: "FurnaceSwitch.yaml", 1: "HearthWireMotor.yaml"}
 
 
 # 存储数据到文件
@@ -46,10 +43,18 @@ def get_action_id(config_hex, action_code):
     """
     final_id = str(action_code) + "000"
     # 读取文件
-    data_file = QFile(":/data/" + data_dict[action_code])
-    data_file.open(QIODevice.ReadOnly | QIODevice.Text)
-    all_data = str(data_file.readAll(), encoding='utf-8')
+    # data_file = QFile(":/data/" + data_dict[action_code])
+    # data_file.open(QIODevice.ReadOnly | QIODevice.Text)
+    # all_data = str(data_file.readAll(), encoding='utf-8')
+    with open("./data/" + data_dict[action_code], 'r', encoding='utf-8') as data_file:
+        all_data = data_file.read()
+
+    # 为空直接返回
+    if len(all_data) == 0:
+        return final_id, 1
+
     list_all = all_data.split("\n")
+
     for line in list_all:
         action_id, config = tuple(line.split(" "))
         final_id = action_id
@@ -63,5 +68,4 @@ def get_action_id(config_hex, action_code):
 
 
 if __name__ == "__main__":
-    str_res = get_action_id("C0003300190033001a0083001b000F00FA00CC000201", 0)
-    print(str_res)
+    ...

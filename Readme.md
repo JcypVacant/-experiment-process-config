@@ -18,10 +18,9 @@
 experimental-flow-table-generation
 ├─app.py	# 主程序
 ├─furnace_switch_dlg.py	# 0炉子开关动作的参数配置界面
+├─hearth_wire_motor_dlg.py	# 1炉丝电机动作的参数配置界面
 ├─...	# 后续添加其他类别动作的参数配置界面对话框功能的实现类
 ├─Readme.md
-├─resources.py	
-├─resources.qrc
 ├─utils
 |   └data_utils.py	# 实现了处理文件数据的一些功能
 ├─ui	# 存放所有QT Designer设计的UI文件和生成的.py文件
@@ -35,9 +34,11 @@ experimental-flow-table-generation
 | └...	# 后续添加其他UI文件
 ├─data	# 存放所有动作的参数配置数据
 |  ├─0炉子开关.txt
+|  ├─1炉丝电机.txt
 |  └...	# 后续添加其他类别动作的参数配置数据
 ├─config	# 存放每类动作的参数配置信息
 |   ├─FurnaceSwitch.yaml	
+|   ├─HearthWireMotor.yaml	
 |   └... # 后续添加其他类别动作的参数配置信息
 ```
 

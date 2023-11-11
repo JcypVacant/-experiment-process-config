@@ -6,8 +6,8 @@ from PySide6.QtWidgets import QDialog, QTableWidgetItem
 from ui.MainWindow import Ui_MainWindow
 from ui.NewFlowItem import Ui_NewFlowItem
 
-from ui.FurnaceSwitch import Ui_FurnaceSwitch
 from furnace_switch_dlg import FurnaceSwitchDlg
+from hearth_wire_motor_dlg import HearthWireMotorDlg
 
 
 class FlowItem:
@@ -86,10 +86,15 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         打开动作参数配置对话框
         """
         if self.currentIndex == 0:
-            furnace_dlg = FurnaceSwitchDlg()
-            furnace_dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
-            furnace_dlg.exec()
-            print("打开炉子开关参数配置界面！")
+            dlg = FurnaceSwitchDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开0炉子开关参数配置界面！")
+        elif self.currentIndex == 1:
+            dlg = HearthWireMotorDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开1炉丝电机参数配置界面！")
 
     def changeCurrentIndex(self):
         """
@@ -99,7 +104,7 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
 
     def get_config_hex_from_dlg(self, config_hex, is_new_action):
         # 将动作ID展示到对话框上
-        self.actionIDLineEdit.setText(config_hex[0:4])
+        self.actionIDLineEdit.setText(config_hex[2:4] + config_hex[0:2])
         # 将动作参数的16进制编码保存下来
         self.config_hex = config_hex
         self.is_new_action = is_new_action
@@ -119,6 +124,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.rowCount = 0
         # 流程表格样式设置
         self.flowTableWidget.resizeRowsToContents()
+        # 存放新动作的16进制参数配置信息
+        self.new_action_hex_list = []
 
     def show_new_item_dialog(self):
         new_item_dlg = NewFlowItemDlg()
@@ -164,6 +171,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.flowTableWidget.setItem(self.rowCount, 9, is_new_action_item)
         # 更新行索引
         self.rowCount = self.rowCount + 1
+        # 如果是新动作则保存配置信息
+        if new_item.is_new_action == 1:
+            self.new_action_hex_list.append(new_item.config_hex)
+            # print(f"新动作的参数配置：{self.new_action_hex_list}")
 
 
 if __name__ == "__main__":
