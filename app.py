@@ -8,6 +8,11 @@ from ui.NewFlowItem import Ui_NewFlowItem
 
 from furnace_switch_dlg import FurnaceSwitchDlg
 from hearth_wire_motor_dlg import HearthWireMotorDlg
+from transfer1_dlg import Transfer1Dlg
+from sample2_dlg import Sample2Dlg
+from stove3_dlg import Stove3Dlg
+from stove4_dlg import Stove4Dlg
+from stove5_dlg import Stove5Dlg
 
 
 class FlowItem:
@@ -95,6 +100,31 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
             dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
             dlg.exec()
             print("打开1炉丝电机参数配置界面！")
+        elif self.currentIndex == 2:
+            dlg = Transfer1Dlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开转机1参数配置界面！")
+        elif self.currentIndex == 3:
+            dlg = Sample2Dlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开样提机2参数配置界面！")
+        elif self.currentIndex == 4:
+            dlg = Stove3Dlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开炉上机3参数配置界面！")
+        elif self.currentIndex == 5:
+            dlg = Stove4Dlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开炉中机4参数配置界面！")
+        elif self.currentIndex == 6:
+            dlg = Stove5Dlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开炉下机5参数配置界面！")
 
     def changeCurrentIndex(self):
         """
@@ -174,7 +204,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 如果是新动作则保存配置信息
         if new_item.is_new_action == 1:
             self.new_action_hex_list.append(new_item.config_hex)
-            # print(f"新动作的参数配置：{self.new_action_hex_list}")
+            print(f"新动作的参数配置：{self.new_action_hex_list}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,77 @@
+# 转机1运行方式设置
+zhuan_ji_1_run_mode:
+  open_loop: "EB00" # 开环
+  limit_switch: "9000"  # 限位开关
+  encoder: "3C00" # 编码器
+  tail: "6300"
+
+# 转机1运行开环设置
+run_loop_settings:
+  high_address: "6900"  # 地址高16位
+  low_address: "6800" # 地址低16位
+
+# 转机1运行编码器设置
+run_encoder_settings:
+  high_address: "6B00"  # 地址高16位
+  low_address: "6A00" # 地址低16位
+
+# 转机1脉冲输出阈值
+pulse_output_threshold:
+  high_address: "6D00"  # 地址高16位
+  low_address: "6C00" # 地址低16位
+
+# 转机1续转步数
+consecutive_steps:
+  address: "6E00"
+
+# 限位开关设置值
+limit_switch_settings:
+  # 提机2上限
+  ti_ji_2_shang: "0100"
+  # 提机2下限
+  ti_ji_2_xia: "0200"
+  # 转机1零
+  zhuan_ji_1_0: "0400"
+  # 转机1计
+  zhuan_ji_1_ji: "0800"
+  # 5号
+  wu_hao: "1000"
+  # 6号
+  liu_hao: "2000"
+  # 炉上机3上限
+  lu_shang_ji_3_shang: "4000"
+  # 炉上机3下限
+  lu_shang_ji_3_xia: "8000"
+  # 不使用
+  no_use: "0000"
+  # 炉下机5上限
+  lu_xia_ji_5_shang: "0001"
+  # 炉下机5下限
+  lu_xia_ji_5_xia: "0002"
+
+  address: "6F00"
+
+# 转机1失步阈值
+out_of_step_threshold:
+  address: "6400"
+
+# 开环参数
+open_loop_config:
+  P: 2  # 丝杠螺距mm
+  i: 27.1  # 电机减速比
+  z1: 2 # 主动齿轮齿数
+  z2: 1  # 传动齿轮齿数
+
+# 非开环参数
+no_open_loop_config:
+  P: 2  # 丝杠螺距mm
+  i: 27.1  # 电机减速比
+  z1: 2 # 主动齿轮齿数
+  z2: 1  # 传动齿轮齿数
+
+# 限位开关有效参数
+limit_switch_config:
+  P: 2  # 丝杠螺距mm
+  i: 27.1  # 电机减速比
+  z1: 2 # 主动齿轮齿数
+  z2: 1  # 传动齿轮齿数
