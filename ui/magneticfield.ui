@@ -39,7 +39,7 @@
     <string>磁场细分</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="comboBox_1">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -115,7 +115,7 @@
     <string>磁场运行速率设置</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="velocityLineEdit">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -123,6 +123,9 @@
      <width>113</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>55</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -138,7 +141,7 @@
     <string>磁场驱动使能</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="checkBox_1">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -164,7 +167,7 @@
     <string>磁场2</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_3">
+  <widget class="QCheckBox" name="checkBox_4">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -177,7 +180,7 @@
     <string>磁场4</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_4">
+  <widget class="QCheckBox" name="checkBox_3">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -190,7 +193,7 @@
     <string>磁场3</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="hexOmitLineEdit_1">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -229,7 +232,7 @@
     <string>十六进制</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="hexLineEdit_1">
    <property name="geometry">
     <rect>
      <x>470</x>
@@ -242,7 +245,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_4">
+  <widget class="QLineEdit" name="hexLineEdit_2">
    <property name="geometry">
     <rect>
      <x>470</x>
@@ -255,7 +258,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_5">
+  <widget class="QLineEdit" name="hexOmitLineEdit_2">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -268,7 +271,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_6">
+  <widget class="QLineEdit" name="hexLineEdit_3">
    <property name="geometry">
     <rect>
      <x>470</x>
@@ -281,7 +284,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_7">
+  <widget class="QLineEdit" name="hexOmitLineEdit_3">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -294,7 +297,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_8">
+  <widget class="QLineEdit" name="hexLineEdit_4">
    <property name="geometry">
     <rect>
      <x>470</x>
@@ -307,7 +310,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_9">
+  <widget class="QLineEdit" name="hexOmitLineEdit_4">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -333,7 +336,7 @@
     <string>动作ID</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_10">
+  <widget class="QLineEdit" name="actionIDLineEdit">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -343,7 +346,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="generateIDPushButton">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -356,7 +359,7 @@
     <string>生成动作ID</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="commitPushButton">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -369,7 +372,7 @@
     <string>确定</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="cancelPushButton">
    <property name="geometry">
     <rect>
      <x>510</x>

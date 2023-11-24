@@ -1,0 +1,37 @@
+# 电机状态片选
+motor_status_select:
+  motor_1: "00"
+  motor_2: "00"
+  motor_3: "00"
+  motor_4: "00"
+  motor_5: "00"
+
+# 电机状态1查询
+motor1_status:
+  time_condition: "00FF"
+  in_place_condition: "0000"
+  tail: "3A00"
+
+# 电机状态2查询
+motor2_status:
+  time_condition: "00FF"
+  in_place_condition: "0000"
+  tail: "4C00"
+
+# 电机状态3查询
+motor3_status:
+  time_condition: "00FF"
+  in_place_condition: "0000"
+  tail: "5E00"
+
+# 电机状态4查询
+motor4_status:
+  time_condition: "00FF"
+  in_place_condition: "0000"
+  tail: "7000"
+
+# 电机状态5查询
+motor5_status:
+  time_condition: "00FF"
+  in_place_condition: "0000"
+  tail: "8200"

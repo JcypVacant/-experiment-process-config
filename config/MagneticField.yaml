@@ -1,0 +1,26 @@
+# 磁场细分
+magnetic_xi_fen:
+  xi_fen_1: "0300"
+  xi_fen_2: "0C00"
+  xi_fen_4: "3000"
+  xi_fen_16: "C000"
+  tail: "F300"
+
+# 磁场运行方向
+magnetic_direction:
+  forward: "3300"
+  backward: "CC00"
+  tail: "F400"
+
+# 磁场运行速度
+magnetic_velocity:
+  high_address: "F600"
+  low_address: "F500"
+
+# 磁场驱动使能
+magnetic_enable:
+  magnetic1: "0"
+  magnetic2: "0"
+  magnetic3: "0"
+  magnetic4: "0"
+  tail: "EF00"

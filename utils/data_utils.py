@@ -2,9 +2,9 @@ import os
 import yaml
 
 data_dict = {0: "0炉子开关.txt", 1: "1炉丝电机.txt", 2: "2转机1.txt", 3: "3样提机2.txt", 4: "4炉上机3.txt",
-             5: "5炉中机4.txt", 6: "6炉下机5.txt"}
+             5: "5炉中机4.txt", 6: "6炉下机5.txt", 7: "7电机状态查询.txt", 8: "8磁场.txt"}
 conf_dict = {0: "FurnaceSwitch.yaml", 1: "HearthWireMotor.yaml", 2: "Transfer1.yaml", 3: "Sample2.yaml",
-             4: "Stove3.yaml", 5: "Stove4.yaml", 6: "Stove5.yaml"}
+             4: "Stove3.yaml", 5: "Stove4.yaml", 6: "Stove5.yaml", 7: "MotorStatusInquiry.yaml", 8: "MagneticField.yaml"}
 
 
 # 存储数据到文件

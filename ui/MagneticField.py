@@ -1,0 +1,155 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'magneticfield.ui'
+##
+## Created by: Qt User Interface Compiler version 6.5.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QWidget)
+
+class Ui_MagneticField(object):
+    def setupUi(self, MagneticField):
+        if not MagneticField.objectName():
+            MagneticField.setObjectName(u"MagneticField")
+        MagneticField.resize(634, 373)
+        self.label = QLabel(MagneticField)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(270, 10, 111, 16))
+        self.label_2 = QLabel(MagneticField)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(30, 80, 54, 16))
+        self.comboBox_1 = QComboBox(MagneticField)
+        self.comboBox_1.addItem("")
+        self.comboBox_1.addItem("")
+        self.comboBox_1.addItem("")
+        self.comboBox_1.addItem("")
+        self.comboBox_1.setObjectName(u"comboBox_1")
+        self.comboBox_1.setGeometry(QRect(140, 80, 141, 22))
+        self.label_3 = QLabel(MagneticField)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(30, 120, 81, 16))
+        self.comboBox_2 = QComboBox(MagneticField)
+        self.comboBox_2.addItem("")
+        self.comboBox_2.addItem("")
+        self.comboBox_2.setObjectName(u"comboBox_2")
+        self.comboBox_2.setGeometry(QRect(140, 120, 69, 22))
+        self.label_4 = QLabel(MagneticField)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(30, 160, 101, 16))
+        self.velocityLineEdit = QLineEdit(MagneticField)
+        self.velocityLineEdit.setObjectName(u"velocityLineEdit")
+        self.velocityLineEdit.setGeometry(QRect(140, 160, 113, 21))
+        self.label_5 = QLabel(MagneticField)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(30, 210, 81, 16))
+        self.checkBox_1 = QCheckBox(MagneticField)
+        self.checkBox_1.setObjectName(u"checkBox_1")
+        self.checkBox_1.setGeometry(QRect(140, 200, 61, 20))
+        self.checkBox_2 = QCheckBox(MagneticField)
+        self.checkBox_2.setObjectName(u"checkBox_2")
+        self.checkBox_2.setGeometry(QRect(210, 200, 61, 20))
+        self.checkBox_4 = QCheckBox(MagneticField)
+        self.checkBox_4.setObjectName(u"checkBox_4")
+        self.checkBox_4.setGeometry(QRect(210, 230, 61, 20))
+        self.checkBox_3 = QCheckBox(MagneticField)
+        self.checkBox_3.setObjectName(u"checkBox_3")
+        self.checkBox_3.setGeometry(QRect(140, 230, 61, 20))
+        self.hexOmitLineEdit_1 = QLineEdit(MagneticField)
+        self.hexOmitLineEdit_1.setObjectName(u"hexOmitLineEdit_1")
+        self.hexOmitLineEdit_1.setGeometry(QRect(320, 80, 121, 21))
+        self.hexOmitLineEdit_1.setReadOnly(True)
+        self.label_6 = QLabel(MagneticField)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(350, 50, 71, 16))
+        self.label_7 = QLabel(MagneticField)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setGeometry(QRect(520, 50, 71, 16))
+        self.hexLineEdit_1 = QLineEdit(MagneticField)
+        self.hexLineEdit_1.setObjectName(u"hexLineEdit_1")
+        self.hexLineEdit_1.setGeometry(QRect(470, 80, 151, 21))
+        self.hexLineEdit_1.setReadOnly(True)
+        self.hexLineEdit_2 = QLineEdit(MagneticField)
+        self.hexLineEdit_2.setObjectName(u"hexLineEdit_2")
+        self.hexLineEdit_2.setGeometry(QRect(470, 120, 151, 21))
+        self.hexLineEdit_2.setReadOnly(True)
+        self.hexOmitLineEdit_2 = QLineEdit(MagneticField)
+        self.hexOmitLineEdit_2.setObjectName(u"hexOmitLineEdit_2")
+        self.hexOmitLineEdit_2.setGeometry(QRect(320, 120, 121, 21))
+        self.hexOmitLineEdit_2.setReadOnly(True)
+        self.hexLineEdit_3 = QLineEdit(MagneticField)
+        self.hexLineEdit_3.setObjectName(u"hexLineEdit_3")
+        self.hexLineEdit_3.setGeometry(QRect(470, 160, 151, 21))
+        self.hexLineEdit_3.setReadOnly(True)
+        self.hexOmitLineEdit_3 = QLineEdit(MagneticField)
+        self.hexOmitLineEdit_3.setObjectName(u"hexOmitLineEdit_3")
+        self.hexOmitLineEdit_3.setGeometry(QRect(320, 160, 121, 21))
+        self.hexOmitLineEdit_3.setReadOnly(True)
+        self.hexLineEdit_4 = QLineEdit(MagneticField)
+        self.hexLineEdit_4.setObjectName(u"hexLineEdit_4")
+        self.hexLineEdit_4.setGeometry(QRect(470, 210, 151, 21))
+        self.hexLineEdit_4.setReadOnly(True)
+        self.hexOmitLineEdit_4 = QLineEdit(MagneticField)
+        self.hexOmitLineEdit_4.setObjectName(u"hexOmitLineEdit_4")
+        self.hexOmitLineEdit_4.setGeometry(QRect(320, 210, 121, 21))
+        self.hexOmitLineEdit_4.setReadOnly(True)
+        self.label_8 = QLabel(MagneticField)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(30, 270, 54, 16))
+        self.actionIDLineEdit = QLineEdit(MagneticField)
+        self.actionIDLineEdit.setObjectName(u"actionIDLineEdit")
+        self.actionIDLineEdit.setGeometry(QRect(90, 270, 113, 21))
+        self.generateIDPushButton = QPushButton(MagneticField)
+        self.generateIDPushButton.setObjectName(u"generateIDPushButton")
+        self.generateIDPushButton.setGeometry(QRect(230, 270, 75, 24))
+        self.commitPushButton = QPushButton(MagneticField)
+        self.commitPushButton.setObjectName(u"commitPushButton")
+        self.commitPushButton.setGeometry(QRect(350, 320, 75, 24))
+        self.cancelPushButton = QPushButton(MagneticField)
+        self.cancelPushButton.setObjectName(u"cancelPushButton")
+        self.cancelPushButton.setGeometry(QRect(510, 320, 75, 24))
+
+        self.retranslateUi(MagneticField)
+
+        QMetaObject.connectSlotsByName(MagneticField)
+    # setupUi
+
+    def retranslateUi(self, MagneticField):
+        MagneticField.setWindowTitle(QCoreApplication.translate("MagneticField", u"Dialog", None))
+        self.label.setText(QCoreApplication.translate("MagneticField", u"8\u78c1\u573a\u63a7\u5236\u52a8\u4f5c\u8bbe\u7f6e", None))
+        self.label_2.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a\u7ec6\u5206", None))
+        self.comboBox_1.setItemText(0, QCoreApplication.translate("MagneticField", u"1\u7ec6\u5206", None))
+        self.comboBox_1.setItemText(1, QCoreApplication.translate("MagneticField", u"2\u7ec6\u5206", None))
+        self.comboBox_1.setItemText(2, QCoreApplication.translate("MagneticField", u"4\u7ec6\u5206", None))
+        self.comboBox_1.setItemText(3, QCoreApplication.translate("MagneticField", u"16\u7ec6\u5206", None))
+
+        self.label_3.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a\u8fd0\u884c\u65b9\u5411", None))
+        self.comboBox_2.setItemText(0, QCoreApplication.translate("MagneticField", u"\u6b63\u8f6c", None))
+        self.comboBox_2.setItemText(1, QCoreApplication.translate("MagneticField", u"\u53cd\u8f6c", None))
+
+        self.label_4.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a\u8fd0\u884c\u901f\u7387\u8bbe\u7f6e", None))
+        self.velocityLineEdit.setText(QCoreApplication.translate("MagneticField", u"55", None))
+        self.label_5.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a\u9a71\u52a8\u4f7f\u80fd", None))
+        self.checkBox_1.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a1", None))
+        self.checkBox_2.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a2", None))
+        self.checkBox_4.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a4", None))
+        self.checkBox_3.setText(QCoreApplication.translate("MagneticField", u"\u78c1\u573a3", None))
+        self.label_6.setText(QCoreApplication.translate("MagneticField", u"\u5341\u516d\u8fdb\u5236\u7f29\u5199", None))
+        self.label_7.setText(QCoreApplication.translate("MagneticField", u"\u5341\u516d\u8fdb\u5236", None))
+        self.label_8.setText(QCoreApplication.translate("MagneticField", u"\u52a8\u4f5cID", None))
+        self.generateIDPushButton.setText(QCoreApplication.translate("MagneticField", u"\u751f\u6210\u52a8\u4f5cID", None))
+        self.commitPushButton.setText(QCoreApplication.translate("MagneticField", u"\u786e\u5b9a", None))
+        self.cancelPushButton.setText(QCoreApplication.translate("MagneticField", u"\u53d6\u6d88", None))
+    # retranslateUi
+

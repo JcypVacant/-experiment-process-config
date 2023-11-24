@@ -479,9 +479,7 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         # 保留小数点后8位，不然对不上
         data = round((((1024 * 1000) / F) / 2) - 1, 8)
         hex_val = format(int(data), '08X')
-        hex_val_address = hex_val[2:4] + hex_val[0:2] + self.yang_ti_ji_2_velocity_address_head + hex_val[
-                                                                                                  6:8] + hex_val[
-                                                                                                         4:6] + self.yang_ti_ji_2_velocity_address_tail
+        hex_val_address = hex_val[2:4] + hex_val[0:2] + self.yang_ti_ji_2_velocity_address_head + hex_val[6:8] + hex_val[4:6] + self.yang_ti_ji_2_velocity_address_tail
         return hex_val, hex_val_address
 
     def velocity_2_text_changed(self):
