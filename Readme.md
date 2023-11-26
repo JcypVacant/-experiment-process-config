@@ -19,10 +19,10 @@ experimental-flow-table-generation
 ├─app.py	# 主程序
 ├─furnace_switch_dlg.py	# 0炉子开关动作的参数配置界面
 ├─hearth_wire_motor_dlg.py	# 1炉丝电机动作的参数配置界面
-├─...	# 后续添加其他类别动作的参数配置界面对话框功能的实现类
+├─...	# *_dlg.py 其他动作参数配置界面
 ├─Readme.md
 ├─utils
-|   └data_utils.py	# 实现了处理文件数据的一些功能
+|   └data_utils.py	# 存放处理文件数据的一些功能
 ├─ui	# 存放所有QT Designer设计的UI文件和生成的.py文件
 | ├─FurnaceSwitch.py
 | ├─furnaceswitch.ui
@@ -31,27 +31,16 @@ experimental-flow-table-generation
 | ├─mainwindow.ui
 | ├─NewFlowItem.py
 | ├─newflowitem.ui
-| └...	# 后续添加其他UI文件
+| └...	
 ├─data	# 存放所有动作的参数配置数据
 |  ├─0炉子开关.txt
 |  ├─1炉丝电机.txt
-|  └...	# 后续添加其他类别动作的参数配置数据
+|  └...
 ├─config	# 存放每类动作的参数配置信息
 |   ├─FurnaceSwitch.yaml	
 |   ├─HearthWireMotor.yaml	
-|   └... # 后续添加其他类别动作的参数配置信息
+|   └... 
+├─imgs  # 界面UI截图
 ```
-
-## 界面设计
-
-`mainwindow.ui`
-
-![image-20231031121353731](imgs/image-20231031121353731.png)
-
-`newflowitem.ui`
-
-![image-20231031121656484](imgs/image-20231031121656484.png)
-
-`furnaceswitch.ui`
-
-![image-20231031121749170](imgs/image-20231031121749170.png)
+# UI界面
+`./imgs`文件夹下
