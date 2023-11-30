@@ -1,0 +1,22 @@
+# 电机电流片选
+motor_current_select:
+  current1: "00"
+  current2: "00"
+  current3: "00"
+  magnetic_current: "00"
+
+# 电流1设置
+current1_settings:
+  tail: "0C01"
+
+# 电流2设置
+current2_settings:
+  tail: "0D01"
+
+# 电流3设置
+current3_settings:
+  tail: "0E01"
+
+# 磁场电流设置
+magnetic_current_settings:
+  tail: "F800"

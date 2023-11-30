@@ -15,6 +15,8 @@ from stove4_dlg import Stove4Dlg
 from stove5_dlg import Stove5Dlg
 from motor_status_inquiry_dlg import MotorStatusInquiryDlg
 from magnetic_field_dlg import MagneticFieldDlg
+from motor_magnetic_field_current_dlg import MotorMagneticFieldCurrentDlg
+from furnace_wire_heating_dlg import FurnaceWireHeatingDlg
 
 
 class FlowItem:
@@ -137,6 +139,16 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
             dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
             dlg.exec()
             print("打开磁场参数配置界面！")
+        elif self.currentIndex == 9:
+            dlg = MotorMagneticFieldCurrentDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开电机磁场电流参数配置界面！")
+        elif self.currentIndex == 10:
+            dlg = FurnaceWireHeatingDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开炉丝加热电压参数配置界面！")
 
     def changeCurrentIndex(self):
         """
