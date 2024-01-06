@@ -39,7 +39,7 @@
     <string>在线监控禁止设置序号</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="valLineEdit_1">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -47,6 +47,9 @@
      <width>151</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>00FF</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -62,7 +65,7 @@
     <string>在线监控使能设置序号</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="valLineEdit_2">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -70,6 +73,9 @@
      <width>151</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>00FF</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -85,7 +91,7 @@
     <string>需修改动作指针的动态监控表号</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="valLineEdit_3">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -93,6 +99,9 @@
      <width>151</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>00</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -108,7 +117,7 @@
     <string>设置在线监控动态表的动作指针</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_4">
+  <widget class="QLineEdit" name="valLineEdit_4">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -116,6 +125,9 @@
      <width>151</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>00</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
@@ -144,7 +156,7 @@
     <string>十六进制</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_5">
+  <widget class="QLineEdit" name="hexOmitLineEdit_1">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -157,7 +169,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_6">
+  <widget class="QLineEdit" name="hexLineEdit_1">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -170,7 +182,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_7">
+  <widget class="QLineEdit" name="hexLineEdit_2">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -183,7 +195,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_8">
+  <widget class="QLineEdit" name="hexOmitLineEdit_2">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -196,7 +208,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_9">
+  <widget class="QLineEdit" name="hexLineEdit_3">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -209,7 +221,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_10">
+  <widget class="QLineEdit" name="hexOmitLineEdit_3">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -222,7 +234,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_11">
+  <widget class="QLineEdit" name="hexLineEdit_4">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -235,7 +247,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_12">
+  <widget class="QLineEdit" name="hexOmitLineEdit_4">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -261,7 +273,7 @@
     <string>动作ID</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_13">
+  <widget class="QLineEdit" name="actionIDLineEdit">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -271,7 +283,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="generateIDPushButton">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -284,7 +296,7 @@
     <string>生成动作ID</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="commitPushButton">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -297,7 +309,7 @@
     <string>确定</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="cancelPushButton">
    <property name="geometry">
     <rect>
      <x>570</x>

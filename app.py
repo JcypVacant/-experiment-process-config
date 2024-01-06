@@ -17,7 +17,11 @@ from motor_status_inquiry_dlg import MotorStatusInquiryDlg
 from magnetic_field_dlg import MagneticFieldDlg
 from motor_magnetic_field_current_dlg import MotorMagneticFieldCurrentDlg
 from furnace_wire_heating_dlg import FurnaceWireHeatingDlg
-
+from PID_Temperature_control_dlg import PIDTemperatureControlDlg
+from online_monitoring_status_dlg import OnlineMonitoringStatusDlg
+from motor_closing_dlg import MotorClosingDlg
+from online_monitoring_head_dlg import OnlineMonitoringHeadDlg
+from PID_config_settings_dlg import PIDConfigSettingsDlg
 
 class FlowItem:
     """
@@ -149,6 +153,31 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
             dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
             dlg.exec()
             print("打开炉丝加热电压参数配置界面！")
+        elif self.currentIndex == 11:
+            dlg = PIDTemperatureControlDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开PID控温曲线配置界面！")
+        elif self.currentIndex == 12:
+            dlg = OnlineMonitoringStatusDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("打开在线监控状态查询表！")
+        elif self.currentIndex == 13:
+            dlg = MotorClosingDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("电机关闭设置界面！")
+        elif self.currentIndex == 14:
+            dlg = OnlineMonitoringHeadDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("在线监控表头设置！")
+        elif self.currentIndex == 15:
+            dlg = PIDConfigSettingsDlg()
+            dlg.config_hex_signal.connect(self.get_config_hex_from_dlg)
+            dlg.exec()
+            print("PID参数设置动作表！")
 
     def changeCurrentIndex(self):
         """

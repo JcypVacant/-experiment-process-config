@@ -39,7 +39,7 @@
     <string>在线监控查询时间间隔（0s~255s）</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="valLineEdit_1">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -47,6 +47,9 @@
      <width>191</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -62,7 +65,7 @@
     <string>在线监控查询次数（1~256）</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="valLineEdit_2">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -70,6 +73,9 @@
      <width>191</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>256</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -85,7 +91,7 @@
     <string>在线监控判据类型</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="comboBox_1">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -140,7 +146,7 @@
      <string>上限地址</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="valLineEdit_3">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -148,6 +154,9 @@
       <width>141</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>1A</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
@@ -163,7 +172,7 @@
      <string>上限超限阈值</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="valLineEdit_4">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -171,6 +180,9 @@
       <width>141</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>2A</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -186,7 +198,7 @@
      <string>下限地址</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="valLineEdit_5">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -194,6 +206,9 @@
       <width>141</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>3A</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -209,7 +224,7 @@
      <string>下限超限阈值</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_6">
+   <widget class="QLineEdit" name="valLineEdit_6">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -218,8 +233,11 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="text">
+     <string>4A</string>
+    </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_13">
+   <widget class="QLineEdit" name="hexLineEdit_4">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -232,7 +250,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_19">
+   <widget class="QLineEdit" name="hexLineEdit_7">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -245,7 +263,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_14">
+   <widget class="QLineEdit" name="hexOmitLineEdit_4">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -258,7 +276,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_18">
+   <widget class="QLineEdit" name="hexOmitLineEdit_6">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -271,7 +289,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_17">
+   <widget class="QLineEdit" name="hexLineEdit_6">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -284,7 +302,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_16">
+   <widget class="QLineEdit" name="hexOmitLineEdit_5">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -297,7 +315,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_15">
+   <widget class="QLineEdit" name="hexLineEdit_5">
     <property name="geometry">
      <rect>
       <x>550</x>
@@ -310,7 +328,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_20">
+   <widget class="QLineEdit" name="hexOmitLineEdit_7">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -421,7 +439,7 @@
     <string>十六进制</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_7">
+  <widget class="QLineEdit" name="hexOmitLineEdit_1">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -434,7 +452,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_8">
+  <widget class="QLineEdit" name="hexLineEdit_1">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -447,7 +465,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_9">
+  <widget class="QLineEdit" name="hexLineEdit_2">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -460,7 +478,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_10">
+  <widget class="QLineEdit" name="hexOmitLineEdit_2">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -473,7 +491,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_11">
+  <widget class="QLineEdit" name="hexLineEdit_3">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -486,7 +504,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_12">
+  <widget class="QLineEdit" name="hexOmitLineEdit_3">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -499,7 +517,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_21">
+  <widget class="QLineEdit" name="hexOmitLineEdit_8">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -512,7 +530,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_22">
+  <widget class="QLineEdit" name="hexLineEdit_8">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -525,7 +543,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_23">
+  <widget class="QLineEdit" name="hexOmitLineEdit_9">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -538,7 +556,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_24">
+  <widget class="QLineEdit" name="hexLineEdit_9">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -564,7 +582,7 @@
     <string>备用</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_25">
+  <widget class="QLineEdit" name="backupLineEdit">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -573,8 +591,14 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="text">
+    <string>00</string>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_26">
+  <widget class="QLineEdit" name="hexOmitLineEdit_10">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -583,11 +607,14 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="text">
+    <string>0000</string>
+   </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_27">
+  <widget class="QLineEdit" name="hexLineEdit_10">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -595,6 +622,9 @@
      <width>161</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>0000</string>
    </property>
    <property name="readOnly">
     <bool>true</bool>
@@ -613,7 +643,7 @@
     <string>动作ID</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_28">
+  <widget class="QLineEdit" name="actionIDLineEdit">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -626,7 +656,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="generateIDPushButton">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -639,7 +669,7 @@
     <string>生成动作ID</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="commitPushButton">
    <property name="geometry">
     <rect>
      <x>440</x>
@@ -652,7 +682,7 @@
     <string>确定</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="cancelPushButton">
    <property name="geometry">
     <rect>
      <x>600</x>

@@ -1,0 +1,8 @@
+# 爬升率配置使能
+rate_of_climb_enable:
+  # PID1~4都一样
+  PID_up: "7"
+  PID_open: "E"
+  PID_close: "0"
+  PID_none: "A"
+  PID_down: "B"
