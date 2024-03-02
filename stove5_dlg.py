@@ -320,7 +320,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
     # ------------ 生成动作ID -----------------------
     def generate_action_ID(self):
         # 得到最终的动作16进制编码
-        self.config_hex = self.run_mode_hex + self.val_2_hex + self.val_3_hex + \
+        self.config_hex = self.run_mode_hex + self.val_1_hex + self.val_2_hex + self.val_3_hex + \
                           self.val_4_hex + self.limit_switch_hex + self.val_5_hex
         # print(f"生成的16进制参数配置: {self.config_hex}")
         self.action_id, self.is_new_action = get_action_id(self.config_hex, 6)

@@ -10,6 +10,10 @@ conf_dict = {0: "FurnaceSwitch.yaml", 1: "HearthWireMotor.yaml", 2: "Transfer1.y
              9: "MotorMagneticFieldCurrent.yaml", "A": "FurnaceWireHeating.yaml", "B": "PIDTemperatureControl.yaml",
              "C": "OnlineMonitoringStatus.yaml", "D": "MotorClosing.yaml"}
 
+base_path = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep + "..")
+data_file_path = base_path + "\\data\\"
+config_file_path = base_path + "\\config\\"
+
 
 # 存储数据到文件
 def store_data(hex_data, action_code):
@@ -21,7 +25,7 @@ def store_data(hex_data, action_code):
     :return:
     """
     # 写入文件路径
-    file_path = os.path.join("data", data_dict[action_code])
+    file_path = os.path.join(data_file_path, data_dict[action_code])
     # 打开文件并写入数据
     with open(file_path, 'a') as file:
         file.write(hex_data + '\n')
@@ -34,7 +38,7 @@ def get_config(action_code):
     :param action_code: 动作类别编码
     :return: action_code动作类别对应的参数配置信息
     """
-    conf_path = os.path.join("config", conf_dict[action_code])
+    conf_path = os.path.join(config_file_path, conf_dict[action_code])
     with open(conf_path, 'r', encoding='utf-8') as file:
         conf = yaml.safe_load(file)
     return conf
@@ -47,12 +51,13 @@ def get_action_id(config_hex, action_code):
     :param action_code:
     :return: 返回一个Tuple，(动作id, 是否是新动作：是 = 1，否 = 0)
     """
+    config_hex = str(config_hex).upper()
     final_id = str(action_code) + "000"
     # 读取文件
     # data_file = QFile(":/data/" + data_dict[action_code])
     # data_file.open(QIODevice.ReadOnly | QIODevice.Text)
     # all_data = str(data_file.readAll(), encoding='utf-8')
-    with open("./data/" + data_dict[action_code], 'r', encoding='utf-8') as data_file:
+    with open(data_file_path + data_dict[action_code], 'r', encoding='utf-8') as data_file:
         all_data = data_file.read()
 
     # 为空直接返回
@@ -60,18 +65,79 @@ def get_action_id(config_hex, action_code):
         return final_id, 1
 
     list_all = all_data.split("\n")
-
+    print(">>>>>>开始比对配置生成动作ID>>>>>")
     for line in list_all:
+        # 读取到空行跳过
+        if line == '':
+            continue
         action_id, config = tuple(line.split(" "))
         final_id = action_id
         # 找到相同的参数配置则返回相同的ID
+        print(f"比对:\n>>{config}\n>>{config_hex}")
         if config_hex == config:
             data_file.close()
+            print(f">>>>>>比对结束，生成的动作ID为：{final_id}，是否为新ID：否>>>>>")
             return final_id, 0
-    # 没找到相同的ID, 在最后一个ID号的基础上+1
     data_file.close()
-    return format(int(final_id, 16) + 1, '04X'), 1
+    # 没找到相同的ID, 在最后一个ID号的基础上+1
+    final_id = format(int(final_id, 16) + 1, '04X')
+    print(f">>>>>>比对结束，生成的动作ID为：{final_id}，是否为新ID：是>>>>>")
+    return final_id, 1
+
+
+def hex_string_to_binary_file(hex_string, output_file_path):
+    print("++++++准备写入文件：", hex_string)
+    # 将十六进制字符串转换为字节对象
+    hex_bytes = bytes.fromhex(hex_string)
+    # 将字节写入二进制文件
+    with open(output_file_path, 'wb') as binary_file:
+        binary_file.write(hex_bytes)
+    print("++++++写入完成：", hex_string)
+
+
+def load_action_bin_to_data(action_bin_file_folder):
+    # 获取文件夹中所有文件的列表
+    file_list = os.listdir(action_bin_file_folder)
+    # 筛选出文件名带有 '.bin' 的文件
+    bin_files = [file for file in file_list if file.endswith('.bin') and file.startswith("AT")]
+    # 遍历所有文件
+    for bin_file in bin_files:
+        bin_file_path = action_bin_file_folder + bin_file
+        with open(bin_file_path, "rb") as file:
+            # 读取文件内容
+            binary_data = file.read()
+            # 将二进制数据转换为十六进制字符串
+            hex_representation = binary_data.hex().upper()
+            # 动作ID
+            action_id = hex_representation[2:4] + hex_representation[0:2]
+            # 参数编码
+            config_code = hex_representation[4:]
+            # 打印输出
+            print(f"{action_id} -> {config_code}")
+            # 保存到.txt文件
+            action_code = action_id[0:1]
+            if action_code.isdigit():
+                action_code = int(action_code)
+            store_data(action_id + " " + config_code, action_code)
+
+
+def clear_data():
+    """
+    清空data文件夹下的数据
+    :return:
+    """
+    file_list = os.listdir(data_file_path)
+    for file_name in file_list:
+        bin_file_path = data_file_path + file_name
+        with open(bin_file_path, "w") as file:
+            file.write("")
 
 
 if __name__ == "__main__":
-    ...
+    # 示例用法
+    # hex_string = "2400F0C33300190033001a0083001b000F00FA00CC000201"
+    # output_file_path = "output.bin"
+    # hex_string_to_binary_file(hex_string, output_file_path)
+    # clear_data()
+    # load_action_bin_to_data("S:\\project\\高温柜\\20230828高温流程\\0828\\动作表\\")
+    print(os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep + ".."))

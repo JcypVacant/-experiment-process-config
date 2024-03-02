@@ -236,7 +236,7 @@ class MotorStatusInquiryDlg(QDialog, Ui_MotorStatusInquiry):
     # ------------- 生成动作ID ----------------
     def generate_action_ID(self):
         # 得到最终的动作16进制编码
-        self.config_hex = self.motor_hex + self.motor1_hex + self.motor2_hex + \
+        self.config_hex = self.motor_hex[2:] + self.motor_hex[0:2] + self.motor1_hex + self.motor2_hex + \
                           self.motor3_hex + self.motor4_hex + self.motor5_hex
 
         # print(f"生成的16进制参数配置: {self.config_hex}")

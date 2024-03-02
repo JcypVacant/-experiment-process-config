@@ -246,7 +246,6 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.update_hex_val()
 
     def get_valve_enable_settings_hex(self):
-        print(self.valve_enable_index)
         value = self.nitrogen_valve_open
         if self.valve_enable_index == 1:
             value = self.nitrogen_valve_close
@@ -300,8 +299,9 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
     # 生成动作ID
     def generate_action_ID(self):
         # 得到最终的动作16进制编码
-        self.config_hex = self.switch_plate_selection_hex + self.led_enable_hex + self.ccd_enable_hex + \
-                            self.valve_enable_hex + self.acc_hex + self.sample_box_hex
+        self.config_hex = self.switch_plate_selection_hex[2:] + self.switch_plate_selection_hex[0:2] + \
+                          self.led_enable_hex + self.ccd_enable_hex + \
+                          self.valve_enable_hex + self.acc_hex + self.sample_box_hex
         self.action_id, self.is_new_action = get_action_id(self.config_hex, 0)
         # id显示到界面
         self.actionIDLineEdit.setText(self.action_id)

@@ -807,7 +807,7 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
     # ------------- 生成动作ID ----------------
     def generate_action_ID(self):
         # 得到最终的动作16进制编码
-        self.config_hex = self.motor_conf_hex + self.zhuan_ji_1_subdivision_direction_hex + self.zhuan_ji_1_velocity_hex + \
+        self.config_hex = self.motor_conf_hex[2:] + self.motor_conf_hex[0:2] + self.zhuan_ji_1_subdivision_direction_hex + self.zhuan_ji_1_velocity_hex + \
                           self.yang_ti_ji_2_subdivision_direction_hex + self.yang_ti_ji_2_velocity_hex + \
                           self.lu_shang_ji_3_subdivision_direction_hex + self.lu_shang_ji_3_velocity_hex + \
                           self.lu_zhong_ji_4_subdivision_direction_hex + self.lu_zhong_ji_4_velocity_hex + \

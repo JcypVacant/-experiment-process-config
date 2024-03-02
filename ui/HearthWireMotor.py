@@ -520,8 +520,8 @@ class Ui_HearthWireMotor(object):
         self.hexLineEdit_6.setText("")
         self.label_12.setText(QCoreApplication.translate("HearthWireMotor", u"\u5341\u516d\u8fdb\u5236\u7f29\u5199", None))
         self.label_13.setText(QCoreApplication.translate("HearthWireMotor", u"\u7089\u4e0a\u673a3\u7ec6\u5206\u548c\u65b9\u5411\u8bbe\u7f6e", None))
-        self.directionComboBox_3.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"\u6b63\u8f6c\u4e0b", None))
-        self.directionComboBox_3.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"\u53cd\u8f6c\u4e0a", None))
+        self.directionComboBox_3.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"\u6b63\u8f6c\u4e0a", None))
+        self.directionComboBox_3.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"\u53cd\u8f6c\u4e0b", None))
 
         self.subdivisionComboBox_3.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"2\u76f84\u62cd", None))
         self.subdivisionComboBox_3.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"2\u7ec6\u5206", None))
@@ -546,8 +546,8 @@ class Ui_HearthWireMotor(object):
         self.hexLineEdit_8.setText("")
         self.label_16.setText(QCoreApplication.translate("HearthWireMotor", u"\u5341\u516d\u8fdb\u5236\u7f29\u5199", None))
         self.label_17.setText(QCoreApplication.translate("HearthWireMotor", u"\u7089\u4e2d\u673a4\u7ec6\u5206\u548c\u65b9\u5411\u8bbe\u7f6e", None))
-        self.directionComboBox_4.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"\u6b63\u8f6c\u4e0b", None))
-        self.directionComboBox_4.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"\u53cd\u8f6c\u4e0a", None))
+        self.directionComboBox_4.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"\u6b63\u8f6c\u4e0a", None))
+        self.directionComboBox_4.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"\u53cd\u8f6c\u4e0b", None))
 
         self.subdivisionComboBox_4.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"2\u76f84\u62cd", None))
         self.subdivisionComboBox_4.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"2\u7ec6\u5206", None))
@@ -572,8 +572,8 @@ class Ui_HearthWireMotor(object):
         self.hexLineEdit_10.setText("")
         self.label_20.setText(QCoreApplication.translate("HearthWireMotor", u"\u5341\u516d\u8fdb\u5236\u7f29\u5199", None))
         self.label_21.setText(QCoreApplication.translate("HearthWireMotor", u"\u7089\u4e0b\u673a5\u7ec6\u5206\u548c\u65b9\u5411\u8bbe\u7f6e", None))
-        self.directionComboBox_5.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"\u6b63\u8f6c\u4e0b", None))
-        self.directionComboBox_5.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"\u53cd\u8f6c\u4e0a", None))
+        self.directionComboBox_5.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"\u6b63\u8f6c\u4e0a", None))
+        self.directionComboBox_5.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"\u53cd\u8f6c\u4e0b", None))
 
         self.subdivisionComboBox_5.setItemText(0, QCoreApplication.translate("HearthWireMotor", u"2\u76f84\u62cd", None))
         self.subdivisionComboBox_5.setItemText(1, QCoreApplication.translate("HearthWireMotor", u"2\u7ec6\u5206", None))

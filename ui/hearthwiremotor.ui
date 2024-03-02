@@ -637,12 +637,12 @@
     </property>
     <item>
      <property name="text">
-      <string>正转下</string>
+      <string>正转上</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>反转上</string>
+      <string>反转下</string>
      </property>
     </item>
    </widget>
@@ -900,12 +900,12 @@
     </property>
     <item>
      <property name="text">
-      <string>正转下</string>
+      <string>正转上</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>反转上</string>
+      <string>反转下</string>
      </property>
     </item>
    </widget>
@@ -1163,12 +1163,12 @@
     </property>
     <item>
      <property name="text">
-      <string>正转下</string>
+      <string>正转上</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>反转上</string>
+      <string>反转下</string>
      </property>
     </item>
    </widget>
