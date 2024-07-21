@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class FurnaceWireHeatingDlg(QDialog, Ui_FurnaceWireHeating):
+    """
+    10炉丝加热电压参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):
@@ -86,7 +89,7 @@ class FurnaceWireHeatingDlg(QDialog, Ui_FurnaceWireHeating):
     def get_furnace_wire_heating_select_hex(self):
         val = self.furnace_wire_heating_select_voltage4 + self.furnace_wire_heating_select_voltage3 + \
               self.furnace_wire_heating_select_voltage2 + self.furnace_wire_heating_select_voltage1
-        return format(int("110000" + val + "00", 2), '04X')  # 二进制字符串转16进制
+        return format(int("110000" + val + "00", 2), '04X')  # 二进制字符串转16进制（四位）
 
     # ------------- 电机状态复选框状态改变 --------------------
     def c_1_state_changed(self, state):

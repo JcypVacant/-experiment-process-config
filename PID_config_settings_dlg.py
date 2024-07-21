@@ -7,7 +7,7 @@ from utils.data_utils import *
 
 class PIDConfigSettingsDlg(QDialog, Ui_PIDConfigSettings):
     """
-    0炉子开关参数配置界面
+    15PID参数设置配置界面
     """
     config_hex_signal = Signal(str, int)
 
@@ -15,7 +15,7 @@ class PIDConfigSettingsDlg(QDialog, Ui_PIDConfigSettings):
         super(PIDConfigSettingsDlg, self).__init__()
         # 最终生成参数配置的十六进制编码
         self.config_hex = ""
-        # 是否是新动作
+        # 是否是新动作(是=1，否=0）
         self.is_new_action = 0
         self.setupUi(self)
 

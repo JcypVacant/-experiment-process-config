@@ -57,12 +57,15 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
     """
     点击新建实验流程项弹出的对话框
     """
+
+    # 创建信号
     flow_item_signal = Signal(object)
 
     def __init__(self):
         super(NewFlowItemDlg, self).__init__()
-        # 存放动作参数配置的16进制编码
+        # 判断是否是新动作
         self.is_new_action = 0
+        # 存放动作参数配置的16进制编码
         self.config_hex = ""
         self.setupUi(self)
         # 记录当前动作的索引
@@ -214,6 +217,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.new_action_hex_list = []
         # 生成动作表
         self.pushButton_1.clicked.connect(self.generate_action_bin)
+        # 生成动态表
+        self.MAX_ACTION_NUM = 128  # 一个实验流程最大动作数
+        self.pushButton_2.clicked.connect(self.generate_dynamic_bin)
 
         # 导入动作表的数据
         self.loadDataPushButton.clicked.connect(self.load_data)
@@ -309,9 +315,22 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if not os.path.exists(base_path):
             os.makedirs(base_path)
         for hex_str in self.new_action_hex_list:
-            output_file_path = base_path + os.path.sep + hex_str[2:4] + hex_str[0:2] + '.bin'
+            output_file_path = base_path + os.path.sep + 'AT_' + hex_str[2:4] + hex_str[0:2] + '.bin'
             hex_string_to_binary_file(hex_str, output_file_path)
         QMessageBox.information(None, "Success", f"新动作ID生成成功！\n文件所在目录：{base_path}")
+
+    def generate_dynamic_bin(self):
+        '''
+        生成动态表的.bin文件
+        :return: void
+        '''
+        # 文件夹不存在则创建
+        base_path = os.path.abspath('./dynamic_bin')
+        if not os.path.exists(base_path):
+            os.makedirs(base_path)
+        output_file_path = base_path + os.path.sep + 'dynamic.bin'
+        hex_string_to_binary_file('0000', output_file_path)
+        QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
 
 
 if __name__ == "__main__":

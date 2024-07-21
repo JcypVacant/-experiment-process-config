@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class Stove5Dlg(QDialog, Ui_Stove5):
+    """
+    6炉下机5参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):
@@ -53,7 +56,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         # 运动类别索引
         self.limit_switch_type_index = 0
 
-        # --------------- 炉上机3运行方式设置 ------------------
+        # --------------- 炉下机5运行方式设置 ------------------
         self.run_mode_open_loop = config["zhuan_ji_1_run_mode"]["open_loop"]
         self.run_mode_limit_switch = config["zhuan_ji_1_run_mode"]["limit_switch"]
         self.run_mode_encoder = config["zhuan_ji_1_run_mode"]["encoder"]
@@ -67,7 +70,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         # 下拉框索引改变
         self.runModeComboBox.currentIndexChanged.connect(self.run_mode_index_changed)
 
-        # ---------------------- 炉上机3运行开环设置 -------------------
+        # ---------------------- 炉下机5运行开环设置 -------------------
         self.run_loop_high_address = config["run_loop_settings"]["high_address"]
         self.run_loop_low_address = config["run_loop_settings"]["low_address"]
         # 获取输入框的值改变
@@ -77,7 +80,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         # 下拉框索引改变
         self.typeComboBox_1.currentIndexChanged.connect(self.type_1_index_changed)
 
-        # ---------------------- 炉上机3运行编码器设置 -------------------
+        # ---------------------- 炉下机5运行编码器设置 -------------------
         self.run_encoder_high_address = config["run_encoder_settings"]["high_address"]
         self.run_encoder_low_address = config["run_encoder_settings"]["low_address"]
         # 获取输入框的值改变
@@ -85,7 +88,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         # 获取16进制值和16进制缩写
         self.val_2_omit_hex, self.val_2_hex = self.get_val_2_hex()
 
-        # ---------------------- 炉上机3脉冲输出阈值 -------------------
+        # ---------------------- 炉下机5脉冲输出阈值 -------------------
         self.pulse_high_address = config["pulse_output_threshold"]["high_address"]
         self.pulse_low_address = config["pulse_output_threshold"]["low_address"]
         # 输入框的值改变
@@ -95,7 +98,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         # 下拉框索引改变
         self.typeComboBox_2.currentIndexChanged.connect(self.type_2_index_changed)
 
-        # ---------------------- 炉上机3续转步数 -------------------
+        # ---------------------- 炉下机5续转步数 -------------------
         self.consecutive_steps_address = config["consecutive_steps"]["address"]
         # 输入框的值改变
         self.valLineEdit_4.textChanged.connect(self.val_4_text_changed)
@@ -126,7 +129,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         # 下拉框索引改变
         self.switchValComboBox.currentIndexChanged.connect(self.limit_switch_index_changed)
 
-        # ---------------------- 炉上机3失步阈值 -------------------
+        # ---------------------- 炉下机5失步阈值 -------------------
         self.out_of_step_address = config["out_of_step_threshold"]["address"]
         # 输入框的值改变
         self.valLineEdit_5.textChanged.connect(self.val_5_text_changed)
@@ -144,19 +147,19 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         self.commitPushButton.clicked.connect(self.commit_config)
 
     def update_hex_val(self):
-        #  炉上机3运行方式设置
+        # 炉下机5运行方式设置
         self.hexOmitLineEdit_1.setText(self.run_mode_omit_hex)
         self.hexLineEdit_1.setText(self.run_mode_hex)
-        # 炉上机3运行开环设置
+        # 炉下机5运行开环设置
         self.hexLineEdit_2.setText(self.val_1_hex)
         self.hexOmitLineEdit_2.setText(self.val_1_omit_hex)
-        # 炉上机3运行编码器设置
+        # 炉下机5运行编码器设置
         self.hexLineEdit_3.setText(self.val_2_hex)
         self.hexOmitLineEdit_3.setText(self.val_2_omit_hex)
-        # 炉上机3脉冲输出阈值
+        # 炉下机5脉冲输出阈值
         self.hexLineEdit_4.setText(self.val_3_hex)
         self.hexOmitLineEdit_4.setText(self.val_3_omit_hex)
-        # 炉上机3续转步数
+        # 炉下机5续转步数
         self.hexLineEdit_5.setText(self.val_4_hex)
         self.hexOmitLineEdit_5.setText(self.val_4_omit_hex)
         # 限位开关
@@ -166,7 +169,7 @@ class Stove5Dlg(QDialog, Ui_Stove5):
         self.hexLineEdit_7.setText(self.val_5_hex)
         self.hexOmitLineEdit_7.setText(self.val_5_omit_hex)
 
-    # ----------- 炉上机3运行方式设置 --------------------
+    # ----------- 炉下机5运行方式设置 --------------------
     def get_run_mode_hex(self):
         val = self.run_mode_open_loop
         if self.run_mode_index == 1:

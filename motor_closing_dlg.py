@@ -7,7 +7,7 @@ from utils.data_utils import *
 
 class MotorClosingDlg(QDialog, Ui_MotorClosing):
     """
-    0炉子开关参数配置界面
+    13电机关闭参数配置界面
     """
     config_hex_signal = Signal(str, int)
 

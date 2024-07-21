@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class PIDTemperatureControlDlg(QDialog, Ui_PIDTemperatureControl):
+    """
+    11PID控温曲线设置参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):

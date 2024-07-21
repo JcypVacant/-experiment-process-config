@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class Transfer1Dlg(QDialog, Ui_Transfer1):
+    """
+    2转机1参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):

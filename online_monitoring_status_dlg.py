@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class OnlineMonitoringStatusDlg(QDialog, Ui_OnlineMonitoringStatus):
+    """
+    12在线监控状态参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):

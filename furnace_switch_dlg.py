@@ -9,13 +9,15 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
     """
     0炉子开关参数配置界面
     """
+
+    # 创建信号
     config_hex_signal = Signal(str, int)
 
     def __init__(self):
         super(FurnaceSwitchDlg, self).__init__()
         # 最终生成参数配置的十六进制编码
         self.config_hex = ""
-        # 是否是新动作
+        # 是否是新动作(是=1, 否=0)
         self.is_new_action = 0
         self.setupUi(self)
         # 读取配置
@@ -47,7 +49,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         # 获取配置参数的16进制编码
         self.led_enable_hex = self.get_led_enable_settings_hex()
 
-        # --------------------- 3.CCD 使能设置 ------------------
+        # --------------------- 3.初始化CCD使能设置 ------------------
         self.ccd1_enable = furnace_config["CCD_enable_settings"]["CCD1_enable"]
         self.ccd1_close = furnace_config["CCD_enable_settings"]["CCD1_close"]
         self.ccd2_enable = furnace_config["CCD_enable_settings"]["CCD2_enable"]
@@ -59,7 +61,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         # 获取配置参数的16进制编码
         self.ccd_enable_hex = self.get_ccd_enable_settings_hex()
 
-        # --------------------- 4.阀门使能设置 ------------------
+        # --------------------- 4.初始化阀门使能设置 ------------------
         self.nitrogen_valve_open = furnace_config["valve_enable_settings"]["nitrogen_valve_open"]
         self.nitrogen_valve_close = furnace_config["valve_enable_settings"]["nitrogen_valve_close"]
         self.repressing_open = furnace_config["valve_enable_settings"]["re-pressing_open"]
@@ -75,7 +77,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         # 获取配置参数的16进制编码
         self.valve_enable_hex = self.get_valve_enable_settings_hex()
 
-        # --------------- 5.加速度设置 --------------------------
+        # --------------- 5.初始化加速度设置 --------------------------
         self.acc_open = furnace_config["acceleration_settings"]["open"]
         self.acc_close = furnace_config["acceleration_settings"]["close"]
         self.acc_tail = furnace_config["acceleration_settings"]["tail"]
@@ -85,7 +87,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         # 获取配置参数的16进制编码
         self.acc_hex = self.get_acc_settings_hex()
 
-        # --------------- 6.样品盒开关 -----------------------------
+        # --------------- 6.初始化样品盒开关 -----------------------------
         self.sample_box_open = furnace_config["sample_box_settings"]["open"]
         self.sample_box_close = furnace_config["sample_box_settings"]["close"]
         self.sample_box_tail = furnace_config["sample_box_settings"]["tail"]
@@ -114,7 +116,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
 
     def update_hex_val(self):
         """
-        将16进制缩写和16进制的值在界面上更新
+        将16进制的值和16进制缩写值在界面上更新
         :return:
         """
         # 开关量片选
@@ -137,6 +139,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.hexOmitLineEdit_6.setText(self.sample_box_hex[0:2])
 
     # ---------------- switch_plate_selection --------------------------------
+    # 开关量片选
     def led_state_changed(self, state):
         if state == 2:
             self.led_switch_val = "11"
@@ -198,7 +201,7 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
     # ---------------- LED_enable_settings --------------------------------
     def led_enable_index_changed(self):
         """
-        更新 led使能设置 下拉框索引
+        更新led使能设置 下拉框索引
         :return:
         """
         self.led_enable_index = self.LEDComboBox.currentIndex()

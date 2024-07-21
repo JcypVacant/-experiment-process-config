@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class MotorStatusInquiryDlg(QDialog, Ui_MotorStatusInquiry):
+    """
+    7电机状态查询参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):

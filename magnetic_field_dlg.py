@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class MagneticFieldDlg(QDialog, Ui_MagneticField):
+    """
+    8磁场参数配置界面
+    """
     config_hex_signal = Signal(str, int)
     def __init__(self):
         super(MagneticFieldDlg, self).__init__()

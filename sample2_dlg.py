@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class Sample2Dlg(QDialog, Ui_Sample2):
+    """
+    3样提机2参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):

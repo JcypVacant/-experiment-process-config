@@ -6,6 +6,9 @@ from utils.data_utils import *
 
 
 class Stove3Dlg(QDialog, Ui_Stove3):
+    """
+    4炉上机3参数配置界面
+    """
     config_hex_signal = Signal(str, int)
 
     def __init__(self):

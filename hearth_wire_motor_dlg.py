@@ -7,7 +7,7 @@ from utils.data_utils import *
 
 class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
     """
-    1炉丝电机参数配置对话框
+    1炉丝电机参数配置界面
     """
     config_hex_signal = Signal(str, int)
 
