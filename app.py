@@ -24,6 +24,7 @@ from motor_closing_dlg import MotorClosingDlg
 from online_monitoring_head_dlg import OnlineMonitoringHeadDlg
 from PID_config_settings_dlg import PIDConfigSettingsDlg
 from utils.data_utils import hex_string_to_binary_file, clear_data, load_action_bin_to_data
+from utils.db_utils import create_connection, insert_experiment_flow
 
 
 class FlowItem:
@@ -81,7 +82,7 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
 
     def commitFlowItem(self):
         """
-        提交实验流程项，封装成对象发送给主窗口展示
+        提交实验流程项，封装成对象发送给主窗口展示，同时把动作起始时刻、动作ID、动作时间保存到数据库
         :return:
         """
         # 封装流程项信息
@@ -95,6 +96,12 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.flow_item.actionID = self.actionIDLineEdit.text()
         self.flow_item.config_hex = self.config_hex
         self.flow_item.is_new_action = self.is_new_action
+        # 创建数据库连接
+        conn = create_connection()
+        # 插入数据
+        insert_experiment_flow(conn, self.flow_item.startTime, self.flow_item.actionID, self.flow_item.duration)
+        # 关闭数据库连接
+        conn.close()
         # 发送信号
         self.flow_item_signal.emit(self.flow_item)
         # 发送完信号关闭
