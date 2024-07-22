@@ -24,7 +24,8 @@ from motor_closing_dlg import MotorClosingDlg
 from online_monitoring_head_dlg import OnlineMonitoringHeadDlg
 from PID_config_settings_dlg import PIDConfigSettingsDlg
 from utils.data_utils import hex_string_to_binary_file, clear_data, load_action_bin_to_data
-from utils.db_utils import create_connection, insert_experiment_flow
+from utils.db_utils import create_connection, insert_experiment_flow, fetch_dynamic_num_by_id, update_dynamic_id_by_id, \
+    format_four_digits, format_dynamic_id, format_max_action, fetch_all_experiment_flow, process_experiment_flow_records
 
 
 class FlowItem:
@@ -225,6 +226,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 生成动作表
         self.pushButton_1.clicked.connect(self.generate_action_bin)
         # 生成动态表
+        self.dynamic_id = None  # 动态表配置序号ID
         self.MAX_ACTION_NUM = 128  # 一个实验流程最大动作数
         self.pushButton_2.clicked.connect(self.generate_dynamic_bin)
 
@@ -331,12 +333,54 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         生成动态表的.bin文件
         :return: void
         '''
+
+        """获取动态表配置序号ID"""
+        # 创建数据库连接
+        conn = create_connection()
+        # 查询id等于1的dynamic_id记录
+        dynamic_num_record = fetch_dynamic_num_by_id(conn)
+        if dynamic_num_record:
+            self.dynamic_id = dynamic_num_record[1]
+
+        # 更新 id 等于给定值的 dynamic_id 加1
+        update_dynamic_id_by_id(conn)
+        self.dynamic_id += 1
+        # 将 dynamic_id 格式化为四位数字
+        self.dynamic_id = format_four_digits(self.dynamic_id)
+        # 将 dynamic_id 字符串反转
+        reversed_dynamic_id = format_dynamic_id(self.dynamic_id)
+        max_action_hex = format_max_action(self.MAX_ACTION_NUM)
+        # 存放动态表的16进制编码
+        dynamic_hex_list = []
+        dynamic_hex_list.append(reversed_dynamic_id)
+        dynamic_hex_list.append(max_action_hex)
+
+        # 查询并处理所有记录
+        experiment_flow_records = fetch_all_experiment_flow(conn)
+        processed_records = process_experiment_flow_records(experiment_flow_records)
+        # 打印处理后的记录
+        print("Processed experiment_flow records:")
+        for record in processed_records:
+            record_id, formatted_start_time, formatted_action_id, formatted_action_time = record
+            dynamic_hex = formatted_start_time + formatted_action_id + formatted_action_time
+            dynamic_hex_list.append(dynamic_hex)
+
+        # 将所有十六进制字符串拼接成一个大的十六进制字符串
+        combined_hex_string = ''.join(dynamic_hex_list)
+        print(combined_hex_string)
+        # 关闭数据库连接
+        conn.close()
+
+        if len(self.dynamic_hex_list) == 0:
+            QMessageBox.information(None, "Success", "没有动态表需要生成！")
+            return
         # 文件夹不存在则创建
         base_path = os.path.abspath('./dynamic_bin')
         if not os.path.exists(base_path):
             os.makedirs(base_path)
-        output_file_path = base_path + os.path.sep + 'dynamic.bin'
-        hex_string_to_binary_file('0000', output_file_path)
+
+        output_file_path = base_path + os.path.sep + 'DT_' + self.dynamic_id + '.bin'
+        hex_string_to_binary_file(combined_hex_string, output_file_path)
         QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
 
 
