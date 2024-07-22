@@ -1,8 +1,7 @@
 import os
 import sqlite3 as sqlite
-
+import pandas as pd
 from PySide6.QtWidgets import QMessageBox
-
 from utils.data_utils import hex_string_to_binary_file
 
 
@@ -12,8 +11,10 @@ def create_connection():
     return conn
 
 def create_table(conn):
-    """ 创建表 dynamic_num """
+    """ 创建表 dynamic_num 和 experiment_flow """
     cursor = conn.cursor()
+
+    # 创建表 dynamic_num
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS dynamic_num (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,7 +22,7 @@ def create_table(conn):
     )
     ''')
 
-    """ 创建表 experiment_flow """
+    # 创建表 experiment_flow
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS experiment_flow (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -126,6 +127,32 @@ def format_max_action(max_action_num):
     reversed_hex_max_action_num = ''.join([hex_max_action_num[i:i+2] for i in range(0, len(hex_max_action_num), 2)][::-1])
     return reversed_hex_max_action_num
 
+def delete_all_experiment_flow_data(conn):
+    """ 删除 experiment_flow 表中的所有数据 """
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM experiment_flow')
+    conn.commit()
+
+def drop_experiment_flow_table(conn):
+    """ 删除 experiment_flow 表 """
+    cursor = conn.cursor()
+    cursor.execute('DROP TABLE IF EXISTS experiment_flow')
+    conn.commit()
+
+
+def save_to_excel(data, filename):
+    """ 保存记录到 Excel 文件 """
+    # 创建 DataFrame
+    df = pd.DataFrame(data)
+    # 文件夹不存在则创建
+    base_path = os.path.abspath('./dynamic_bin')
+    if not os.path.exists(base_path):
+        os.makedirs(base_path)
+    output_file_path = base_path + os.path.sep + filename
+    df.to_excel(output_file_path, index=False,  header=False)
+    print(f"数据已保存到 {output_file_path}")
+
+
 if __name__ == '__main__':
     # 创建数据库连接
     conn = create_connection()
@@ -140,6 +167,12 @@ if __name__ == '__main__':
     dynamic_id = 90
 
     MAX_ACTION_NUM = 128
+    excel_records = []
+    excel_records.append((dynamic_id, MAX_ACTION_NUM, ' '))
+    for record in experiment_flow_records:
+        record_id, start_time, action_id, action_time = record
+        excel_records.append((start_time, action_id, action_time))
+    print(excel_records)
     # 格式化动态ID
     val = format_four_digits(dynamic_id)
     # 将 val 字符串反转
@@ -165,7 +198,6 @@ if __name__ == '__main__':
 
     # 关闭连接
     conn.close()
-
     # 文件夹不存在则创建
     base_path = os.path.abspath('./dynamic_bin')
     if not os.path.exists(base_path):
@@ -174,5 +206,8 @@ if __name__ == '__main__':
     output_file_path = base_path + os.path.sep + 'DT_' + val + '.bin'
     hex_string_to_binary_file(combined_hex_string, output_file_path)
     print(f"动态表生成成功！\n文件所在目录：{base_path}")
+    excel_filename = f'DT_{val}.xlsx'
+    save_to_excel(excel_records, excel_filename)
     QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
+
 
