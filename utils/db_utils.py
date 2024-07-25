@@ -3,7 +3,7 @@ import sqlite3 as sqlite
 import pandas as pd
 from PySide6.QtWidgets import QMessageBox
 from utils.data_utils import hex_string_to_binary_file
-
+from tkinter import Tk, filedialog
 
 def create_connection():
     """ 创建数据库连接 """
@@ -152,62 +152,96 @@ def save_to_excel(data, filename):
     df.to_excel(output_file_path, index=False,  header=False)
     print(f"数据已保存到 {output_file_path}")
 
+# def read_bin_files_to_string():
+#     """读取文件夹中的 .bin 文件并将其内容转换为字符串"""
+#     # 打开文件夹选择对话框
+#     Tk().withdraw()  # 隐藏主窗口
+#     folder_selected = filedialog.askdirectory()
+#
+#     if not folder_selected:
+#         print("未选择文件夹。")
+#         return
+#
+#     bin_files = [f for f in os.listdir(folder_selected) if f.endswith('.bin')]
+#     if not bin_files:
+#         print("文件夹中没有 .bin 文件。")
+#         return
+#
+#     bin_contents = {}
+#
+#     for bin_file in bin_files:
+#         file_path = os.path.join(folder_selected, bin_file)
+#         with open(file_path, 'rb') as file:
+#             binary_data = file.read()
+#             hex_string = binary_data.hex().upper()  # 将二进制数据转换为十六进制字符串
+#             bin_contents[bin_file] = hex_string
+#
+#     return bin_contents
+
+
 
 if __name__ == '__main__':
     # 创建数据库连接
     conn = create_connection()
 
+    # 示例调用
+    # bin_files_contents = read_bin_files_to_string()
+    #
+    # # 打印结果
+    # if bin_files_contents:
+    #     for file_name, content in bin_files_contents.items():
+    #         print(f"File: {file_name}, Content: {content}")
     #insert_experiment_flow(conn, 20, '6021', 0)
     #insert_experiment_flow(conn, 490800, 'd000', 65535)  # 示例插入
 
     # 查询并处理所有记录
-    experiment_flow_records = fetch_all_experiment_flow(conn)
-    processed_records = process_experiment_flow_records(experiment_flow_records)
-
-    dynamic_id = 90
-
-    MAX_ACTION_NUM = 128
-    excel_records = []
-    excel_records.append((dynamic_id, MAX_ACTION_NUM, ' '))
-    for record in experiment_flow_records:
-        record_id, start_time, action_id, action_time = record
-        excel_records.append((start_time, action_id, action_time))
-    print(excel_records)
-    # 格式化动态ID
-    val = format_four_digits(dynamic_id)
-    # 将 val 字符串反转
-    rel = format_action_id(val)
-    print(rel)
-    # 将最大动作数转换为十六进制并反转
-    max_action_hex = format_max_action(MAX_ACTION_NUM)
-    print(max_action_hex)
-    dynamic_hex_list = []
-    dynamic_hex_list.append(rel)
-    dynamic_hex_list.append(max_action_hex)
-    # 打印处理后的记录
-    print("Processed experiment_flow records:")
-    for record in processed_records:
-        record_id, formatted_start_time, formatted_action_id, formatted_action_time = record
-        dynamic_hex = formatted_start_time + formatted_action_id + formatted_action_time
-        dynamic_hex_list.append(dynamic_hex)
-        print(dynamic_hex)
-
-    # 将所有十六进制字符串拼接成一个大的十六进制字符串
-    combined_hex_string = ''.join(dynamic_hex_list)
-    print(combined_hex_string)
-
-    # 关闭连接
-    conn.close()
-    # 文件夹不存在则创建
-    base_path = os.path.abspath('./dynamic_bin')
-    if not os.path.exists(base_path):
-        os.makedirs(base_path)
-
-    output_file_path = base_path + os.path.sep + 'DT_' + val + '.bin'
-    hex_string_to_binary_file(combined_hex_string, output_file_path)
-    print(f"动态表生成成功！\n文件所在目录：{base_path}")
-    excel_filename = f'DT_{val}.xlsx'
-    save_to_excel(excel_records, excel_filename)
-    QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
+    # experiment_flow_records = fetch_all_experiment_flow(conn)
+    # processed_records = process_experiment_flow_records(experiment_flow_records)
+    #
+    # dynamic_id = 90
+    #
+    # MAX_ACTION_NUM = 128
+    # excel_records = []
+    # excel_records.append((dynamic_id, MAX_ACTION_NUM, ' '))
+    # for record in experiment_flow_records:
+    #     record_id, start_time, action_id, action_time = record
+    #     excel_records.append((start_time, action_id, action_time))
+    # print(excel_records)
+    # # 格式化动态ID
+    # val = format_four_digits(dynamic_id)
+    # # 将 val 字符串反转
+    # rel = format_action_id(val)
+    # print(rel)
+    # # 将最大动作数转换为十六进制并反转
+    # max_action_hex = format_max_action(MAX_ACTION_NUM)
+    # print(max_action_hex)
+    # dynamic_hex_list = []
+    # dynamic_hex_list.append(rel)
+    # dynamic_hex_list.append(max_action_hex)
+    # # 打印处理后的记录
+    # print("Processed experiment_flow records:")
+    # for record in processed_records:
+    #     record_id, formatted_start_time, formatted_action_id, formatted_action_time = record
+    #     dynamic_hex = formatted_start_time + formatted_action_id + formatted_action_time
+    #     dynamic_hex_list.append(dynamic_hex)
+    #     print(dynamic_hex)
+    #
+    # # 将所有十六进制字符串拼接成一个大的十六进制字符串
+    # combined_hex_string = ''.join(dynamic_hex_list)
+    # print(combined_hex_string)
+    #
+    # # 关闭连接
+    # conn.close()
+    # # 文件夹不存在则创建
+    # base_path = os.path.abspath('./dynamic_bin')
+    # if not os.path.exists(base_path):
+    #     os.makedirs(base_path)
+    #
+    # output_file_path = base_path + os.path.sep + 'DT_' + val + '.bin'
+    # hex_string_to_binary_file(combined_hex_string, output_file_path)
+    # print(f"动态表生成成功！\n文件所在目录：{base_path}")
+    # excel_filename = f'DT_{val}.xlsx'
+    # save_to_excel(excel_records, excel_filename)
+    # QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
 
 

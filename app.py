@@ -4,6 +4,7 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QDialog, QTableWidgetItem, QMessageBox, QFileDialog
 
+from StaticTableDlg import StaticTableDlg
 from ui.MainWindow import Ui_MainWindow
 from ui.NewFlowItem import Ui_NewFlowItem
 
@@ -231,6 +232,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.dynamic_id = None  # 动态表配置序号ID
         self.MAX_ACTION_NUM = 128  # 一个实验流程最大动作数
         self.pushButton_2.clicked.connect(self.generate_dynamic_bin)
+        # 生成静态表
+        self.pushButton_4.clicked.connect(self.show_generate_static_dialog)
 
         # 导入动作表的数据
         self.loadDataPushButton.clicked.connect(self.load_data)
@@ -330,6 +333,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             hex_string_to_binary_file(hex_str, output_file_path)
         QMessageBox.information(None, "Success", f"新动作ID生成成功！\n文件所在目录：{base_path}")
 
+    def show_generate_static_dialog(self):
+        """
+        点击生成静态表按钮，弹出对话框
+        """
+        dlg = StaticTableDlg()
+        dlg.exec()
     def generate_dynamic_bin(self):
         '''
         生成动态表.bin文件
@@ -395,6 +404,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 关闭数据库连接
         conn.close()
         QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
