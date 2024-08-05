@@ -5,6 +5,7 @@ from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QDialog, QTableWidgetItem, QMessageBox, QFileDialog
 
 from StaticTableDlg import StaticTableDlg
+from TotalTableDlg import TotalTableDlg
 from ui.MainWindow import Ui_MainWindow
 from ui.NewFlowItem import Ui_NewFlowItem
 
@@ -234,6 +235,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.generate_dynamic_bin)
         # 生成静态表
         self.pushButton_4.clicked.connect(self.show_generate_static_dialog)
+        # 生成总表
+        self.pushButton_5.clicked.connect(self.show_total_table_dialog)
 
         # 导入动作表的数据
         self.loadDataPushButton.clicked.connect(self.load_data)
@@ -244,7 +247,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
         # 创建文件选择对话框
-        dialog  = QFileDialog()
+        dialog = QFileDialog()
 
         # 设置对话框类型为选择文件
         dialog .setFileMode(QFileDialog.Directory)
@@ -404,6 +407,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 关闭数据库连接
         conn.close()
         QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
+
+    def show_total_table_dialog(self):
+        """
+        点击生成总表按钮，弹出对话框
+        :return:
+        """
+        dlg = TotalTableDlg()
+        dlg.exec()
 
 
 if __name__ == "__main__":

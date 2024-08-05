@@ -1,0 +1,7 @@
+# 电机选择
+motor_select:
+  motor_1: "00"
+  motor_2: "00"
+  motor_3: "00"
+  motor_4: "00"
+  motor_5: "00"
