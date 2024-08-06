@@ -158,7 +158,11 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         return hex1 + hex2
 
     def get_static_length(self):
-        """读取文件夹下的以 ST 开头且文件名包含 '静态表' 的 .bin 文件，并计算字节数和内容"""
+        """
+        读取文件夹下的以 ST 开头且文件名包含 '静态表' 的 .bin 文件，并计算字节数和内容
+        获取静态表字节数和内容
+        :return：
+        """
         # 打开文件夹选择对话框
         Tk().withdraw()  # 隐藏主窗口
         file_path = filedialog.askopenfilename(
@@ -190,27 +194,48 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.lineEdit_7.setText(self.static_val_hex)
 
     def calculate_hex_string(self, length):
+        """
+        计算静态表、总动作表、总动态表、总监控表的十六进制值
+        :param length:
+        :return:
+        """
         # 基础值
         base_value = 2181038080
-
         # 计算总和
         total_value = base_value + length
-
         # 转换为十六进制（8位，不足位数前补0）
         hex_value = format(total_value, '08X')
-
         # 提取部分
         part1 = hex_value[6:8]  # 第 7 和第 8 位
         part2 = hex_value[4:6]  # 第 5 和第 6 位
         part3 = hex_value[2:4]  # 第 3 和第 4 位
         part4 = hex_value[0:2]  # 第 1 和第 2 位
+        # 拼接结果
+        result = (part1 + part2 + part3 + part4) * 3  # 重复三次
+        return result
 
+    def total_length_format_hex(self, total_length):
+        """
+        计算总表的十六进制值
+        :param total_length:
+        :return:
+        """
+        # 转换为十六进制，确保长度为 8 位，不足的前面补零
+        hex_value = format(total_length, '08X')
+        # 提取各部分
+        part1 = hex_value[6:8]  # 第 7 和第 8 位
+        part2 = hex_value[4:6]  # 第 5 和第 6 位
+        part3 = hex_value[2:4]  # 第 3 和第 4 位
+        part4 = hex_value[0:2]  # 第 1 和第 2 位
         # 拼接结果
         result = (part1 + part2 + part3 + part4) * 3  # 重复三次
         return result
 
     def get_total_action(self):
-        """读取文件夹下所有以 AT 开头且包含四位十六进制数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数"""
+        """
+        读取文件夹下所有以 AT 开头且包含四位十六进制数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数
+        :return:
+        """
         # 打开文件夹选择对话框
         Tk().withdraw()  # 隐藏主窗口
         folder_path = filedialog.askdirectory(
@@ -248,8 +273,12 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.lineEdit_8.setText(self.action_val_hex)
         print(f"总字节数: {total_length}")
         print(f"拼接后的十六进制字符串: {total_hex_content}")
+
     def get_total_dynamic(self):
-        """读取文件夹下所有以 DT 开头且包含四位数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数"""
+        """
+        读取文件夹下所有以 DT 开头且包含四位数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数
+        :return:
+        """
         # 打开文件夹选择对话框
         Tk().withdraw()  # 隐藏主窗口
         folder_path = filedialog.askdirectory(
@@ -286,9 +315,12 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.dynamic_val_hex = self.calculate_hex_string(self.static_length + self.action_length)
         self.lineEdit_9.setText(self.dynamic_val_hex)
         print(f"总字节数: {total_length}")
-        # print(f"拼接后的十六进制字符串: {total_hex_content}")
+
     def get_total_monitoring(self):
-        """读取文件夹下的以 zt 开头的 .bin 文件，并计算字节数和内容"""
+        """
+        读取文件夹下的以 zt 开头的 .bin 文件，并计算字节数和内容
+        :return:
+        """
         # 打开文件夹选择对话框
         Tk().withdraw()  # 隐藏主窗口
         file_path = filedialog.askopenfilename(
@@ -320,27 +352,23 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.monitoringTable_lineEdit.setText(file_length_str)
         self.monitoring_val_hex = self.calculate_hex_string(self.static_length+self.action_length+self.dynamic_length)
         self.lineEdit_10.setText(self.monitoring_val_hex)
+
     def get_total_Length(self):
+        """
+        得到总表长度以及十六进制参数值
+        :return:
+        """
         self.total_table_length = self.static_length + self.action_length + self.dynamic_length + self.monitoring_length
         total_table_length_str = str(self.total_table_length)
         self.totalTable_lineEdit.setText(total_table_length_str)
         self.total_table_length_val_hex = self.total_length_format_hex(self.total_table_length)
         self.lineEdit_11.setText(self.total_table_length_val_hex)
-    def total_length_format_hex(self, total_length):
-        # 转换为十六进制，确保长度为 8 位，不足的前面补零
-        hex_value = format(total_length, '08X')
-
-        # 提取各部分
-        part1 = hex_value[6:8]  # 第 7 和第 8 位
-        part2 = hex_value[4:6]  # 第 5 和第 6 位
-        part3 = hex_value[2:4]  # 第 3 和第 4 位
-        part4 = hex_value[0:2]  # 第 1 和第 2 位
-
-        # 拼接结果
-        result = (part1 + part2 + part3 + part4) * 3  # 重复三次
-        return result
 
     def generate_table_head_bin(self):
+        """
+        生成表头.bin文件
+        :return:
+        """
         self.table_head_hex = (self.total_table_config + self.motor_hex_str + self.static_val_hex + self.action_val_hex +
                                self.dynamic_val_hex + self.monitoring_val_hex + self.total_table_length_val_hex)
         print(f"表头: {self.table_head_hex}")
@@ -357,7 +385,13 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         hex_string_to_binary_file(self.table_head_hex, output_file_path)
         print(f"表头生成成功！\n文件所在目录：{base_path}")
         QMessageBox.information(None, "Success", f"表头生成成功！\n文件所在目录：{base_path}")
+
     def generate_total_table_bin(self):
+        """
+        生成总表.bin文件
+        :return:
+        """
+        # 总表 = 静态表 + 总动作表 + 总动态表 + 总监控表
         self.total_table_hex = self.static_content_hex + self.action_content_hex + self.dynamic_content_hex + self.monitoring_content_hex
         # 将生成的总表写入文件
         if len(self.total_table_hex) == 0:
@@ -372,10 +406,16 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         hex_string_to_binary_file(self.total_table_hex, output_file_path)
         print(f"总表生成成功！\n文件所在目录：{base_path}")
         QMessageBox.information(None, "Success", f"总表生成成功！\n文件所在目录：{base_path}")
+
     def generate_finally_total_table_bin(self):
+        """
+        生成最终需要的总表 + 3总表.bin文件
+        :return:
+        """
         self.table_head_hex = (self.total_table_config + self.motor_hex_str + self.static_val_hex + self.action_val_hex +
                     self.dynamic_val_hex + self.monitoring_val_hex + self.total_table_length_val_hex)
         self.total_table_hex = self.static_content_hex + self.action_content_hex + self.dynamic_content_hex + self.monitoring_content_hex
+        # 最终总表 = 表头 + 总表*3
         self.finally_total_table_hex = self.table_head_hex + self.total_table_hex*3
         # 将生成的总表写入文件
         if len(self.finally_total_table_hex) == 0:
