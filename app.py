@@ -26,10 +26,7 @@ from motor_closing_dlg import MotorClosingDlg
 from online_monitoring_head_dlg import OnlineMonitoringHeadDlg
 from PID_config_settings_dlg import PIDConfigSettingsDlg
 from utils.data_utils import hex_string_to_binary_file, clear_data, load_action_bin_to_data
-from utils.db_utils import create_connection, insert_experiment_flow, fetch_dynamic_num_by_id, update_dynamic_id_by_id, \
-    format_four_digits, format_dynamic_id, format_max_action, fetch_all_experiment_flow, \
-    process_experiment_flow_records, drop_experiment_flow_table, create_table, delete_all_experiment_flow_data, \
-    save_to_excel
+from db_utils import *
 
 
 class FlowItem:
@@ -101,12 +98,6 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.flow_item.actionID = self.actionIDLineEdit.text()
         self.flow_item.config_hex = self.config_hex
         self.flow_item.is_new_action = self.is_new_action
-        # 创建数据库连接
-        conn = create_connection()
-        # 插入数据
-        insert_experiment_flow(conn, self.flow_item.startTime, self.flow_item.actionID, self.flow_item.duration)
-        # 关闭数据库连接
-        conn.close()
         # 发送信号
         self.flow_item_signal.emit(self.flow_item)
         # 发送完信号关闭
@@ -227,7 +218,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.flowTableWidget.resizeRowsToContents()
         # 存放新动作的16进制参数配置信息
         self.new_action_hex_list = []
+        # 存放动态表的16进制配置信息
+        self.dynamic_hex_list = []
         # 生成动作表
+        self.action_startTime = None
+        self.action_actionID = ''
+        self.action_duration = None
         self.pushButton_1.clicked.connect(self.generate_action_bin)
         # 生成动态表
         self.dynamic_id = None  # 动态表配置序号ID
@@ -279,6 +275,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :param new_item: 新建的实验流程项
         :return:
         """
+        self.action_startTime = int(new_item.startTime)
+        self.action_actionID = new_item.actionID
+        self.action_duration = int(new_item.duration)
         # 插入索引
         index_item = QTableWidgetItem(str(self.rowCount + 1))
         self.flowTableWidget.setItem(self.rowCount, 0, index_item)
@@ -327,6 +326,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             QMessageBox.information(None, "Success", "没有新动作需要生成！")
             return
         # print(self.new_action_hex_list)
+        # 创建数据库连接
+        conn = create_connection()
+        # 插入数据
+        insert_experiment_flow(conn, self.action_startTime, self.action_actionID, self.action_duration)
+        # 关闭数据库连接
+        conn.close()
         # 文件夹不存在则创建
         base_path = os.path.abspath('./action_bin')
         if not os.path.exists(base_path):
@@ -347,26 +352,25 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         生成动态表.bin文件
         :return: void
         '''
+        if len(self.new_action_hex_list) == 0:
+            QMessageBox.information(None, "Success", "没有动态表需要生成,请先生成动作表！")
+            return
         # 创建数据库连接
         conn = create_connection()
         # 查询动态表配置序号dynamic_id(默认为0，自增)
         dynamic_num_record = fetch_dynamic_num_by_id(conn)
         if dynamic_num_record:
             self.dynamic_id = dynamic_num_record[1]
-
-        # 更新 id 等于给定值的 dynamic_id 加1
-        update_dynamic_id_by_id(conn)
         self.dynamic_id += 1
         # 将 dynamic_id 格式化为四位数字
-        self.dynamic_id = format_four_digits(self.dynamic_id)
+        format_id = format_four_digits(self.dynamic_id)
         # 将 dynamic_id 字符串反转
-        reversed_dynamic_id = format_dynamic_id(self.dynamic_id)
+        reversed_dynamic_id = format_dynamic_id(format_id)
         # 将最大动作数转换为十六进制并反转
         max_action_hex = format_max_action(self.MAX_ACTION_NUM)
         # 存放动态表的16进制编码
-        dynamic_hex_list = []
-        dynamic_hex_list.append(reversed_dynamic_id)
-        dynamic_hex_list.append(max_action_hex)
+        self.dynamic_hex_list.append(reversed_dynamic_id)
+        self.dynamic_hex_list.append(max_action_hex)
 
         # 查询并处理所有记录
         experiment_flow_records = fetch_all_experiment_flow(conn)
@@ -374,21 +378,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for record in processed_records:
             record_id, formatted_start_time, formatted_action_id, formatted_action_time = record
             dynamic_hex = formatted_start_time + formatted_action_id + formatted_action_time
-            dynamic_hex_list.append(dynamic_hex)
+            self.dynamic_hex_list.append(dynamic_hex)
 
         # 将所有十六进制字符串拼接成一个大的十六进制字符串
-        combined_hex_string = ''.join(dynamic_hex_list)
-        print(combined_hex_string)
-
-        if len(self.dynamic_hex_list) == 0:
-            QMessageBox.information(None, "Success", "没有动态表需要生成！")
-            return
+        combined_hex_string = ''.join(self.dynamic_hex_list)
         # 文件夹不存在则创建
         base_path = os.path.abspath('./dynamic_bin')
         if not os.path.exists(base_path):
             os.makedirs(base_path)
         # 生成动态表的.bin文件
-        output_file_path = base_path + os.path.sep + 'DT_' + self.dynamic_id + '.bin'
+        output_file_path = base_path + os.path.sep + 'DT_' + format_id + '.bin'
         hex_string_to_binary_file(combined_hex_string, output_file_path)
 
         # ------------------------生成动态表的Excel文件-------------------------
@@ -398,14 +397,24 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             record_id, start_time, action_id, action_time = record
             excel_records.append((start_time, action_id, action_time))
 
-        excel_filename = f'DT_{self.dynamic_id}.xlsx'
+        excel_filename = f'DT_{format_id}.xlsx'
         # 保存到Excel文件
         save_to_excel(excel_records, excel_filename)
 
+        # 更新 id 等于给定值的 dynamic_id 加1
+        update_dynamic_id_by_id(conn)
         # 删除 experiment_flow 表中的所有数据
         delete_all_experiment_flow_data(conn)
         # 关闭数据库连接
         conn.close()
+        # ---------------清空表格信息---------------
+        # 获取表格中的行数和列数
+        row_count = self.flowTableWidget.rowCount()
+        column_count = self.flowTableWidget.columnCount()
+        # 迭代每个单元格并将其内容设置为空
+        for row in range(row_count):
+            for col in range(column_count):
+                self.flowTableWidget.setItem(row, col, QTableWidgetItem(""))
         QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
 
     def show_total_table_dialog(self):

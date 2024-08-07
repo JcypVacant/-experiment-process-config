@@ -182,8 +182,8 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
                 file_content_hex = file_content.hex().upper()  # 转换为十六进制字符串
 
                 print(f"文件: {os.path.basename(file_path)}")
-                print(f"字节数: {file_length}")
-                print(f"内容字符串: {file_content_hex}")
+                print(f"静态表字节数: {file_length}")
+                # print(f"内容字符串: {file_content_hex}")
         else:
             print("未找到符合条件的 .bin 文件")
         self.static_length = file_length
@@ -271,8 +271,8 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.actionTable_lineEdit.setText(total_length_str)
         self.action_val_hex = self.calculate_hex_string(self.static_length)
         self.lineEdit_8.setText(self.action_val_hex)
-        print(f"总字节数: {total_length}")
-        print(f"拼接后的十六进制字符串: {total_hex_content}")
+        print(f"动作表总字节数: {total_length}")
+        # print(f"拼接后的十六进制字符串: {total_hex_content}")
 
     def get_total_dynamic(self):
         """
@@ -314,7 +314,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.dynamicTable_lineEdit.setText(total_length_str)
         self.dynamic_val_hex = self.calculate_hex_string(self.static_length + self.action_length)
         self.lineEdit_9.setText(self.dynamic_val_hex)
-        print(f"总字节数: {total_length}")
+        print(f"动态表总字节数: {total_length}")
 
     def get_total_monitoring(self):
         """
@@ -343,7 +343,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
 
                 print(f"文件: {os.path.basename(file_path)}")
                 print(f"字节数: {file_length}")
-                print(f"内容字符串: {file_content_hex}")
+                print(f"监控表内容: {file_content_hex}")
         else:
             print("未找到符合条件的 .bin 文件")
         self.monitoring_length = file_length
@@ -371,10 +371,10 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         """
         self.table_head_hex = (self.total_table_config + self.motor_hex_str + self.static_val_hex + self.action_val_hex +
                                self.dynamic_val_hex + self.monitoring_val_hex + self.total_table_length_val_hex)
-        print(f"表头: {self.table_head_hex}")
+        # print(f"表头: {self.table_head_hex}")
         # 将生成的表头写入文件
-        if len(self.table_head_hex) == 0:
-            QMessageBox.information(None, "Success", "没有表头需要生成！")
+        if len(self.table_head_hex) == 8:
+            QMessageBox.information(None, "Success", "没有表头需要生成，请先获取其他表数据！")
             return
         # 文件夹不存在则创建
         base_path = os.path.abspath('./total_bin')
@@ -417,10 +417,10 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.total_table_hex = self.static_content_hex + self.action_content_hex + self.dynamic_content_hex + self.monitoring_content_hex
         # 最终总表 = 表头 + 总表*3
         self.finally_total_table_hex = self.table_head_hex + self.total_table_hex*3
-        # 将生成的总表写入文件
-        if len(self.finally_total_table_hex) == 0:
+        if len(self.total_table_hex) == 0:
             QMessageBox.information(None, "Success", "没有总表+3总表需要生成！")
             return
+        # 将生成的表头+3总表写入文件
         # 文件夹不存在则创建
         base_path = os.path.abspath('./total_bin')
         if not os.path.exists(base_path):

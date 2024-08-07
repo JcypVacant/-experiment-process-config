@@ -183,7 +183,7 @@ def save_to_excel(data, filename):
 if __name__ == '__main__':
     # 创建数据库连接
     conn = create_connection()
-
+    create_table(conn)
     # 示例调用
     # bin_files_contents = read_bin_files_to_string()
     #

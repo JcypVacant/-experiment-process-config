@@ -33,7 +33,7 @@ class StaticTableDlg(QDialog, Ui_StaticTable):
                              'F': "预留"}
         # 计算每类动作数
         self.pushButton_2.clicked.connect(self.get_actions_count)
-        # 计算流程表数
+        # 计算动态表数
         self.pushButton.clicked.connect(self.get_dynamic_count)
         # 生成静态表
         self.pushButton_3.clicked.connect(self.generate_static_bin)
@@ -105,6 +105,7 @@ class StaticTableDlg(QDialog, Ui_StaticTable):
             for filename in fnmatch.filter(files, 'DT*.bin'):
                 self.dynamic_count += 1
         print(f"文件夹中共有流程表文件：{self.dynamic_count}个")
+        self.lineEdit.setText(str(self.dynamic_count))
         self.experimental_total_hex = format(self.dynamic_count, '02X')
         print(f"对应的十六进制值为：{self.experimental_total_hex}")
     def read_txt_file(self, file_name):
@@ -130,6 +131,9 @@ class StaticTableDlg(QDialog, Ui_StaticTable):
         # 读取静态表尾部.bin
         self.tail_bin = self.read_txt_file('static_tail_bin.txt')
         # 计算静态表总.bin
+        if self.dynamic_count == 0:
+            self.dynamic_count = int(self.lineEdit.text())
+            self.experimental_total_hex = format(self.dynamic_count, '02X')
         self.total_bin = self.experimental_total_hex + self.middle_bin + self.actions_bin + self.tail_bin
 
         # 获取今天的月份和日期，并格式化为字符串
