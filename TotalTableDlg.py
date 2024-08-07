@@ -274,6 +274,22 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         print(f"动作表总字节数: {total_length}")
         # print(f"拼接后的十六进制字符串: {total_hex_content}")
 
+        # ------------生成总的动作表.bin文件------------
+        if len(self.action_content_hex) == 0:
+            return
+        # 文件夹不存在则创建
+        base_path = os.path.abspath('./total_bin')
+        if not os.path.exists(base_path):
+            os.makedirs(base_path)
+        # 生成总动作表的.bin文件
+        output_file_path = base_path + os.path.sep + '总动作表' + '.bin'
+        # 将十六进制字符串转换为字节对象
+        hex_bytes = bytes.fromhex(self.action_content_hex)
+        # 将字节写入二进制文件
+        with open(output_file_path, 'wb') as binary_file:
+            binary_file.write(hex_bytes)
+
+
     def get_total_dynamic(self):
         """
         读取文件夹下所有以 DT 开头且包含四位数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数
@@ -316,6 +332,21 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.lineEdit_9.setText(self.dynamic_val_hex)
         print(f"动态表总字节数: {total_length}")
 
+        # ------------生成总的动态表.bin文件------------
+        if len(self.dynamic_content_hex) == 0:
+            return
+        # 文件夹不存在则创建
+        base_path = os.path.abspath('./total_bin')
+        if not os.path.exists(base_path):
+            os.makedirs(base_path)
+        # 生成总动态表的.bin文件
+        output_file_path = base_path + os.path.sep + '总动态表' + '.bin'
+        # 将十六进制字符串转换为字节对象
+        hex_bytes = bytes.fromhex(self.dynamic_content_hex)
+        # 将字节写入二进制文件
+        with open(output_file_path, 'wb') as binary_file:
+            binary_file.write(hex_bytes)
+
     def get_total_monitoring(self):
         """
         读取文件夹下的以 zt 开头的 .bin 文件，并计算字节数和内容
@@ -343,7 +374,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
 
                 print(f"文件: {os.path.basename(file_path)}")
                 print(f"字节数: {file_length}")
-                print(f"监控表内容: {file_content_hex}")
+                # print(f"监控表内容: {file_content_hex}")
         else:
             print("未找到符合条件的 .bin 文件")
         self.monitoring_length = file_length

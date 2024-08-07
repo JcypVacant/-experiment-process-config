@@ -42,7 +42,7 @@
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>170</x>
+     <x>250</x>
      <y>190</y>
      <width>75</width>
      <height>24</height>
@@ -52,20 +52,7 @@
     <string>生成静态表</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>190</y>
-     <width>75</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>取消</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>29</x>
