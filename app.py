@@ -70,6 +70,11 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.is_new_action = 0
         # 存放动作参数配置的16进制编码
         self.config_hex = ""
+        # 存放动作表信息
+        self.action_startTime = None
+        self.action_actionID = ''
+        self.action_duration = None
+
         self.setupUi(self)
         # 记录当前动作的索引
         self.currentIndex = self.actionComboBox.currentIndex()
@@ -98,6 +103,17 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.flow_item.actionID = self.actionIDLineEdit.text()
         self.flow_item.config_hex = self.config_hex
         self.flow_item.is_new_action = self.is_new_action
+
+        # 把信息存入动态表
+        self.action_startTime = int(self.flow_item.startTime)
+        self.action_actionID = self.flow_item.actionID
+        self.action_duration = int(self.flow_item.duration)
+        # 创建数据库连接
+        conn = create_connection()
+        # 插入数据
+        insert_experiment_flow(conn, self.action_startTime, self.action_actionID, self.action_duration)
+        # 关闭数据库连接
+        conn.close()
         # 发送信号
         self.flow_item_signal.emit(self.flow_item)
         # 发送完信号关闭
@@ -221,9 +237,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 存放动态表的16进制配置信息
         self.dynamic_hex_list = []
         # 生成动作表
-        self.action_startTime = None
-        self.action_actionID = ''
-        self.action_duration = None
         self.pushButton_1.clicked.connect(self.generate_action_bin)
         # 生成动态表
         self.dynamic_id = None  # 动态表配置序号ID
@@ -275,9 +288,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :param new_item: 新建的实验流程项
         :return:
         """
-        self.action_startTime = int(new_item.startTime)
-        self.action_actionID = new_item.actionID
-        self.action_duration = int(new_item.duration)
         # 插入索引
         index_item = QTableWidgetItem(str(self.rowCount + 1))
         self.flowTableWidget.setItem(self.rowCount, 0, index_item)
@@ -326,12 +336,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             QMessageBox.information(None, "Success", "没有新动作需要生成！")
             return
         # print(self.new_action_hex_list)
-        # 创建数据库连接
-        conn = create_connection()
-        # 插入数据
-        insert_experiment_flow(conn, self.action_startTime, self.action_actionID, self.action_duration)
-        # 关闭数据库连接
-        conn.close()
         # 文件夹不存在则创建
         base_path = os.path.abspath('./action_bin')
         if not os.path.exists(base_path):
