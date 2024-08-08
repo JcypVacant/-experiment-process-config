@@ -4,6 +4,7 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QDialog, QTableWidgetItem, QMessageBox, QFileDialog
 
+from ui.dynamictable import Ui_DynamicTable
 from StaticTableDlg import StaticTableDlg
 from TotalTableDlg import TotalTableDlg
 from ui.MainWindow import Ui_MainWindow
@@ -71,11 +72,6 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.is_new_action = 0
         # 存放动作参数配置的16进制编码
         self.config_hex = ""
-        # 存放动作表信息
-        self.action_startTime = None
-        self.action_actionID = ''
-        self.action_duration = None
-
         self.setupUi(self)
         # 记录当前动作的索引
         self.currentIndex = self.actionComboBox.currentIndex()
@@ -105,14 +101,9 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.flow_item.config_hex = self.config_hex
         self.flow_item.is_new_action = self.is_new_action
 
-        # -------------------把信息存入动态表------------------
-        self.action_startTime = int(self.flow_item.startTime)
-        self.action_actionID = self.flow_item.actionID
-        self.action_duration = int(self.flow_item.duration)
         # 创建数据库连接
         conn = create_connection()
-        # 插入数据
-        insert_experiment_flow(conn, self.action_startTime, self.action_actionID, self.action_duration)
+        create_table(conn)
         # 关闭数据库连接
         conn.close()
 
@@ -220,7 +211,6 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.is_new_action = is_new_action
 
 
-
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     """
     主窗口程序
@@ -242,9 +232,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.dynamic_hex_list = []
         # 生成动作表
         self.pushButton_1.clicked.connect(self.generate_action_bin)
+        # 存放动作表信息
+        self.action_info = []
+        self.action_startTime = 0
+        self.action_actionID = ''
+        self.action_duration = 0
         # 生成动态表
-        self.dynamic_id = None  # 动态表配置序号ID
+        self.dynamic_id = 0  # 动态表配置序号ID
         self.MAX_ACTION_NUM = 128  # 一个实验流程最大动作数
+        self.finally_action_duration = 0  # 插入的动作时间
         self.pushButton_2.clicked.connect(self.generate_dynamic_bin)
         # 生成静态表
         self.pushButton_4.clicked.connect(self.show_generate_static_dialog)
@@ -322,8 +318,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 是否是新动作
         is_new_action_item = QTableWidgetItem("是" if new_item.is_new_action == 1 else "否")
         self.flowTableWidget.setItem(self.rowCount, 9, is_new_action_item)
+
+        # -------------------把信息存入动态表------------------
+        try:
+            self.action_startTime = int(new_item.startTime)
+        except ValueError:
+            self.action_startTime = 0  # 默认值或其他处理
+        self.action_actionID = new_item.actionID
+        self.action_duration = int(new_item.duration)
+        self.action_info.append((self.action_startTime, self.action_actionID, self.action_duration))
         # 更新行索引
         self.rowCount = self.rowCount + 1
+        # 插入的动作时间
+        self.finally_action_duration = int(new_item.duration)
         # 如果是新动作则保存配置信息
         if new_item.is_new_action == 1:
             self.new_action_hex_list.append(new_item.config_hex)
@@ -335,6 +342,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         """
         dlg = StaticTableDlg()
         dlg.exec()
+
 
     def generate_action_bin(self):
         '''
@@ -362,10 +370,21 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :return: void
         '''
         if len(self.new_action_hex_list) == 0:
-            QMessageBox.information(None, "Success", "没有动态表需要生成,请先生成动作表！")
+            QMessageBox.information(None, "Success", "没有动态表需要生成，请先生成动作表！")
+            return
+        if self.finally_action_duration != 65535:
+            print(">>>>>>>最后一个动作时间请填65535")
+            QMessageBox.information(None, "Success", "最后一个动作时间请填65535！")
             return
         # 创建数据库连接
         conn = create_connection()
+        # 先清空experiment_flow 表中的所有数据
+        delete_all_experiment_flow_data(conn)
+        for item in self.action_info:
+            start_time, action_id, duration = item
+            # 插入数据
+            insert_experiment_flow(conn, start_time, action_id, duration)
+
         # 查询动态表配置序号dynamic_id(默认为0，自增)
         dynamic_num_record = fetch_dynamic_num_by_id(conn)
         if dynamic_num_record:
@@ -399,6 +418,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         output_file_path = base_path + os.path.sep + 'DT_' + format_id + '.bin'
         hex_string_to_binary_file(combined_hex_string, output_file_path)
         print(f"动态表生成成功！\n文件所在目录：{base_path}")
+        self.dynamic_hex_list = []
 
         # ------------------------生成动态表的Excel文件-------------------------
         excel_records = []
@@ -417,6 +437,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         delete_all_experiment_flow_data(conn)
         # 关闭数据库连接
         conn.close()
+        self.new_action_hex_list = []
+        self.action_info = []
         # ---------------清空表格信息---------------
         # 获取表格中的行数和列数
         row_count = self.flowTableWidget.rowCount()
@@ -425,6 +447,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for row in range(row_count):
             for col in range(column_count):
                 self.flowTableWidget.setItem(row, col, QTableWidgetItem(""))
+        # 设置表格的行数为 0，这样新数据将从第一行开始显示
+        # self.flowTableWidget.setRowCount(0)
+        # 更新行索引, 重新置为0
+        self.rowCount = 0
+        # 动作时间重新为0
+        self.finally_action_duration = 0
         QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
 
     def show_total_table_dialog(self):

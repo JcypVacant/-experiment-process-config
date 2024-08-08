@@ -20,6 +20,13 @@ def create_table(conn):
     )
     ''')
 
+    # 插入默认数据到 dynamic_num 表中，如果表是新创建的
+    cursor.execute('''
+        INSERT INTO dynamic_num (dynamic_id)
+        SELECT -1
+        WHERE NOT EXISTS (SELECT 1 FROM dynamic_num)
+        ''')
+
     # 创建表 experiment_flow
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS experiment_flow (
