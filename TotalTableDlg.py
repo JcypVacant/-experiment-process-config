@@ -434,7 +434,11 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
             os.makedirs(base_path)
         # 生成总表的.bin文件
         output_file_path = base_path + os.path.sep + '总表' + '.bin'
-        hex_string_to_binary_file(self.total_table_hex, output_file_path)
+        # 将十六进制字符串转换为字节对象
+        hex_bytes = bytes.fromhex(self.total_table_hex)
+        # 将字节写入二进制文件
+        with open(output_file_path, 'wb') as binary_file:
+            binary_file.write(hex_bytes)
         print(f"总表生成成功！\n文件所在目录：{base_path}")
         QMessageBox.information(None, "Success", f"总表生成成功！\n文件所在目录：{base_path}")
 
@@ -458,7 +462,11 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
             os.makedirs(base_path)
         # 生成总表的.bin文件
         output_file_path = base_path + os.path.sep + '表头+3总表' + '.bin'
-        hex_string_to_binary_file(self.finally_total_table_hex, output_file_path)
+        # 将十六进制字符串转换为字节对象
+        hex_bytes = bytes.fromhex(self.finally_total_table_hex)
+        # 将字节写入二进制文件
+        with open(output_file_path, 'wb') as binary_file:
+            binary_file.write(hex_bytes)
         print(f"总表+3总表生成成功！\n文件所在目录：{base_path}")
         QMessageBox.information(None, "Success", f"总表+3总表生成成功！\n文件所在目录：{base_path}")
         # 关闭窗口

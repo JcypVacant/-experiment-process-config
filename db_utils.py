@@ -1,9 +1,7 @@
 import os
 import sqlite3 as sqlite
 import pandas as pd
-from PySide6.QtWidgets import QMessageBox
-from utils.data_utils import hex_string_to_binary_file
-from tkinter import Tk, filedialog
+import numpy
 
 def create_connection():
     """ 创建数据库连接 """
@@ -177,10 +175,6 @@ def save_to_excel(data, filename):
 #             bin_contents[bin_file] = hex_string
 #
 #     return bin_contents
-
-
-
-if __name__ == '__main__':
     # 创建数据库连接
     conn = create_connection()
     create_table(conn)

@@ -33,6 +33,7 @@ class FlowItem:
     """
     实验流程项类，定义了实验流程表中一行的参数信息
     """
+
     def __init__(self):
         # 起始时刻
         self.startTime = 0
@@ -104,7 +105,7 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.flow_item.config_hex = self.config_hex
         self.flow_item.is_new_action = self.is_new_action
 
-        # 把信息存入动态表
+        # -------------------把信息存入动态表------------------
         self.action_startTime = int(self.flow_item.startTime)
         self.action_actionID = self.flow_item.actionID
         self.action_duration = int(self.flow_item.duration)
@@ -114,6 +115,7 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         insert_experiment_flow(conn, self.action_startTime, self.action_actionID, self.action_duration)
         # 关闭数据库连接
         conn.close()
+
         # 发送信号
         self.flow_item_signal.emit(self.flow_item)
         # 发送完信号关闭
@@ -218,10 +220,12 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.is_new_action = is_new_action
 
 
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     """
     主窗口程序
     """
+
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -259,7 +263,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         dialog = QFileDialog()
 
         # 设置对话框类型为选择文件
-        dialog .setFileMode(QFileDialog.Directory)
+        dialog.setFileMode(QFileDialog.Directory)
 
         # 显示对话框并获取用户选择的目录
         selected_directory = dialog.getExistingDirectory(
@@ -325,6 +329,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.new_action_hex_list.append(new_item.config_hex)
             print(f"所有新动作的参数配置：{self.new_action_hex_list}")
 
+    def show_generate_static_dialog(self):
+        """
+        点击生成静态表按钮，弹出对话框
+        """
+        dlg = StaticTableDlg()
+        dlg.exec()
+
     def generate_action_bin(self):
         '''
         生成动作表的.bin文件
@@ -345,12 +356,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             hex_string_to_binary_file(hex_str, output_file_path)
         QMessageBox.information(None, "Success", f"新动作ID生成成功！\n文件所在目录：{base_path}")
 
-    def show_generate_static_dialog(self):
-        """
-        点击生成静态表按钮，弹出对话框
-        """
-        dlg = StaticTableDlg()
-        dlg.exec()
     def generate_dynamic_bin(self):
         '''
         生成动态表.bin文件
@@ -393,6 +398,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 生成动态表的.bin文件
         output_file_path = base_path + os.path.sep + 'DT_' + format_id + '.bin'
         hex_string_to_binary_file(combined_hex_string, output_file_path)
+        print(f"动态表生成成功！\n文件所在目录：{base_path}")
 
         # ------------------------生成动态表的Excel文件-------------------------
         excel_records = []

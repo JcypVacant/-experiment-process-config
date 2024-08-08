@@ -126,14 +126,17 @@ class StaticTableDlg(QDialog, Ui_StaticTable):
         生成静态表.bin文件
         :return:
         """
+        if self.dynamic_count == 0:
+            if len(self.lineEdit.text()) == 0:
+                QMessageBox.information(None, "Success", "没有静态表需要生成，请先获取数据！")
+                return
+            self.dynamic_count = int(self.lineEdit.text())
+            self.experimental_total_hex = format(self.dynamic_count, '02X')
         # 读取静态表中间.bin
         self.middle_bin = self.read_txt_file('static_middle_bin.txt')
         # 读取静态表尾部.bin
         self.tail_bin = self.read_txt_file('static_tail_bin.txt')
         # 计算静态表总.bin
-        if self.dynamic_count == 0:
-            self.dynamic_count = int(self.lineEdit.text())
-            self.experimental_total_hex = format(self.dynamic_count, '02X')
         self.total_bin = self.experimental_total_hex + self.middle_bin + self.actions_bin + self.tail_bin
 
         # 获取今天的月份和日期，并格式化为字符串
@@ -141,7 +144,7 @@ class StaticTableDlg(QDialog, Ui_StaticTable):
         month_day_str = today.strftime('%m%d')
 
         # 将生成的静态表写入文件
-        if len(self.total_bin) == 0:
+        if len(self.actions_bin) == 0 or self.dynamic_count == 0:
             QMessageBox.information(None, "Success", "没有静态表需要生成！")
             return
         # 文件夹不存在则创建
