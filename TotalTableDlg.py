@@ -2,7 +2,7 @@ import os
 import re
 from PySide6.QtWidgets import QDialog, QMessageBox
 from ui.totaltable import Ui_TotalTable
-from utils.data_utils import get_config, hex_string_to_binary_file
+from utils.data_utils import hex_string_to_binary_file
 from tkinter import Tk, filedialog
 
 
@@ -40,8 +40,8 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.total_table_length_val_hex = ''
         # 总表配置值
         self.total_table_config = '00F0'
-        # 电机的参数配置值
-        self.motor_hex_str = ''
+        # 电机的参数默认配置值
+        self.motor_hex_str = '00C0'
         # 表头的十六进制参数值
         self.table_head_hex = ''
         # 总表的十六进制参数值
@@ -49,23 +49,23 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         # 表头+3总表(3次总表)的十六进制配置值
         self.finally_total_table_hex = ''
         # 读取配置
-        furnace_config = get_config('E')
+        # furnace_config = get_config('E')
         # ------------电机选择--------------
-        self.motor1_val = furnace_config["motor_select"]["motor_1"]
-        self.motor2_val = furnace_config["motor_select"]["motor_2"]
-        self.motor3_val = furnace_config["motor_select"]["motor_3"]
-        self.motor4_val = furnace_config["motor_select"]["motor_4"]
-        self.motor5_val = furnace_config["motor_select"]["motor_5"]
+        # self.motor1_val = furnace_config["motor_select"]["motor_1"]
+        # self.motor2_val = furnace_config["motor_select"]["motor_2"]
+        # self.motor3_val = furnace_config["motor_select"]["motor_3"]
+        # self.motor4_val = furnace_config["motor_select"]["motor_4"]
+        # self.motor5_val = furnace_config["motor_select"]["motor_5"]
         # 获取配置参数的16进制编码
-        self.motor_selection_hex = self.get_motor_selection_hex()
+        #self.motor_selection_hex = self.get_motor_selection_hex()
         # 电机复选框状态改变
-        self.motor_1.stateChanged.connect(self.motor1_state_changed)
-        self.motor_2.stateChanged.connect(self.motor2_state_changed)
-        self.motor_3.stateChanged.connect(self.motor3_state_changed)
-        self.motor_4.stateChanged.connect(self.motor4_state_changed)
-        self.motor_5.stateChanged.connect(self.motor5_state_changed)
+        # self.motor_1.stateChanged.connect(self.motor1_state_changed)
+        # self.motor_2.stateChanged.connect(self.motor2_state_changed)
+        # self.motor_3.stateChanged.connect(self.motor3_state_changed)
+        # self.motor_4.stateChanged.connect(self.motor4_state_changed)
+        # self.motor_5.stateChanged.connect(self.motor5_state_changed)
         # 更新界面所展示的值
-        self.update_hex_val()
+        #self.update_hex_val()
         # 获取静态表.bin文件和静态表长度
         self.totalStatic_pushButton.clicked.connect(self.get_static_length)
         # 获取总动作表.bin文件以及长度
@@ -83,79 +83,79 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         # 生成最后的表头+3总表
         self.head_total_pushButton.clicked.connect(self.generate_finally_total_table_bin)
 
-    def update_hex_val(self):
-        """
-        将十六进制值在界面上更新
-        :return:
-        """
-        # 电机选择
-        self.motor_hex_str = self.motor_selection_hex[2:] + self.motor_selection_hex[0:2]
-        self.motorHex_lineEdit.setText(self.motor_hex_str)
+    # def update_hex_val(self):
+    #     """
+    #     将十六进制值在界面上更新
+    #     :return:
+    #     """
+    #     # 电机选择
+    #     self.motor_hex_str = self.motor_selection_hex[2:] + self.motor_selection_hex[0:2]
+    #     self.motorHex_lineEdit.setText(self.motor_hex_str)
 
-    def motor1_state_changed(self, state):
-        if state == 2:
-            self.motor1_val = "11"
-        else:
-            self.motor1_val = "00"
-        # 获取配置参数的16进制编码
-        self.motor_selection_hex = self.get_motor_selection_hex()
-        # 更新界面所展示的值
-        self.update_hex_val()
+    # def motor1_state_changed(self, state):
+    #     if state == 2:
+    #         self.motor1_val = "11"
+    #     else:
+    #         self.motor1_val = "00"
+    #     # 获取配置参数的16进制编码
+    #     self.motor_selection_hex = self.get_motor_selection_hex()
+    #     # 更新界面所展示的值
+    #     self.update_hex_val()
+    #
+    # def motor2_state_changed(self, state):
+    #     if state == 2:
+    #         self.motor2_val = "11"
+    #     else:
+    #         self.motor2_val = "00"
+    #     # 获取配置参数的16进制编码
+    #     self.motor_selection_hex = self.get_motor_selection_hex()
+    #     # 更新界面所展示的值
+    #     self.update_hex_val()
+    #
+    # def motor3_state_changed(self, state):
+    #     if state == 2:
+    #         self.motor3_val = "11"
+    #     else:
+    #         self.motor3_val = "00"
+    #     # 获取配置参数的16进制编码
+    #     self.motor_selection_hex = self.get_motor_selection_hex()
+    #     # 更新界面所展示的值
+    #     self.update_hex_val()
+    #
+    # def motor4_state_changed(self, state):
+    #     if state == 2:
+    #         self.motor4_val = "11"
+    #     else:
+    #         self.motor4_val = "00"
+    #     # 获取配置参数的16进制编码
+    #     self.motor_selection_hex = self.get_motor_selection_hex()
+    #     # 更新界面所展示的值
+    #     self.update_hex_val()
+    #
+    # def motor5_state_changed(self, state):
+    #     if state == 2:
+    #         self.motor5_val = "11"
+    #     else:
+    #         self.motor5_val = "00"
+    #     # 获取配置参数的16进制编码
+    #     self.motor_selection_hex = self.get_motor_selection_hex()
+    #     # 更新界面所展示的值
+    #     self.update_hex_val()
 
-    def motor2_state_changed(self, state):
-        if state == 2:
-            self.motor2_val = "11"
-        else:
-            self.motor2_val = "00"
-        # 获取配置参数的16进制编码
-        self.motor_selection_hex = self.get_motor_selection_hex()
-        # 更新界面所展示的值
-        self.update_hex_val()
-
-    def motor3_state_changed(self, state):
-        if state == 2:
-            self.motor3_val = "11"
-        else:
-            self.motor3_val = "00"
-        # 获取配置参数的16进制编码
-        self.motor_selection_hex = self.get_motor_selection_hex()
-        # 更新界面所展示的值
-        self.update_hex_val()
-
-    def motor4_state_changed(self, state):
-        if state == 2:
-            self.motor4_val = "11"
-        else:
-            self.motor4_val = "00"
-        # 获取配置参数的16进制编码
-        self.motor_selection_hex = self.get_motor_selection_hex()
-        # 更新界面所展示的值
-        self.update_hex_val()
-
-    def motor5_state_changed(self, state):
-        if state == 2:
-            self.motor5_val = "11"
-        else:
-            self.motor5_val = "00"
-        # 获取配置参数的16进制编码
-        self.motor_selection_hex = self.get_motor_selection_hex()
-        # 更新界面所展示的值
-        self.update_hex_val()
-
-    def get_motor_selection_hex(self):
-        """
-        返回电机配置值对应的十六进制
-        :return:
-        """
-        val = self.motor5_val + self.motor4_val + self.motor3_val + self.motor2_val + self.motor1_val
-        binary_str = "1100" + val + "00"
-        # 提取前8个字符和后8个字符
-        part1 = binary_str[:8]
-        part2 = binary_str[8:]
-        # 转换为十六进制，并确保每个部分是两个字符
-        hex1 = format(int(part1, 2), '02X')
-        hex2 = format(int(part2, 2), '02X')
-        return hex1 + hex2
+    # def get_motor_selection_hex(self):
+    #     """
+    #     返回电机配置值对应的十六进制
+    #     :return:
+    #     """
+    #     val = self.motor5_val + self.motor4_val + self.motor3_val + self.motor2_val + self.motor1_val
+    #     binary_str = "1100" + val + "00"
+    #     # 提取前8个字符和后8个字符
+    #     part1 = binary_str[:8]
+    #     part2 = binary_str[8:]
+    #     # 转换为十六进制，并确保每个部分是两个字符
+    #     hex1 = format(int(part1, 2), '02X')
+    #     hex2 = format(int(part2, 2), '02X')
+    #     return hex1 + hex2
 
     def get_static_length(self):
         """

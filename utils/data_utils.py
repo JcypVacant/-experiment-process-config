@@ -8,7 +8,7 @@ data_dict = {0: "0炉子开关.txt", 1: "1炉丝电机.txt", 2: "2转机1.txt", 
 conf_dict = {0: "FurnaceSwitch.yaml", 1: "HearthWireMotor.yaml", 2: "Transfer1.yaml", 3: "Sample2.yaml",
              4: "Stove3.yaml", 5: "Stove4.yaml", 6: "Stove5.yaml", 7: "MotorStatusInquiry.yaml", 8: "MagneticField.yaml",
              9: "MotorMagneticFieldCurrent.yaml", "A": "FurnaceWireHeating.yaml", "B": "PIDTemperatureControl.yaml",
-             "C": "OnlineMonitoringStatus.yaml", "D": "MotorClosing.yaml", "E": "MotorSwitch.yaml"}
+             "C": "OnlineMonitoringStatus.yaml", "D": "MotorClosing.yaml"}
 
 base_path = os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + os.path.sep + "..")
 data_file_path = base_path + "\\data\\"

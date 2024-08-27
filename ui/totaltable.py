@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel,
+    QLineEdit, QPushButton, QSizePolicy, QVBoxLayout,
+    QWidget)
 
 class Ui_TotalTable(object):
     def setupUi(self, TotalTable):
@@ -29,46 +29,7 @@ class Ui_TotalTable(object):
         self.totalTable_lineEdit.setGeometry(QRect(100, 210, 132, 20))
         self.label_7 = QLabel(TotalTable)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setGeometry(QRect(300, 20, 71, 21))
-        self.motorHex_lineEdit = QLineEdit(TotalTable)
-        self.motorHex_lineEdit.setObjectName(u"motorHex_lineEdit")
-        self.motorHex_lineEdit.setGeometry(QRect(260, 50, 161, 21))
-        self.layoutWidget1 = QWidget(TotalTable)
-        self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(20, 50, 235, 22))
-        self.horizontalLayout = QHBoxLayout(self.layoutWidget1)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.motor_select = QLabel(self.layoutWidget1)
-        self.motor_select.setObjectName(u"motor_select")
-
-        self.horizontalLayout.addWidget(self.motor_select)
-
-        self.motor_1 = QCheckBox(self.layoutWidget1)
-        self.motor_1.setObjectName(u"motor_1")
-
-        self.horizontalLayout.addWidget(self.motor_1)
-
-        self.motor_2 = QCheckBox(self.layoutWidget1)
-        self.motor_2.setObjectName(u"motor_2")
-
-        self.horizontalLayout.addWidget(self.motor_2)
-
-        self.motor_3 = QCheckBox(self.layoutWidget1)
-        self.motor_3.setObjectName(u"motor_3")
-
-        self.horizontalLayout.addWidget(self.motor_3)
-
-        self.motor_4 = QCheckBox(self.layoutWidget1)
-        self.motor_4.setObjectName(u"motor_4")
-
-        self.horizontalLayout.addWidget(self.motor_4)
-
-        self.motor_5 = QCheckBox(self.layoutWidget1)
-        self.motor_5.setObjectName(u"motor_5")
-
-        self.horizontalLayout.addWidget(self.motor_5)
-
+        self.label_7.setGeometry(QRect(330, 40, 71, 21))
         self.layoutWidget2 = QWidget(TotalTable)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
         self.layoutWidget2.setGeometry(QRect(21, 120, 212, 22))
@@ -220,6 +181,9 @@ class Ui_TotalTable(object):
 
         self.horizontalLayout_6.addWidget(self.head_total_pushButton)
 
+        self.label_8 = QLabel(TotalTable)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(130, 40, 71, 21))
 
         self.retranslateUi(TotalTable)
 
@@ -229,12 +193,6 @@ class Ui_TotalTable(object):
     def retranslateUi(self, TotalTable):
         TotalTable.setWindowTitle(QCoreApplication.translate("TotalTable", u"Dialog", None))
         self.label_7.setText(QCoreApplication.translate("TotalTable", u"\u5341\u516d\u8fdb\u5236\u503c", None))
-        self.motor_select.setText(QCoreApplication.translate("TotalTable", u"\u7535\u673a\u9009\u62e9", None))
-        self.motor_1.setText(QCoreApplication.translate("TotalTable", u"1", None))
-        self.motor_2.setText(QCoreApplication.translate("TotalTable", u"2", None))
-        self.motor_3.setText(QCoreApplication.translate("TotalTable", u"3", None))
-        self.motor_4.setText(QCoreApplication.translate("TotalTable", u"4", None))
-        self.motor_5.setText(QCoreApplication.translate("TotalTable", u"5", None))
         self.label_3.setText(QCoreApplication.translate("TotalTable", u"\u52a8\u4f5c\u8868\u957f\u5ea6\uff1a", None))
         self.label_5.setText(QCoreApplication.translate("TotalTable", u"\u52a8\u6001\u8868\u957f\u5ea6\uff1a", None))
         self.label_4.setText(QCoreApplication.translate("TotalTable", u"\u76d1\u63a7\u8868\u957f\u5ea6\uff1a", None))
@@ -253,5 +211,6 @@ class Ui_TotalTable(object):
         self.tableHead_pushButton.setText(QCoreApplication.translate("TotalTable", u"\u751f\u6210\u8868\u5934", None))
         self.totalTable_pushButton.setText(QCoreApplication.translate("TotalTable", u"\u751f\u6210\u603b\u8868", None))
         self.head_total_pushButton.setText(QCoreApplication.translate("TotalTable", u"\u8868\u5934+3\u603b\u8868", None))
+        self.label_8.setText(QCoreApplication.translate("TotalTable", u"\u957f\u5ea6", None))
     # retranslateUi
 

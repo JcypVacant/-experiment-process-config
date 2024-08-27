@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
-    <height>791</height>
+    <width>480</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>170</x>
      <y>10</y>
      <width>91</width>
      <height>41</height>
@@ -32,8 +32,8 @@
   <widget class="QPushButton" name="confirmPushButton">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>720</y>
+     <x>240</x>
+     <y>500</y>
      <width>75</width>
      <height>24</height>
     </rect>
@@ -45,8 +45,8 @@
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>720</y>
+     <x>360</x>
+     <y>500</y>
      <width>75</width>
      <height>24</height>
     </rect>
@@ -58,10 +58,10 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>80</x>
      <y>70</y>
-     <width>362</width>
-     <height>536</height>
+     <width>291</width>
+     <height>201</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -83,62 +83,6 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>动作起始条件：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="startConditionLineEdit"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>动作名称与描述：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="descTextEdit"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>动作结束判据：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="endCriterionLineEdit"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
-      <item>
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>本动作多长时间后下一个动作：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="intervalLineEdit"/>
-      </item>
-     </layout>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
        <widget class="QLabel" name="label_7">
@@ -152,27 +96,13 @@
       </item>
      </layout>
     </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_7">
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>备注：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="remarkTextEdit"/>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>660</y>
+     <x>80</x>
+     <y>400</y>
      <width>189</width>
      <height>22</height>
     </rect>
@@ -193,8 +123,8 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>620</y>
+     <x>80</x>
+     <y>320</y>
      <width>291</width>
      <height>26</height>
     </rect>

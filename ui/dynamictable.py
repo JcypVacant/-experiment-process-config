@@ -22,19 +22,16 @@ class Ui_DynamicTable(object):
     def setupUi(self, DynamicTable):
         if not DynamicTable.objectName():
             DynamicTable.setObjectName(u"DynamicTable")
-        DynamicTable.resize(269, 219)
+        DynamicTable.resize(242, 194)
         self.dynamic_pushButton = QPushButton(DynamicTable)
         self.dynamic_pushButton.setObjectName(u"dynamic_pushButton")
-        self.dynamic_pushButton.setGeometry(QRect(150, 170, 75, 24))
+        self.dynamic_pushButton.setGeometry(QRect(80, 130, 75, 24))
         self.dynamic_lineEdit = QLineEdit(DynamicTable)
         self.dynamic_lineEdit.setObjectName(u"dynamic_lineEdit")
-        self.dynamic_lineEdit.setGeometry(QRect(120, 80, 91, 20))
+        self.dynamic_lineEdit.setGeometry(QRect(120, 60, 91, 20))
         self.label = QLabel(DynamicTable)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(30, 80, 81, 21))
-        self.label_2 = QLabel(DynamicTable)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(70, 10, 111, 21))
+        self.label.setGeometry(QRect(30, 60, 81, 21))
 
         self.retranslateUi(DynamicTable)
 
@@ -45,6 +42,5 @@ class Ui_DynamicTable(object):
         DynamicTable.setWindowTitle(QCoreApplication.translate("DynamicTable", u"Dialog", None))
         self.dynamic_pushButton.setText(QCoreApplication.translate("DynamicTable", u"\u786e\u5b9a", None))
         self.label.setText(QCoreApplication.translate("DynamicTable", u"\u52a8\u6001\u914d\u7f6e\u5e8f\u53f7\uff1a", None))
-        self.label_2.setText(QCoreApplication.translate("DynamicTable", u"\u8f93\u5165\u52a8\u6001\u8868\u914d\u7f6e\u5e8f\u53f7", None))
     # retranslateUi
 

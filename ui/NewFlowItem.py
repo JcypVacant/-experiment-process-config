@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'newflowitem.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.2
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -17,26 +17,26 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDialog, QHBoxLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QTextEdit, QVBoxLayout, QWidget)
+    QVBoxLayout, QWidget)
 
 class Ui_NewFlowItem(object):
     def setupUi(self, NewFlowItem):
         if not NewFlowItem.objectName():
             NewFlowItem.setObjectName(u"NewFlowItem")
-        NewFlowItem.resize(520, 791)
+        NewFlowItem.resize(480, 580)
         NewFlowItem.setModal(True)
         self.label = QLabel(NewFlowItem)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(210, 10, 91, 41))
+        self.label.setGeometry(QRect(170, 10, 91, 41))
         self.confirmPushButton = QPushButton(NewFlowItem)
         self.confirmPushButton.setObjectName(u"confirmPushButton")
-        self.confirmPushButton.setGeometry(QRect(270, 720, 75, 24))
+        self.confirmPushButton.setGeometry(QRect(240, 500, 75, 24))
         self.pushButton_3 = QPushButton(NewFlowItem)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(380, 720, 75, 24))
+        self.pushButton_3.setGeometry(QRect(360, 500, 75, 24))
         self.layoutWidget = QWidget(NewFlowItem)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(90, 70, 362, 536))
+        self.layoutWidget.setGeometry(QRect(80, 70, 291, 201))
         self.verticalLayout = QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setSpacing(20)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -56,66 +56,6 @@ class Ui_NewFlowItem(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.label_3 = QLabel(self.layoutWidget)
-        self.label_3.setObjectName(u"label_3")
-
-        self.horizontalLayout_2.addWidget(self.label_3)
-
-        self.startConditionLineEdit = QLineEdit(self.layoutWidget)
-        self.startConditionLineEdit.setObjectName(u"startConditionLineEdit")
-
-        self.horizontalLayout_2.addWidget(self.startConditionLineEdit)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
-
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.label_4 = QLabel(self.layoutWidget)
-        self.label_4.setObjectName(u"label_4")
-
-        self.horizontalLayout_3.addWidget(self.label_4)
-
-        self.descTextEdit = QTextEdit(self.layoutWidget)
-        self.descTextEdit.setObjectName(u"descTextEdit")
-
-        self.horizontalLayout_3.addWidget(self.descTextEdit)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
-
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.label_5 = QLabel(self.layoutWidget)
-        self.label_5.setObjectName(u"label_5")
-
-        self.horizontalLayout_4.addWidget(self.label_5)
-
-        self.endCriterionLineEdit = QLineEdit(self.layoutWidget)
-        self.endCriterionLineEdit.setObjectName(u"endCriterionLineEdit")
-
-        self.horizontalLayout_4.addWidget(self.endCriterionLineEdit)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_4)
-
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.label_6 = QLabel(self.layoutWidget)
-        self.label_6.setObjectName(u"label_6")
-
-        self.horizontalLayout_5.addWidget(self.label_6)
-
-        self.intervalLineEdit = QLineEdit(self.layoutWidget)
-        self.intervalLineEdit.setObjectName(u"intervalLineEdit")
-
-        self.horizontalLayout_5.addWidget(self.intervalLineEdit)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_5)
-
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.label_7 = QLabel(self.layoutWidget)
@@ -131,24 +71,9 @@ class Ui_NewFlowItem(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_6)
 
-        self.horizontalLayout_7 = QHBoxLayout()
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.label_8 = QLabel(self.layoutWidget)
-        self.label_8.setObjectName(u"label_8")
-
-        self.horizontalLayout_7.addWidget(self.label_8)
-
-        self.remarkTextEdit = QTextEdit(self.layoutWidget)
-        self.remarkTextEdit.setObjectName(u"remarkTextEdit")
-
-        self.horizontalLayout_7.addWidget(self.remarkTextEdit)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_7)
-
         self.layoutWidget1 = QWidget(NewFlowItem)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(90, 660, 189, 22))
+        self.layoutWidget1.setGeometry(QRect(80, 400, 189, 22))
         self.horizontalLayout_8 = QHBoxLayout(self.layoutWidget1)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setContentsMargins(0, 0, 0, 0)
@@ -164,7 +89,7 @@ class Ui_NewFlowItem(object):
 
         self.layoutWidget2 = QWidget(NewFlowItem)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(90, 620, 291, 26))
+        self.layoutWidget2.setGeometry(QRect(80, 320, 291, 26))
         self.horizontalLayout_9 = QHBoxLayout(self.layoutWidget2)
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
         self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
@@ -206,12 +131,7 @@ class Ui_NewFlowItem(object):
         self.confirmPushButton.setText(QCoreApplication.translate("NewFlowItem", u"\u786e\u5b9a", None))
         self.pushButton_3.setText(QCoreApplication.translate("NewFlowItem", u"\u53d6\u6d88", None))
         self.label_2.setText(QCoreApplication.translate("NewFlowItem", u"\u8d77\u59cb\u65f6\u523b\uff1a", None))
-        self.label_3.setText(QCoreApplication.translate("NewFlowItem", u"\u52a8\u4f5c\u8d77\u59cb\u6761\u4ef6\uff1a", None))
-        self.label_4.setText(QCoreApplication.translate("NewFlowItem", u"\u52a8\u4f5c\u540d\u79f0\u4e0e\u63cf\u8ff0\uff1a", None))
-        self.label_5.setText(QCoreApplication.translate("NewFlowItem", u"\u52a8\u4f5c\u7ed3\u675f\u5224\u636e\uff1a", None))
-        self.label_6.setText(QCoreApplication.translate("NewFlowItem", u"\u672c\u52a8\u4f5c\u591a\u957f\u65f6\u95f4\u540e\u4e0b\u4e00\u4e2a\u52a8\u4f5c\uff1a", None))
         self.label_7.setText(QCoreApplication.translate("NewFlowItem", u"\u52a8\u4f5c\u65f6\u95f4\uff08s\uff09\uff1a", None))
-        self.label_8.setText(QCoreApplication.translate("NewFlowItem", u"\u5907\u6ce8\uff1a", None))
         self.label_9.setText(QCoreApplication.translate("NewFlowItem", u"\u52a8\u4f5cID\uff1a", None))
         self.actionComboBox.setItemText(0, QCoreApplication.translate("NewFlowItem", u"0\u7089\u5b50\u5f00\u5173", None))
         self.actionComboBox.setItemText(1, QCoreApplication.translate("NewFlowItem", u"1\u7089\u4e1d\u7535\u673a\u53c2\u6570", None))

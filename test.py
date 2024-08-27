@@ -1,45 +1,23 @@
-import sqlite3
+import os
+#
+# from utils.data_utils import store_data
+#
+# data_list = ['2500F0C03300190033001a0083001b000F00FA00CC000201', '4110C0C30B002F00000031', '18F0640064006400640064006400640064006400640064006400']
+#
+# # 遍历每一个数据项并处理
+# for data in data_list:
+#     # 获取前四个字符并重新排列
+#     original_prefix = data[:4].upper()
+#     # 动作ID
+#     action_id = original_prefix[2:4] + original_prefix[0:2]
+#     # 参数编码
+#     config_code = data[4:].upper()
+#     # 打印输出
+#     print("更新动作表》》》》》》》》")
+#     print(f"{action_id} -> {config_code}")
+#     # 保存到.txt文件
+#     action_code = action_id[0:1]
+#     if action_code.isdigit():
+#         action_code = int(action_code)
+#     store_data(action_id + " " + config_code, action_code)
 
-# def initialize_database():
-#     conn = sqlite3.connect('experimental-flow.db')
-#     cursor = conn.cursor()
-#     # 创建表 dynamic_num
-#     cursor.execute('''
-#         CREATE TABLE IF NOT EXISTS dynamic_num (
-#             id INTEGER PRIMARY KEY AUTOINCREMENT,
-#             dynamic_id INTEGER
-#         )
-#         ''')
-#
-#     # 创建表 experiment_flow
-#     cursor.execute('''
-#             CREATE TABLE IF NOT EXISTS experiment_flow (
-#                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-#                 start_time INTEGER,
-#                 action_id TEXT,
-#                 action_time INTEGER
-#             )
-#             ''')
-#     conn.commit()
-#     conn.close()
-# import os
-# import sqlite3
-# import sys
-#
-#
-# def get_database_path():
-#     # 获取当前运行脚本的路径
-#     if getattr(sys, 'frozen', False):
-#         # 运行在打包环境中
-#         base_path = sys._MEIPASS
-#     else:
-#         # 开发环境
-#         base_path = os.path.dirname(__file__)
-#     return os.path.join(base_path, 'experimental-flow.db')
-#
-# def connect_to_database():
-#     db_path = get_database_path()
-#     return sqlite3.connect(db_path)
-
-# if __name__ == "__main__":
-#     initialize_database()

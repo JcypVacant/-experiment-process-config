@@ -1,95 +1,95 @@
 import os
-import sqlite3 as sqlite
+# import sqlite3 as sqlite
 import pandas as pd
 import numpy
 
-def create_connection():
-    """ 创建数据库连接 """
-    conn = sqlite.connect('experimental-flow.db')
-    return conn
+# def create_connection():
+#     """ 创建数据库连接 """
+#     conn = sqlite.connect('experimental-flow.db')
+#     return conn
 
-def create_table(conn):
-    """ 创建表 dynamic_num 和 experiment_flow """
-    cursor = conn.cursor()
+# def create_table(conn):
+#     """ 创建表 dynamic_num 和 experiment_flow """
+#     cursor = conn.cursor()
+#
+#     # 创建表 dynamic_num
+#     cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS dynamic_num (
+#         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         dynamic_id INTEGER
+#     )
+#     ''')
+#
+#     # 插入默认数据到 dynamic_num 表中，如果表是新创建的
+#     cursor.execute('''
+#         INSERT INTO dynamic_num (dynamic_id)
+#         SELECT -1
+#         WHERE NOT EXISTS (SELECT 1 FROM dynamic_num)
+#         ''')
+#
+#     # 创建表 experiment_flow
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS experiment_flow (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             start_time INTEGER,
+#             action_id TEXT,
+#             action_time INTEGER
+#         )
+#         ''')
+#     conn.commit()
 
-    # 创建表 dynamic_num
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS dynamic_num (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        dynamic_id INTEGER
-    )
-    ''')
+# def insert_dynamic_num(conn, dynamic_id):
+#     """ 插入 dynamic_num 记录 """
+#     cursor = conn.cursor()
+#     cursor.execute('INSERT INTO dynamic_num (dynamic_id) VALUES (?)', (dynamic_id,))
+#     conn.commit()
 
-    # 插入默认数据到 dynamic_num 表中，如果表是新创建的
-    cursor.execute('''
-        INSERT INTO dynamic_num (dynamic_id)
-        SELECT -1
-        WHERE NOT EXISTS (SELECT 1 FROM dynamic_num)
-        ''')
+# def fetch_dynamic_num_by_id(conn):
+#     """查询id等于1的dynamic_id记录"""
+#     cursor = conn.cursor()
+#     id = 1
+#     cursor.execute('SELECT * FROM dynamic_num WHERE id = ?', (id,))
+#     return cursor.fetchone()
+# def update_dynamic_id_by_id(conn):
+#     """ 更新 id 等于给定值的 dynamic_id 加1 """
+#     cursor = conn.cursor()
+#     id = 1
+#     cursor.execute('UPDATE dynamic_num SET dynamic_id = dynamic_id + 1 WHERE id = ?', (id,))
+#     conn.commit()
 
-    # 创建表 experiment_flow
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS experiment_flow (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            start_time INTEGER,
-            action_id TEXT,
-            action_time INTEGER
-        )
-        ''')
-    conn.commit()
+# def insert_experiment_flow(conn, start_time, action_id, action_time):
+#     """ 插入 experiment_flow 记录 """
+#     action_id = action_id.upper()
+#     cursor = conn.cursor()
+#     cursor.execute('INSERT INTO experiment_flow (start_time, action_id, action_time) VALUES (?, ?, ?)',
+#                    (start_time, action_id, action_time))
+#     conn.commit()
+#
+#     # 检查是否需要插入额外的记录
+#     if action_time == 65535:
+#         # 查询已插入的记录数
+#         cursor.execute('SELECT COUNT(*) FROM experiment_flow')
+#         count = cursor.fetchone()[0]
+#
+#         # 计算需要插入的额外记录数
+#         if count < 128:
+#             records_to_insert = 128 - count
+#             for _ in range(records_to_insert):
+#                 cursor.execute('INSERT INTO experiment_flow (start_time, action_id, action_time) VALUES (?, ?, ?)',
+#                                (4294967295, 'FFFF', 65535))
+#             conn.commit()
 
-def insert_dynamic_num(conn, dynamic_id):
-    """ 插入 dynamic_num 记录 """
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO dynamic_num (dynamic_id) VALUES (?)', (dynamic_id,))
-    conn.commit()
+# def fetch_all_dynamic_num(conn):
+#     """ 查询所有 dynamic_num 记录 """
+#     cursor = conn.cursor()
+#     cursor.execute('SELECT * FROM dynamic_num')
+#     return cursor.fetchall()
 
-def fetch_dynamic_num_by_id(conn):
-    """查询id等于1的dynamic_id记录"""
-    cursor = conn.cursor()
-    id = 1
-    cursor.execute('SELECT * FROM dynamic_num WHERE id = ?', (id,))
-    return cursor.fetchone()
-def update_dynamic_id_by_id(conn):
-    """ 更新 id 等于给定值的 dynamic_id 加1 """
-    cursor = conn.cursor()
-    id = 1
-    cursor.execute('UPDATE dynamic_num SET dynamic_id = dynamic_id + 1 WHERE id = ?', (id,))
-    conn.commit()
-
-def insert_experiment_flow(conn, start_time, action_id, action_time):
-    """ 插入 experiment_flow 记录 """
-    action_id = action_id.upper()
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO experiment_flow (start_time, action_id, action_time) VALUES (?, ?, ?)',
-                   (start_time, action_id, action_time))
-    conn.commit()
-
-    # 检查是否需要插入额外的记录
-    if action_time == 65535:
-        # 查询已插入的记录数
-        cursor.execute('SELECT COUNT(*) FROM experiment_flow')
-        count = cursor.fetchone()[0]
-
-        # 计算需要插入的额外记录数
-        if count < 128:
-            records_to_insert = 128 - count
-            for _ in range(records_to_insert):
-                cursor.execute('INSERT INTO experiment_flow (start_time, action_id, action_time) VALUES (?, ?, ?)',
-                               (4294967295, 'FFFF', 65535))
-            conn.commit()
-
-def fetch_all_dynamic_num(conn):
-    """ 查询所有 dynamic_num 记录 """
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM dynamic_num')
-    return cursor.fetchall()
-
-def fetch_all_experiment_flow(conn):
-    """ 查询所有 experiment_flow 记录 """
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM experiment_flow')
-    return cursor.fetchall()
+# def fetch_all_experiment_flow(conn):
+#     """ 查询所有 experiment_flow 记录 """
+#     cursor = conn.cursor()
+#     cursor.execute('SELECT * FROM experiment_flow')
+#     return cursor.fetchall()
 
 def format_start_time(start_time):
     """ 将 start_time 转换为十六进制并反转 """
@@ -107,15 +107,15 @@ def format_action_time(action_time):
     hex_action_time = format(action_time, '04X')
     return hex_action_time
 
-def process_experiment_flow_records(records):
-    """ 处理 experiment_flow 记录 """
+def process_dynamic_info_records(records):
+    """ 处理 process_dynamic_info_records 记录 """
     processed_records = []
     for record in records:
-        record_id, start_time, action_id, action_time = record
+        start_time, action_id, action_time = record
         formatted_start_time = format_start_time(start_time)
         formatted_action_id = format_action_id(action_id)
         formatted_action_time = format_action_time(action_time)
-        processed_records.append((record_id, formatted_start_time, formatted_action_id, formatted_action_time))
+        processed_records.append((formatted_start_time, formatted_action_id, formatted_action_time))
     return processed_records
 
 def format_four_digits(dynamic_id):
@@ -132,17 +132,17 @@ def format_max_action(max_action_num):
     reversed_hex_max_action_num = ''.join([hex_max_action_num[i:i+2] for i in range(0, len(hex_max_action_num), 2)][::-1])
     return reversed_hex_max_action_num
 
-def delete_all_experiment_flow_data(conn):
-    """ 删除 experiment_flow 表中的所有数据 """
-    cursor = conn.cursor()
-    cursor.execute('DELETE FROM experiment_flow')
-    conn.commit()
-
-def drop_experiment_flow_table(conn):
-    """ 删除 experiment_flow 表 """
-    cursor = conn.cursor()
-    cursor.execute('DROP TABLE IF EXISTS experiment_flow')
-    conn.commit()
+# def delete_all_experiment_flow_data(conn):
+#     """ 删除 experiment_flow 表中的所有数据 """
+#     cursor = conn.cursor()
+#     cursor.execute('DELETE FROM experiment_flow')
+#     conn.commit()
+#
+# def drop_experiment_flow_table(conn):
+#     """ 删除 experiment_flow 表 """
+#     cursor = conn.cursor()
+#     cursor.execute('DROP TABLE IF EXISTS experiment_flow')
+#     conn.commit()
 
 
 def save_to_excel(data, filename):
@@ -183,8 +183,8 @@ def save_to_excel(data, filename):
 #
 #     return bin_contents
     # 创建数据库连接
-    conn = create_connection()
-    create_table(conn)
+    # conn = create_connection()
+    # create_table(conn)
     # 示例调用
     # bin_files_contents = read_bin_files_to_string()
     #

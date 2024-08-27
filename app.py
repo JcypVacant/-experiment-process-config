@@ -26,7 +26,7 @@ from online_monitoring_status_dlg import OnlineMonitoringStatusDlg
 from motor_closing_dlg import MotorClosingDlg
 from online_monitoring_head_dlg import OnlineMonitoringHeadDlg
 from PID_config_settings_dlg import PIDConfigSettingsDlg
-from utils.data_utils import hex_string_to_binary_file, clear_data, load_action_bin_to_data
+from utils.data_utils import hex_string_to_binary_file, clear_data, load_action_bin_to_data, store_data
 from db_utils import *
 
 
@@ -81,6 +81,9 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.actionComboBox.currentIndexChanged.connect(self.changeCurrentIndex)
         # 点击确定按钮
         self.confirmPushButton.clicked.connect(self.commitFlowItem)
+        # 点击取消按钮
+        self.pushButton_3.clicked.connect(self.closeFlowItem)
+        # 动作参数配置信号
         # 流程项对象
         self.flow_item = FlowItem()
 
@@ -91,12 +94,12 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         """
         # 封装流程项信息
         self.flow_item.startTime = self.startTimeLineEdit.text()
-        self.flow_item.startCondition = self.startConditionLineEdit.text()
-        self.flow_item.descText = self.descTextEdit.toPlainText()
-        self.flow_item.endCriterion = self.endCriterionLineEdit.text()
-        self.flow_item.interval = self.intervalLineEdit.text()
+        # self.flow_item.startCondition = self.startConditionLineEdit.text()
+        # self.flow_item.descText = self.descTextEdit.toPlainText()
+        # self.flow_item.endCriterion = self.endCriterionLineEdit.text()
+        # self.flow_item.interval = self.intervalLineEdit.text()
         self.flow_item.duration = self.durationLineEdit.text()
-        self.flow_item.remark = self.remarkTextEdit.toPlainText()
+        # self.flow_item.remark = self.remarkTextEdit.toPlainText()
         self.flow_item.actionID = self.actionIDLineEdit.text()
         self.flow_item.config_hex = self.config_hex
         self.flow_item.is_new_action = self.is_new_action
@@ -110,6 +113,15 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         # 发送信号
         self.flow_item_signal.emit(self.flow_item)
         # 发送完信号关闭
+        self.close()
+
+    def closeFlowItem(self):
+        """
+        清空输入框内容并关闭新建实验流程项对话框
+        """
+        self.startTimeLineEdit.clear()
+        self.durationLineEdit.clear()
+        self.actionIDLineEdit.clear()
         self.close()
 
     def show_action_config_dialog(self):
@@ -211,6 +223,30 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.is_new_action = is_new_action
 
 
+class DynamicTableDlg(QDialog, Ui_DynamicTable):
+    """
+    动态表生成对话框
+    """
+
+    def __init__(self):
+        super(DynamicTableDlg, self).__init__()
+        self.setupUi(self)
+        self.input_data = ""
+        # 点击确定按钮
+        self.dynamic_pushButton.clicked.connect(self.on_accept)
+
+    def on_accept(self):
+        # 获取输入数据
+        self.input_data = self.dynamic_lineEdit.text()
+        # 关闭对话框并返回 Accepted 状态
+        self.accept()
+    def get_dynamic_id(self):
+        """
+        获取动态表配置序号ID
+        """
+        return self.input_data
+
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     """
     主窗口程序
@@ -228,6 +264,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.flowTableWidget.resizeRowsToContents()
         # 存放新动作的16进制参数配置信息
         self.new_action_hex_list = []
+        # 临时存放动作参数配置的16进制编码
+        self.temp_config_hex = []
         # 存放动态表的16进制配置信息
         self.dynamic_hex_list = []
         # 生成动作表
@@ -237,11 +275,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.action_startTime = 0
         self.action_actionID = ''
         self.action_duration = 0
+        # 删除动作表流程项
+        self.deleteItemPushButton.clicked.connect(self.delete_action_item)
         # 生成动态表
         self.dynamic_id = 0  # 动态表配置序号ID
         self.MAX_ACTION_NUM = 128  # 一个实验流程最大动作数
         self.finally_action_duration = 0  # 插入的动作时间
-        self.pushButton_2.clicked.connect(self.generate_dynamic_bin)
+        self.temp_dynamic_info = []  # 临时存放动态表信息 [动作开始时间,, 动作ID, 动作时间]
+        # 点击动态表按钮
+        self.pushButton_2.clicked.connect(self.show_dynamic_table_dialog)
+        # self.pushButton_2.clicked.connect(self.generate_dynamic_bin)
         # 生成静态表
         self.pushButton_4.clicked.connect(self.show_generate_static_dialog)
         # 生成总表
@@ -294,24 +337,24 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 插入起始时间
         start_time_item = QTableWidgetItem(new_item.startTime)
         self.flowTableWidget.setItem(self.rowCount, 1, start_time_item)
-        # 插入动作起始条件
-        start_condition_item = QTableWidgetItem(new_item.startCondition)
-        self.flowTableWidget.setItem(self.rowCount, 2, start_condition_item)
-        # 插入动作名称与描述
-        desc_text_item = QTableWidgetItem(new_item.descText)
-        self.flowTableWidget.setItem(self.rowCount, 3, desc_text_item)
-        # 插入动作结束判据
-        end_criterion_item = QTableWidgetItem(new_item.endCriterion)
-        self.flowTableWidget.setItem(self.rowCount, 4, end_criterion_item)
-        # 插入多长时间后下一个动作
-        interval_item = QTableWidgetItem(new_item.interval)
-        self.flowTableWidget.setItem(self.rowCount, 5, interval_item)
+        # # 插入动作起始条件
+        # start_condition_item = QTableWidgetItem(new_item.startCondition)
+        # self.flowTableWidget.setItem(self.rowCount, 2, start_condition_item)
+        # # 插入动作名称与描述
+        # desc_text_item = QTableWidgetItem(new_item.descText)
+        # self.flowTableWidget.setItem(self.rowCount, 3, desc_text_item)
+        # # 插入动作结束判据
+        # end_criterion_item = QTableWidgetItem(new_item.endCriterion)
+        # self.flowTableWidget.setItem(self.rowCount, 4, end_criterion_item)
+        # # 插入多长时间后下一个动作
+        # interval_item = QTableWidgetItem(new_item.interval)
+        # self.flowTableWidget.setItem(self.rowCount, 5, interval_item)
         # 插入动作时间（s）
         duration_item = QTableWidgetItem(new_item.duration)
         self.flowTableWidget.setItem(self.rowCount, 6, duration_item)
-        # 插入备注
-        remark_item = QTableWidgetItem(new_item.remark)
-        self.flowTableWidget.setItem(self.rowCount, 7, remark_item)
+        # # 插入备注
+        # remark_item = QTableWidgetItem(new_item.remark)
+        # self.flowTableWidget.setItem(self.rowCount, 7, remark_item)
         # 插入动作ID
         action_ID_item = QTableWidgetItem(new_item.actionID)
         self.flowTableWidget.setItem(self.rowCount, 8, action_ID_item)
@@ -334,7 +377,36 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 如果是新动作则保存配置信息
         if new_item.is_new_action == 1:
             self.new_action_hex_list.append(new_item.config_hex)
+            self.temp_config_hex.append(new_item.config_hex)
             print(f"所有新动作的参数配置：{self.new_action_hex_list}")
+
+    def delete_action_item(self):
+        """
+        删除实验流程表中的一行实验流程项
+        :return:
+        """
+        # 获取选中的行索引
+        selected_row_index = self.flowTableWidget.currentRow()
+        print(selected_row_index)
+
+        # 如果没有选中行，selected_row_index 会是 -1，防止误删除
+        if selected_row_index < 0:
+            return
+        # 删除该行数据
+        self.flowTableWidget.removeRow(selected_row_index)
+        # 更新行索引
+        self.rowCount = self.rowCount - 1
+        # 重新设置行索引
+        for i in range(selected_row_index, self.rowCount):
+            index_item = QTableWidgetItem(str(i + 1))
+            self.flowTableWidget.setItem(i, 0, index_item)  # 更新索引
+        # 删除self.new_action_hex_list中的对应项self.temp_config_hex
+        hex_to_remove = self.temp_config_hex[selected_row_index]
+        if hex_to_remove in self.new_action_hex_list:
+            self.new_action_hex_list.remove(hex_to_remove)
+        # 删除 temp_config_hex 中的对应项
+        del self.temp_config_hex[selected_row_index]
+        print(f"所有新动作的参数配置：{self.new_action_hex_list}")
 
     def show_generate_static_dialog(self):
         """
@@ -342,7 +414,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         """
         dlg = StaticTableDlg()
         dlg.exec()
-
 
     def generate_action_bin(self):
         '''
@@ -354,7 +425,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if len(self.new_action_hex_list) == 0:
             QMessageBox.information(None, "Success", "没有新动作需要生成！")
             return
-        # print(self.new_action_hex_list)
+        print(self.new_action_hex_list)
         # 文件夹不存在则创建
         base_path = os.path.abspath('./action_bin')
         if not os.path.exists(base_path):
@@ -362,9 +433,36 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for hex_str in self.new_action_hex_list:
             output_file_path = base_path + os.path.sep + 'AT_' + hex_str[2:4] + hex_str[0:2] + '.bin'
             hex_string_to_binary_file(hex_str, output_file_path)
+
+        # --------------同时把新建动作存入.txt文件中-----------------
+        for data in self.new_action_hex_list:
+            # 获取前四个字符
+            original_prefix = data[:4].upper()
+            # 动作ID
+            action_id = original_prefix[2:4] + original_prefix[0:2]
+            # 参数编码
+            config_code = data[4:].upper()
+            # 打印输出
+            print(f">>>>>>更新动作表.txt文件:{action_id} -> {config_code}")
+            # 保存到.txt文件
+            action_code = action_id[0:1]
+            if action_code.isdigit():
+                action_code = int(action_code)
+            store_data(action_id + " " + config_code, action_code)
         QMessageBox.information(None, "Success", f"新动作ID生成成功！\n文件所在目录：{base_path}")
 
-    def generate_dynamic_bin(self):
+    def show_dynamic_table_dialog(self):
+        """
+        点击生成动态表按钮，弹出对话框
+        :return:
+        """
+        dlg = DynamicTableDlg()
+        if dlg.exec():
+            dynamic_id = dlg.get_dynamic_id()
+            print(f"动态表配置序号ID：{dynamic_id}")
+            self.generate_dynamic_bin(dynamic_id)
+
+    def generate_dynamic_bin(self, dynamicId):
         '''
         生成动态表.bin文件
         :return: void
@@ -376,35 +474,29 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             print(">>>>>>>最后一个动作时间请填65535")
             QMessageBox.information(None, "Success", "最后一个动作时间请填65535！")
             return
-        # 创建数据库连接
-        conn = create_connection()
-        # 先清空experiment_flow 表中的所有数据
-        delete_all_experiment_flow_data(conn)
+
+        # 先清空temp_dynamic_info 列表中的所有数据
+        self.temp_dynamic_info = []
         for item in self.action_info:
             start_time, action_id, duration = item
             # 插入数据
-            insert_experiment_flow(conn, start_time, action_id, duration)
-
-        # 查询动态表配置序号dynamic_id(默认为0，自增)
-        dynamic_num_record = fetch_dynamic_num_by_id(conn)
-        if dynamic_num_record:
-            self.dynamic_id = dynamic_num_record[1]
-        self.dynamic_id += 1
+            self.insert_temp_dynamic_info(start_time, action_id, duration)
+        # 动态配置序号
+        self.dynamic_id = int(dynamicId)
         # 将 dynamic_id 格式化为四位数字
         format_id = format_four_digits(self.dynamic_id)
         # 将 dynamic_id 字符串反转
         reversed_dynamic_id = format_dynamic_id(format_id)
         # 将最大动作数转换为十六进制并反转
         max_action_hex = format_max_action(self.MAX_ACTION_NUM)
-        # 存放动态表的16进制编码
+        # 将动态配置序号id和最大动作数存放动态表的16进制编码
         self.dynamic_hex_list.append(reversed_dynamic_id)
         self.dynamic_hex_list.append(max_action_hex)
 
         # 查询并处理所有记录
-        experiment_flow_records = fetch_all_experiment_flow(conn)
-        processed_records = process_experiment_flow_records(experiment_flow_records)
+        processed_records = process_dynamic_info_records(self.temp_dynamic_info)
         for record in processed_records:
-            record_id, formatted_start_time, formatted_action_id, formatted_action_time = record
+            formatted_start_time, formatted_action_id, formatted_action_time = record
             dynamic_hex = formatted_start_time + formatted_action_id + formatted_action_time
             self.dynamic_hex_list.append(dynamic_hex)
 
@@ -423,20 +515,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # ------------------------生成动态表的Excel文件-------------------------
         excel_records = []
         excel_records.append((self.dynamic_id, self.MAX_ACTION_NUM, ' '))
-        for record in experiment_flow_records:
-            record_id, start_time, action_id, action_time = record
+        for record in self.temp_dynamic_info:
+            start_time, action_id, action_time = record
             excel_records.append((start_time, action_id, action_time))
 
         excel_filename = f'DT_{format_id}.xlsx'
         # 保存到Excel文件
         save_to_excel(excel_records, excel_filename)
 
-        # 更新 id 等于给定值的 dynamic_id 加1
-        update_dynamic_id_by_id(conn)
-        # 删除 experiment_flow 表中的所有数据
-        delete_all_experiment_flow_data(conn)
-        # 关闭数据库连接
-        conn.close()
+
+        # 清空temp_dynamic_info 表中的所有数据
+        self.temp_dynamic_info = []
         self.new_action_hex_list = []
         self.action_info = []
         # ---------------清空表格信息---------------
@@ -454,6 +543,30 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 动作时间重新为0
         self.finally_action_duration = 0
         QMessageBox.information(None, "Success", f"动态表生成成功！\n文件所在目录：{base_path}")
+
+    def insert_temp_dynamic_info(self, start_time, action_id, action_time):
+        """
+        插入临时动态表信息
+        :param start_time: 动作开始时间
+        :param action_id: 动作ID
+        :param action_time: 动作持续时间
+        :return: void
+        """
+        action_id = action_id.upper()
+        self.temp_dynamic_info.append((start_time, action_id, action_time))
+
+        # 检查是否需要插入额外的记录
+        if action_time == 65535:
+            # 计算当前已插入的记录数
+            count = len(self.temp_dynamic_info)
+
+            # 计算需要插入的额外记录数
+            if count < 128:
+                records_to_insert = 128 - count
+                for _ in range(records_to_insert):
+                    self.temp_dynamic_info.append((4294967295, 'FFFF', 65535))
+
+        print(f"当前的动态信息列表: {self.temp_dynamic_info}")
 
     def show_total_table_dialog(self):
         """
