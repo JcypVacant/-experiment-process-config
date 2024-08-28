@@ -155,7 +155,7 @@ def save_to_excel(data, filename):
         os.makedirs(base_path)
     output_file_path = base_path + os.path.sep + filename
     df.to_excel(output_file_path, index=False,  header=False)
-    print(f"数据已保存到 {output_file_path}")
+    print(f"Excel文件所在目录：{output_file_path}")
 
 # def read_bin_files_to_string():
 #     """读取文件夹中的 .bin 文件并将其内容转换为字符串"""

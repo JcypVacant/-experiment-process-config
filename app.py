@@ -103,13 +103,6 @@ class NewFlowItemDlg(QDialog, Ui_NewFlowItem):
         self.flow_item.actionID = self.actionIDLineEdit.text()
         self.flow_item.config_hex = self.config_hex
         self.flow_item.is_new_action = self.is_new_action
-
-        # 创建数据库连接
-        conn = create_connection()
-        create_table(conn)
-        # 关闭数据库连接
-        conn.close()
-
         # 发送信号
         self.flow_item_signal.emit(self.flow_item)
         # 发送完信号关闭
@@ -387,7 +380,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         """
         # 获取选中的行索引
         selected_row_index = self.flowTableWidget.currentRow()
-        print(selected_row_index)
 
         # 如果没有选中行，selected_row_index 会是 -1，防止误删除
         if selected_row_index < 0:
@@ -406,7 +398,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.new_action_hex_list.remove(hex_to_remove)
         # 删除 temp_config_hex 中的对应项
         del self.temp_config_hex[selected_row_index]
-        print(f"所有新动作的参数配置：{self.new_action_hex_list}")
+        print(f"删除一项动作后，所有新动作的参数配置：{self.new_action_hex_list}")
 
     def show_generate_static_dialog(self):
         """
@@ -528,6 +520,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.temp_dynamic_info = []
         self.new_action_hex_list = []
         self.action_info = []
+
         # ---------------清空表格信息---------------
         # 获取表格中的行数和列数
         row_count = self.flowTableWidget.rowCount()

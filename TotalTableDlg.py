@@ -181,7 +181,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
                 file_length_str = str(file_length)  # 将文件字节数转换为字符串
                 file_content_hex = file_content.hex().upper()  # 转换为十六进制字符串
 
-                print(f"文件: {os.path.basename(file_path)}")
+                print(f"获取到静态表文件: {os.path.basename(file_path)}")
                 print(f"静态表字节数: {file_length}")
                 # print(f"内容字符串: {file_content_hex}")
         else:
@@ -233,7 +233,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
 
     def get_total_action(self):
         """
-        读取文件夹下所有以 AT 开头且包含四位十六进制数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数
+        读取动作表文件夹下所有以 AT 开头且包含四位十六进制数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数
         :return:
         """
         # 打开文件夹选择对话框
@@ -271,7 +271,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.actionTable_lineEdit.setText(total_length_str)
         self.action_val_hex = self.calculate_hex_string(self.static_length)
         self.lineEdit_8.setText(self.action_val_hex)
-        print(f"动作表总字节数: {total_length}")
+        print(f"获取到所有动作表总字节数: {total_length}")
         # print(f"拼接后的十六进制字符串: {total_hex_content}")
 
         # ------------生成总的动作表.bin文件------------
@@ -292,7 +292,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
 
     def get_total_dynamic(self):
         """
-        读取文件夹下所有以 DT 开头且包含四位数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数
+        读取动态表文件夹下所有以 DT 开头且包含四位数的 .bin 文件，拼接其内容为十六进制字符串，并计算总字节数
         :return:
         """
         # 打开文件夹选择对话框
@@ -330,7 +330,7 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         self.dynamicTable_lineEdit.setText(total_length_str)
         self.dynamic_val_hex = self.calculate_hex_string(self.static_length + self.action_length)
         self.lineEdit_9.setText(self.dynamic_val_hex)
-        print(f"动态表总字节数: {total_length}")
+        print(f"获取到所有动态表总字节数: {total_length}")
 
         # ------------生成总的动态表.bin文件------------
         if len(self.dynamic_content_hex) == 0:
@@ -372,8 +372,8 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
                 file_length_str = str(file_length)  # 将文件字节数转换为字符串
                 file_content_hex = file_content.hex().upper()  # 转换为十六进制字符串
 
-                print(f"文件: {os.path.basename(file_path)}")
-                print(f"字节数: {file_length}")
+                print(f"获取到监控表文件: {os.path.basename(file_path)}")
+                print(f"监控表总字节数: {file_length}")
                 # print(f"监控表内容: {file_content_hex}")
         else:
             print("未找到符合条件的 .bin 文件")
