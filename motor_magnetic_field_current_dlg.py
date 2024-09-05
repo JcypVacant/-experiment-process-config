@@ -26,6 +26,11 @@ class MotorMagneticFieldCurrentDlg(QDialog, Ui_MotorMagneticFieldCurrent):
         self.motor_current_select_current2 = config["motor_current_select"]["current2"]
         self.motor_current_select_current3 = config["motor_current_select"]["current3"]
         self.motor_current_select_magnetic_current = config["motor_current_select"]["magnetic_current"]
+        # 电机电流片选复选框状态初始化全部选中
+        self.checkBox_1.setChecked(True)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_3.setChecked(True)
+        self.checkBox_4.setChecked(True)
         # 获取参数16进制编码
         self.motor_current_select_omit_hex = self.get_motor_current_select_hex()
         self.motor_current_select_hex = self.motor_current_select_omit_hex[2:] + self.motor_current_select_omit_hex[0:2]

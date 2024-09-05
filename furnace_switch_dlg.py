@@ -28,6 +28,12 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.valve_switch_val = furnace_config["switch_plate_selection"]["valve"]
         self.acc_switch_val = furnace_config["switch_plate_selection"]["acceleration"]
         self.sample_box_switch_val = furnace_config["switch_plate_selection"]["sample_box"]
+        # 默认开关量片选复选框状态全部设置为选中
+        self.LEDCheckBox.setChecked(True)
+        self.CCDCheckBox.setChecked(True)
+        self.valveCheckBox.setChecked(True)
+        self.accCheckBox.setChecked(True)
+        self.sampleBoxCheckBox.setChecked(True)
         # 获取配置参数的16进制编码
         self.switch_plate_selection_hex = self.get_switch_plate_selection_hex()
         # 开关量片选复选框状态改变
@@ -43,8 +49,10 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.led2_enable = furnace_config["LED_enable_settings"]["LED2_enable"]
         self.led2_close = furnace_config["LED_enable_settings"]["LED2_close"]
         self.led_enable_tail = furnace_config["LED_enable_settings"]["tail"]
+        # 设置默认选项为LED1_close
+        self.led_enable_index = 1
+        self.LEDComboBox.setCurrentIndex(self.led_enable_index)
         # 下拉框索引
-        self.led_enable_index = 0
         self.LEDComboBox.currentIndexChanged.connect(self.led_enable_index_changed)
         # 获取配置参数的16进制编码
         self.led_enable_hex = self.get_led_enable_settings_hex()
@@ -71,8 +79,11 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.exhaust_vacuum_open = furnace_config["valve_enable_settings"]["exhaust_vacuum_open"]
         self.exhaust_vacuum_close = furnace_config["valve_enable_settings"]["exhaust_vacuum_close"]
         self.valve_enable_tail = furnace_config["valve_enable_settings"]["tail"]
+        # 设置默认选项为exhaust_vacuum_close
+        self.valve_enable_index = 7
+        self.valveComboBox.setCurrentIndex(self.valve_enable_index)
         # 下拉索引
-        self.valve_enable_index = 0
+        # self.valve_enable_index = 0
         self.valveComboBox.currentIndexChanged.connect(self.valve_enable_index_changed)
         # 获取配置参数的16进制编码
         self.valve_enable_hex = self.get_valve_enable_settings_hex()
@@ -209,8 +220,10 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.update_hex_val()
 
     def get_led_enable_settings_hex(self):
-        value = self.led1_enable
-        if self.led_enable_index == 1:
+        value = self.led1_close
+        if self.led_enable_index == 0:
+            value = self.led1_enable
+        elif self.led_enable_index == 1:
             value = self.led1_close
         elif self.led_enable_index == 2:
             value = self.led2_enable
@@ -249,8 +262,10 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
         self.update_hex_val()
 
     def get_valve_enable_settings_hex(self):
-        value = self.nitrogen_valve_open
-        if self.valve_enable_index == 1:
+        value = self.exhaust_vacuum_close
+        if self.valve_enable_index == 0:
+            value = self.nitrogen_valve_open
+        elif self.valve_enable_index == 1:
             value = self.nitrogen_valve_close
         elif self.valve_enable_index == 2:
             value = self.repressing_open

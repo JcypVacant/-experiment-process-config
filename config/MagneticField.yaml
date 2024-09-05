@@ -19,8 +19,8 @@ magnetic_velocity:
 
 # 磁场驱动使能
 magnetic_enable:
-  magnetic1: "0"
-  magnetic2: "0"
-  magnetic3: "0"
-  magnetic4: "0"
+  magnetic1: "F"
+  magnetic2: "F"
+  magnetic3: "F"
+  magnetic4: "F"
   tail: "EF00"

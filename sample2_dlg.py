@@ -63,7 +63,9 @@ class Sample2Dlg(QDialog, Ui_Sample2):
         self.run_mode_tail = config["zhuan_ji_1_run_mode"]["tail"]
 
         # 下拉索引
-        self.run_mode_index = 0
+        self.run_mode_index = 2
+        # 默认下拉框为编码器
+        self.runModeComboBox.setCurrentIndex(self.run_mode_index)
         # 十六进制缩写和十六进制值
         self.run_mode_hex = self.get_run_mode_hex()
         self.run_mode_omit_hex = self.run_mode_hex[2:4] + self.run_mode_hex[0:2]
@@ -122,7 +124,9 @@ class Sample2Dlg(QDialog, Ui_Sample2):
         self.lu_xia_ji_5_shang = config["limit_switch_settings"]["lu_xia_ji_5_shang"]
         self.lu_xia_ji_5_xia = config["limit_switch_settings"]["lu_xia_ji_5_xia"]
         # 下拉索引
-        self.limit_switch_index = 0
+        self.limit_switch_index = 5
+        # 默认下拉框为liu_hao（6号）
+        self.switchValComboBox.setCurrentIndex(self.limit_switch_index)
         # 十六进制缩写和十六进制值
         self.limit_switch_hex = self.get_limit_switch_hex()
         self.limit_switch_omit_hex = self.limit_switch_hex[2:4] + self.limit_switch_hex[0:2]
@@ -171,8 +175,10 @@ class Sample2Dlg(QDialog, Ui_Sample2):
 
     # ----------- 样提机2运行方式设置 --------------------
     def get_run_mode_hex(self):
-        val = self.run_mode_open_loop
-        if self.run_mode_index == 1:
+        val = self.run_mode_encoder
+        if self.run_mode_index == 0:
+            val = self.run_mode_open_loop
+        elif self.run_mode_index == 1:
             val = self.run_mode_limit_switch
         elif self.run_mode_index == 2:
             val = self.run_mode_encoder

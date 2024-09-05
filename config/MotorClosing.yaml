@@ -1,10 +1,10 @@
 # 电机参数片选
 motor_conf_select:
-  dian_ji_1: "00"
-  dian_ji_2: "00"
-  dian_ji_3: "00"
-  dian_ji_4: "00"
-  dian_ji_5: "00"
+  dian_ji_1: "11"
+  dian_ji_2: "11"
+  dian_ji_3: "11"
+  dian_ji_4: "11"
+  dian_ji_5: "11"
 
 dian_ji_1_closing:
   tail: "002700"

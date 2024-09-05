@@ -41,7 +41,10 @@ class OnlineMonitoringStatusDlg(QDialog, Ui_OnlineMonitoringStatus):
         self.val2_hex = self.get_val2_hex()
         self.valLineEdit_2.textChanged.connect(self.val_text_changed)
         # ---------- 在线监控判据类型 ----------
-        self.comb1_index = 0
+        # 下拉框默认选中type2
+        self.comb1_index = 1
+        self.comboBox_1.setCurrentIndex(self.comb1_index)
+
         self.comb1_hex = self.get_comb1_hex()
         self.comboBox_1.currentIndexChanged.connect(self.comb1_index_changed)
         # --------- 在线监控地址和阈值 ---------
@@ -54,11 +57,14 @@ class OnlineMonitoringStatusDlg(QDialog, Ui_OnlineMonitoringStatus):
         self.valLineEdit_5.textChanged.connect(self.val_text_changed)
         self.valLineEdit_6.textChanged.connect(self.val_text_changed)
         # --------- 当发生逻辑时需进行的异常处理类型 ---------------
-        self.comb2_index = 0
+        # 下拉框默认选中id2
+        self.comb2_index = 1
+        self.comboBox_2.setCurrentIndex(self.comb2_index)
         self.comb2_hex = self.get_comb2_hex()
         self.comboBox_2.currentIndexChanged.connect(self.comb2_index_changed)
         # -------- 判断后续处理 ---------------
-        self.comb3_index = 0
+        self.comb3_index = 2
+        self.comboBox_3.setCurrentIndex(self.comb3_index)
         self.comb3_hex = self.get_comb3_hex()
         self.comboBox_3.currentIndexChanged.connect(self.comb3_index_changed)
         # -------- 备用 -----------

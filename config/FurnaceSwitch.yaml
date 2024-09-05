@@ -1,10 +1,10 @@
 # 开关片选量
 switch_plate_selection:
-  LED: "00"
-  CCD: "00"
-  valve: "00"
-  acceleration: "00"
-  sample_box: "00"
+  LED: "11"
+  CCD: "11"
+  valve: "11"
+  acceleration: "11"
+  sample_box: "11"
 
 # LED使能设置
 LED_enable_settings:

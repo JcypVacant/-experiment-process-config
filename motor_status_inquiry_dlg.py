@@ -27,6 +27,12 @@ class MotorStatusInquiryDlg(QDialog, Ui_MotorStatusInquiry):
         self.motor_3 = config["motor_status_select"]["motor_3"]
         self.motor_4 = config["motor_status_select"]["motor_4"]
         self.motor_5 = config["motor_status_select"]["motor_5"]
+        # 电机片选复选框状态初始化为全部选中
+        self.checkBox_1.setChecked(True)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_3.setChecked(True)
+        self.checkBox_4.setChecked(True)
+        self.checkBox_5.setChecked(True)
         # 获取参数16进制编码
         self.motor_hex = self.get_motor_hex()
         # 电机参数片选复选框状态改变
@@ -41,7 +47,9 @@ class MotorStatusInquiryDlg(QDialog, Ui_MotorStatusInquiry):
         self.motor1_in_place_condition = config["motor1_status"]["in_place_condition"]
         self.motor1_tail = config["motor1_status"]["tail"]
         # 电机1状态查询下拉框索引
-        self.motor1_index = 0
+        self.motor1_index = 1
+        # 下拉框默认为选中motor1_in_place_condition（到位条件跳转）
+        self.comboBox_1.setCurrentIndex(self.motor1_index)
         # 十六进制编码
         self.motor1_omit_hex, self.motor1_hex = self.get_motor1_hex()
         # 下拉框状态改变
@@ -178,8 +186,10 @@ class MotorStatusInquiryDlg(QDialog, Ui_MotorStatusInquiry):
 
     # ----------------- 电机1状态查询 ---------------------------------
     def get_motor1_hex(self):
-        hex_val = "00FF"
-        if self.motor1_index == 1:
+        hex_val = "0000"
+        if self.motor1_index == 0:
+            hex_val = "00FF"
+        elif self.motor1_index == 1:
             hex_val = "0000"
         return hex_val, hex_val[2:] + hex_val[0:2] + self.motor1_tail
 

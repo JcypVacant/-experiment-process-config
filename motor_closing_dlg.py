@@ -26,6 +26,12 @@ class MotorClosingDlg(QDialog, Ui_MotorClosing):
         self.motor_3 = config["motor_conf_select"]["dian_ji_3"]
         self.motor_4 = config["motor_conf_select"]["dian_ji_4"]
         self.motor_5 = config["motor_conf_select"]["dian_ji_5"]
+        # 电机片选复选框初始化全部选中
+        self.checkBox_1.setChecked(True)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_3.setChecked(True)
+        self.checkBox_4.setChecked(True)
+        self.checkBox_5.setChecked(True)
         # 获取配置参数的16进制编码
         self.motor_omit_hex, self.motor_hex = self.get_motor_hex()
         # 开关量片选复选框状态改变

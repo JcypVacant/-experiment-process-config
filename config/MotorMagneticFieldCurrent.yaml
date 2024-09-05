@@ -1,9 +1,9 @@
 # 电机电流片选
 motor_current_select:
-  current1: "00"
-  current2: "00"
-  current3: "00"
-  magnetic_current: "00"
+  current1: "11"
+  current2: "11"
+  current3: "11"
+  magnetic_current: "11"
 
 # 电流1设置
 current1_settings:

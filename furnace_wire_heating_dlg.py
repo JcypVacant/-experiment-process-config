@@ -26,6 +26,11 @@ class FurnaceWireHeatingDlg(QDialog, Ui_FurnaceWireHeating):
         self.furnace_wire_heating_select_voltage2 = config["furnace_wire_heating_select"]["voltage1"]
         self.furnace_wire_heating_select_voltage3 = config["furnace_wire_heating_select"]["voltage1"]
         self.furnace_wire_heating_select_voltage4 = config["furnace_wire_heating_select"]["voltage1"]
+        # 电机电流片选复选框状态初始化全部选中
+        self.checkBox_1.setChecked(True)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_3.setChecked(True)
+        self.checkBox_4.setChecked(True)
         # 获取参数16进制编码
         self.furnace_wire_heating_select_omit_hex = self.get_furnace_wire_heating_select_hex()
         self.furnace_wire_heating_select_hex = self.furnace_wire_heating_select_omit_hex[2:] + \

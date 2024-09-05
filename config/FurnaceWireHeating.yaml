@@ -1,9 +1,9 @@
 # 炉丝加热电压片选
 furnace_wire_heating_select:
-  voltage1: "00"
-  voltage2: "00"
-  voltage3: "00"
-  voltage4: "00"
+  voltage1: "11"
+  voltage2: "11"
+  voltage3: "11"
+  voltage4: "11"
 
 # 电压1设置
 voltage1_settings:

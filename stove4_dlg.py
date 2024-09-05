@@ -122,7 +122,9 @@ class Stove4Dlg(QDialog, Ui_Stove4):
         self.lu_xia_ji_5_shang = config["limit_switch_settings"]["lu_xia_ji_5_shang"]
         self.lu_xia_ji_5_xia = config["limit_switch_settings"]["lu_xia_ji_5_xia"]
         # 下拉索引
-        self.limit_switch_index = 0
+        self.limit_switch_index = 10
+        # 默认下拉框选中为no_use
+        self.switchValComboBox.setCurrentIndex(self.limit_switch_index)
         # 十六进制缩写和十六进制值
         self.limit_switch_hex = self.get_limit_switch_hex()
         self.limit_switch_omit_hex = self.limit_switch_hex[2:4] + self.limit_switch_hex[0:2]
@@ -291,7 +293,7 @@ class Stove4Dlg(QDialog, Ui_Stove4):
             hex_val = self.lu_xia_ji_5_shang
         elif self.limit_switch_index == 9:
             hex_val = self.lu_xia_ji_5_xia
-        else:
+        elif self.limit_switch_index == 10:
             hex_val = self.no_use
         return hex_val + self.limit_switch_address
 

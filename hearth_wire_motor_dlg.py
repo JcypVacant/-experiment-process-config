@@ -27,6 +27,12 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         self.motor_conf_3 = config["motor_conf_select"]["lu_shang_ji_3"]
         self.motor_conf_4 = config["motor_conf_select"]["lu_zhong_ji_4"]
         self.motor_conf_5 = config["motor_conf_select"]["lu_xia_ji_5"]
+        # 电机参数片选复选框全部默认选中
+        self.confCheckBox_1.setChecked(True)
+        self.confCheckBox_2.setChecked(True)
+        self.confCheckBox_3.setChecked(True)
+        self.confCheckBox_4.setChecked(True)
+        self.confCheckBox_5.setChecked(True)
         # 获取参数16进制编码
         self.motor_conf_hex = self.get_motor_conf_hex()
         # 电机参数片选复选框状态改变
@@ -46,7 +52,9 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         self.zhuan_ji_1_eight = config["zhuan_ji_1_settings"]["subdivision_direction"]["eight"]
         self.zhuan_ji_1_tail = config["zhuan_ji_1_settings"]["subdivision_direction"]["tail"]
         # 下拉索引
-        self.zhuan_ji_1_subdivision_index = 0
+        # 设置默认选项为zhuan_ji_1_eight（8细分）
+        self.zhuan_ji_1_subdivision_index = 3
+        self.subdivisionComboBox_1.setCurrentIndex(self.zhuan_ji_1_subdivision_index)
         self.zhuan_ji_1_direction_index = 0
         self.subdivisionComboBox_1.currentIndexChanged.connect(self.subdivision_1_index_changed)
         self.directionComboBox_1.currentIndexChanged.connect(self.direction_1_index_changed)
@@ -84,7 +92,9 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         self.yang_ti_ji_2_eight = config["yang_ti_ji_2_settings"]["subdivision_direction"]["eight"]
         self.yang_ti_ji_2_tail = config["yang_ti_ji_2_settings"]["subdivision_direction"]["tail"]
         # 下拉索引
-        self.yang_ti_ji_2_subdivision_index = 0
+        # 设置默认选项为yang_ti_ji_2_eight（8细分）
+        self.yang_ti_ji_2_subdivision_index = 3
+        self.subdivisionComboBox_2.setCurrentIndex(self.yang_ti_ji_2_subdivision_index)
         self.yang_ti_ji_2_direction_index = 0
         self.subdivisionComboBox_2.currentIndexChanged.connect(self.subdivision_2_index_changed)
         self.directionComboBox_2.currentIndexChanged.connect(self.direction_2_index_changed)
@@ -124,7 +134,8 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         self.lu_shang_ji_3_tail = config["lu_shang_ji_3_settings"]["subdivision_direction"]["tail"]
 
         # 下拉索引
-        self.lu_shang_ji_3_subdivision_index = 0
+        self.lu_shang_ji_3_subdivision_index = 3
+        self.subdivisionComboBox_3.setCurrentIndex(self.lu_shang_ji_3_subdivision_index)
         self.lu_shang_ji_3_direction_index = 0
         self.subdivisionComboBox_3.currentIndexChanged.connect(self.subdivision_3_index_changed)
         self.directionComboBox_3.currentIndexChanged.connect(self.direction_3_index_changed)
@@ -164,7 +175,8 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         self.lu_zhong_ji_4_tail = config["lu_zhong_ji_4_settings"]["subdivision_direction"]["tail"]
 
         # 下拉索引
-        self.lu_zhong_ji_4_subdivision_index = 0
+        self.lu_zhong_ji_4_subdivision_index = 3
+        self.subdivisionComboBox_4.setCurrentIndex(self.lu_zhong_ji_4_subdivision_index)
         self.lu_zhong_ji_4_direction_index = 0
         self.subdivisionComboBox_4.currentIndexChanged.connect(self.subdivision_4_index_changed)
         self.directionComboBox_4.currentIndexChanged.connect(self.direction_4_index_changed)
@@ -203,7 +215,8 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         self.lu_xia_ji_5_tail = config["lu_xia_ji_5_settings"]["subdivision_direction"]["tail"]
 
         # 下拉索引
-        self.lu_xia_ji_5_subdivision_index = 0
+        self.lu_xia_ji_5_subdivision_index = 3
+        self.subdivisionComboBox_5.setCurrentIndex(self.lu_xia_ji_5_subdivision_index)
         self.lu_xia_ji_5_direction_index = 0
         self.subdivisionComboBox_5.currentIndexChanged.connect(self.subdivision_5_index_changed)
         self.directionComboBox_5.currentIndexChanged.connect(self.direction_5_index_changed)
@@ -237,6 +250,12 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
         self.motor_enable_4 = config["motor_enable_settings"]["lu_zhong_ji_4"]
         self.motor_enable_5 = config["motor_enable_settings"]["lu_xia_ji_5"]
         self.motor_enable_tail = config["motor_enable_settings"]["tail"]
+        # 电机失步检测使能设置默认全部为选中状态
+        self.enableCheckBox_1.setChecked(True)
+        self.enableCheckBox_2.setChecked(True)
+        self.enableCheckBox_3.setChecked(True)
+        self.enableCheckBox_4.setChecked(True)
+        self.enableCheckBox_5.setChecked(True)
         # 获取参数16进制编码
         self.motor_enable_omit_hex = self.get_motor_enable_hex()
         self.motor_enable_hex = self.motor_enable_omit_hex[2:] + self.motor_enable_omit_hex[
@@ -352,10 +371,12 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
 
     # ------------------- 转机1 ---------------------------
     def get_zhuan_ji_1_subdivision_direction_hex(self):
-        subdivision = self.zhuan_ji_1_two_four
+        subdivision = self.zhuan_ji_1_eight
         rotation = self.zhuan_ji_1_forward_rotation
         if self.zhuan_ji_1_direction_index == 1:
             rotation = self.zhuan_ji_1_backward_rotation
+        if self.zhuan_ji_1_subdivision_index == 0:
+            subdivision = self.zhuan_ji_1_two_four
         if self.zhuan_ji_1_subdivision_index == 1:
             subdivision = self.zhuan_ji_1_two
         elif self.zhuan_ji_1_subdivision_index == 2:
@@ -430,11 +451,13 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
 
     # ------------------- 样提机2 ---------------------------
     def get_yang_ti_ji_2_subdivision_direction_hex(self):
-        subdivision = self.yang_ti_ji_2_two_four
+        subdivision = self.yang_ti_ji_2_eight
         rotation = self.yang_ti_ji_2_forward_rotation
         if self.yang_ti_ji_2_direction_index == 1:
             rotation = self.yang_ti_ji_2_backward_rotation
-        if self.yang_ti_ji_2_subdivision_index == 1:
+        if self.yang_ti_ji_2_subdivision_index == 0:
+            subdivision = self.yang_ti_ji_2_two_four
+        elif self.yang_ti_ji_2_subdivision_index == 1:
             subdivision = self.yang_ti_ji_2_two
         elif self.yang_ti_ji_2_subdivision_index == 2:
             subdivision = self.yang_ti_ji_2_four
@@ -507,11 +530,13 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
 
     # ------------------- 炉上机3 ---------------------------
     def get_lu_shang_ji_3_subdivision_direction_hex(self):
-        subdivision = self.lu_shang_ji_3_two_four
+        subdivision = self.lu_shang_ji_3_eight
         rotation = self.lu_shang_ji_3_forward_rotation
         if self.lu_shang_ji_3_direction_index == 1:
             rotation = self.lu_shang_ji_3_backward_rotation
-        if self.lu_shang_ji_3_subdivision_index == 1:
+        if self.lu_shang_ji_3_subdivision_index == 0:
+            subdivision = self.lu_shang_ji_3_two_four
+        elif self.lu_shang_ji_3_subdivision_index == 1:
             subdivision = self.lu_shang_ji_3_two
         elif self.lu_shang_ji_3_subdivision_index == 2:
             subdivision = self.lu_shang_ji_3_four
@@ -584,10 +609,12 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
 
     # ------------------- 炉中机4 ---------------------------
     def get_lu_zhong_ji_4_subdivision_direction_hex(self):
-        subdivision = self.lu_zhong_ji_4_two_four
+        subdivision = self.lu_zhong_ji_4_eight
         rotation = self.lu_zhong_ji_4_forward_rotation
         if self.lu_zhong_ji_4_direction_index == 1:
             rotation = self.lu_zhong_ji_4_backward_rotation
+        if self.lu_zhong_ji_4_subdivision_index == 0:
+            subdivision = self.lu_zhong_ji_4_two_four
         if self.lu_zhong_ji_4_subdivision_index == 1:
             subdivision = self.lu_zhong_ji_4_two
         elif self.lu_zhong_ji_4_subdivision_index == 2:
@@ -663,11 +690,13 @@ class HearthWireMotorDlg(QDialog, Ui_HearthWireMotor):
 
     # ------------------- 炉下机5 ---------------------------
     def get_lu_xia_ji_5_subdivision_direction_hex(self):
-        subdivision = self.lu_xia_ji_5_two_four
+        subdivision = self.lu_xia_ji_5_eight
         rotation = self.lu_xia_ji_5_forward_rotation
         if self.lu_xia_ji_5_direction_index == 1:
             rotation = self.lu_xia_ji_5_backward_rotation
-        if self.lu_xia_ji_5_subdivision_index == 1:
+        if self.lu_xia_ji_5_subdivision_index == 0:
+            subdivision = self.lu_xia_ji_5_two_four
+        elif self.lu_xia_ji_5_subdivision_index == 1:
             subdivision = self.lu_xia_ji_5_two
         elif self.lu_xia_ji_5_subdivision_index == 2:
             subdivision = self.lu_xia_ji_5_four

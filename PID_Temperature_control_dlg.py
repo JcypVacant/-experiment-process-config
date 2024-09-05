@@ -28,10 +28,15 @@ class PIDTemperatureControlDlg(QDialog, Ui_PIDTemperatureControl):
         self.climb_enable_none = config["rate_of_climb_enable"]["PID_none"]
         self.climb_enable_down = config["rate_of_climb_enable"]["PID_down"]
         # 下拉索引
-        self.PID1_index = 0
-        self.PID2_index = 0
-        self.PID3_index = 0
-        self.PID4_index = 0
+        self.PID1_index = 3
+        # 设置下拉框默认值为climb_enable_none（PID1不选）
+        self.comboBox_1.setCurrentIndex(self.PID1_index)
+        self.PID2_index = 4
+        self.comboBox_2.setCurrentIndex(self.PID2_index)
+        self.PID3_index = 3
+        self.comboBox_3.setCurrentIndex(self.PID3_index)
+        self.PID4_index = 3
+        self.comboBox_4.setCurrentIndex(self.PID4_index)
         # 16进制值
         self.climb_enable_omit_hex, self.climb_enable_hex = self.get_climb_enable_hex()
         # 下拉索引改变
@@ -175,12 +180,14 @@ class PIDTemperatureControlDlg(QDialog, Ui_PIDTemperatureControl):
 
     # -------------- 爬升率配置使能 ---------------------
     def get_climb_enable_hex(self):
-        PID1_hex = self.climb_enable_up
-        PID2_hex = self.climb_enable_up
-        PID3_hex = self.climb_enable_up
-        PID4_hex = self.climb_enable_up
+        PID1_hex = self.climb_enable_none
+        PID2_hex = self.climb_enable_down
+        PID3_hex = self.climb_enable_none
+        PID4_hex = self.climb_enable_none
         # ---------- PID1 ------------
-        if self.PID1_index == 1:
+        if self.PID1_index == 0:
+            PID1_hex = self.climb_enable_up
+        elif self.PID1_index == 1:
             PID1_hex = self.climb_enable_open
         elif self.PID1_index == 2:
             PID1_hex = self.climb_enable_close
@@ -189,7 +196,9 @@ class PIDTemperatureControlDlg(QDialog, Ui_PIDTemperatureControl):
         elif self.PID1_index == 4:
             PID1_hex = self.climb_enable_down
         # ---------- PID2 ------------
-        if self.PID2_index == 1:
+        if self.PID2_index == 0:
+            PID2_hex = self.climb_enable_up
+        elif self.PID2_index == 1:
             PID2_hex = self.climb_enable_open
         elif self.PID2_index == 2:
             PID2_hex = self.climb_enable_close
@@ -198,7 +207,9 @@ class PIDTemperatureControlDlg(QDialog, Ui_PIDTemperatureControl):
         elif self.PID2_index == 4:
             PID2_hex = self.climb_enable_down
         # ---------- PID3 ------------
-        if self.PID3_index == 1:
+        if self.PID3_index == 0:
+            PID3_hex = self.climb_enable_up
+        elif self.PID3_index == 1:
             PID3_hex = self.climb_enable_open
         elif self.PID3_index == 2:
             PID3_hex = self.climb_enable_close
@@ -207,7 +218,9 @@ class PIDTemperatureControlDlg(QDialog, Ui_PIDTemperatureControl):
         elif self.PID3_index == 4:
             PID3_hex = self.climb_enable_down
         # ---------- PID4 ------------
-        if self.PID4_index == 1:
+        if self.PID4_index == 0:
+            PID4_hex = self.climb_enable_up
+        elif self.PID4_index == 1:
             PID4_hex = self.climb_enable_open
         elif self.PID4_index == 2:
             PID4_hex = self.climb_enable_close

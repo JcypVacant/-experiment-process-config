@@ -1,10 +1,10 @@
 # 电机参数片选
 motor_conf_select:
-  zhuan_ji_1: "00"
-  yang_ti_ji_2: "00"
-  lu_shang_ji_3: "00"
-  lu_zhong_ji_4: "00"
-  lu_xia_ji_5: "00"
+  zhuan_ji_1: "11"
+  yang_ti_ji_2: "11"
+  lu_shang_ji_3: "11"
+  lu_zhong_ji_4: "11"
+  lu_xia_ji_5: "11"
 
 # 转机1参数动作设置
 zhuan_ji_1_settings:
@@ -143,9 +143,9 @@ lu_xia_ji_5_settings:
 
 # 电机失步检测使能设置
 motor_enable_settings:
-  zhuan_ji_1: "00"
-  yang_ti_ji_2: "00"
-  lu_shang_ji_3: "00"
-  lu_zhong_ji_4: "00"
-  lu_xia_ji_5: "00"
+  zhuan_ji_1: "11"
+  yang_ti_ji_2: "11"
+  lu_shang_ji_3: "11"
+  lu_zhong_ji_4: "11"
+  lu_xia_ji_5: "11"
   tail: "2C00"

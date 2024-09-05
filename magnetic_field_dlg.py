@@ -37,7 +37,9 @@ class MagneticFieldDlg(QDialog, Ui_MagneticField):
         self.run_forward = config["magnetic_direction"]["forward"]
         self.run_backward = config["magnetic_direction"]["backward"]
         self.run_tail = config["magnetic_direction"]["tail"]
-        self.run_index = 0
+        self.run_index = 1
+        # 默认下拉框为反转
+        self.comboBox_2.setCurrentIndex(self.run_index)
         # 16进制值
         self.run_omit_hex, self.run_hex = self.get_run_hex()
         # 下拉框索引改变
@@ -55,6 +57,11 @@ class MagneticFieldDlg(QDialog, Ui_MagneticField):
         self.magnetic3 = config["magnetic_enable"]["magnetic3"]
         self.magnetic4 = config["magnetic_enable"]["magnetic4"]
         self.magnetic_tail = config["magnetic_enable"]["tail"]
+        # 复选框默认状态全部选中
+        self.checkBox_1.setChecked(True)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_3.setChecked(True)
+        self.checkBox_4.setChecked(True)
         # 获取参数16进制编码
         self.magnetic_omit_hex, self.magnetic_hex = self.get_magnetic_hex()
         # 电机参数片选复选框状态改变
@@ -105,8 +112,10 @@ class MagneticFieldDlg(QDialog, Ui_MagneticField):
 
     # --------------- 磁场运行方向 ------------------
     def get_run_hex(self):
-        hex_val = self.run_forward
-        if self.run_index == 1:
+        hex_val = self.run_backward
+        if self.run_index == 0:
+            hex_val = self.run_forward
+        elif self.run_index == 1:
             hex_val = self.run_backward
         return hex_val[2:] + hex_val[0:2], hex_val + self.run_tail
 
