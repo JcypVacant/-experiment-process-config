@@ -149,6 +149,8 @@ class Sample2Dlg(QDialog, Ui_Sample2):
 
         # 确定按钮
         self.commitPushButton.clicked.connect(self.commit_config)
+        # 取消按钮
+        self.cancelPushButton.clicked.connect(self.cancel_config)
 
     def update_hex_val(self):
         #  样提机2运行方式设置
@@ -342,3 +344,10 @@ class Sample2Dlg(QDialog, Ui_Sample2):
         self.config_hex_signal.emit(self.action_id[2:] + self.action_id[0:2] + self.config_hex, self.is_new_action)
         # 发送完关闭窗口
         self.close()
+
+    # ------------ 取消 -----------------------
+    def cancel_config(self):
+        # 取消配置
+        self.actionIDLineEdit.clear()
+        self.close()
+

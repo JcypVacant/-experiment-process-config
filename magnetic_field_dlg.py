@@ -79,6 +79,8 @@ class MagneticFieldDlg(QDialog, Ui_MagneticField):
 
         # 确定按钮
         self.commitPushButton.clicked.connect(self.commit_config)
+        # 取消按钮
+        self.cancelPushButton.clicked.connect(self.cancel_config)
 
     def update_hex_val(self):
         # 细分
@@ -191,4 +193,8 @@ class MagneticFieldDlg(QDialog, Ui_MagneticField):
         # 发送信号(id的前两位和后两位要调换位置)
         self.config_hex_signal.emit(self.action_id[2:] + self.action_id[0:2] + self.config_hex, self.is_new_action)
         # 发送完关闭窗口
+        self.close()
+    def cancel_config(self):
+        # 取消配置
+        self.actionIDLineEdit.clear()
         self.close()

@@ -1,6 +1,5 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QDialog
-
 from ui.FurnaceSwitch import Ui_FurnaceSwitch
 from utils.data_utils import *
 
@@ -118,11 +117,17 @@ class FurnaceSwitchDlg(QDialog, Ui_FurnaceSwitch):
 
         # 确定按钮
         self.commitPushButton.clicked.connect(self.commit_config)
+        # 取消按钮
+        self.cancelPushButton.clicked.connect(self.cancel_config)
 
     def commit_config(self):
         # 发送信号(id的前两位和后两位要调换位置)
         self.config_hex_signal.emit(self.action_id[2:] + self.action_id[0:2] + self.config_hex, self.is_new_action)
         # 发送完关闭窗口
+        self.close()
+    def cancel_config(self):
+        # 取消配置
+        self.actionIDLineEdit.clear()
         self.close()
 
     def update_hex_val(self):
