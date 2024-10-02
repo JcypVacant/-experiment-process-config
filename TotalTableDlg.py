@@ -1,5 +1,7 @@
 import os
 import re
+import datetime
+
 from PySide6.QtWidgets import QDialog, QMessageBox
 from ui.totaltable import Ui_TotalTable
 from utils.data_utils import hex_string_to_binary_file
@@ -281,8 +283,14 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         base_path = os.path.abspath('./total_bin')
         if not os.path.exists(base_path):
             os.makedirs(base_path)
+
+        # 计算总动作表的校验和
+        checksum = self.calculate_checksum(self.action_content_hex)
+        # 生成文件名，格式为 总动作表_0x校验和_生成时间.bin
+        file_name = self.generate_table_name("总动作表", checksum) + '.bin'
+        output_file_path = os.path.join(base_path, file_name)
         # 生成总动作表的.bin文件
-        output_file_path = base_path + os.path.sep + '总动作表' + '.bin'
+        # output_file_path = base_path + os.path.sep + '总动作表' + '.bin'
         # 将十六进制字符串转换为字节对象
         hex_bytes = bytes.fromhex(self.action_content_hex)
         # 将字节写入二进制文件
@@ -339,8 +347,14 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         base_path = os.path.abspath('./total_bin')
         if not os.path.exists(base_path):
             os.makedirs(base_path)
+
+        # 计算总动态表的校验和
+        checksum = self.calculate_checksum(self.dynamic_content_hex)
+        # 生成文件名，格式为 总动作表_0x校验和_生成时间.bin
+        file_name = self.generate_table_name("总动态表", checksum) + '.bin'
+        output_file_path = os.path.join(base_path, file_name)
         # 生成总动态表的.bin文件
-        output_file_path = base_path + os.path.sep + '总动态表' + '.bin'
+        # output_file_path = base_path + os.path.sep + '总动态表' + '.bin'
         # 将十六进制字符串转换为字节对象
         hex_bytes = bytes.fromhex(self.dynamic_content_hex)
         # 将字节写入二进制文件
@@ -407,12 +421,20 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         if len(self.table_head_hex) == 8:
             QMessageBox.information(None, "Success", "没有表头需要生成，请先获取其他表数据！")
             return
+
+        # 计算表头的校验和
+        checksum = self.calculate_checksum(self.table_head_hex)
+
         # 文件夹不存在则创建
         base_path = os.path.abspath('./total_bin')
         if not os.path.exists(base_path):
             os.makedirs(base_path)
-        # 生成静态表的.bin文件
-        output_file_path = base_path + os.path.sep + '表头' + '.bin'
+
+        # 生成文件名，格式为 表头_0x校验和_生成时间.bin
+        file_name = self.generate_table_name("表头", checksum) + '.bin'
+        output_file_path = os.path.join(base_path, file_name)
+        # # 生成静态表的.bin文件
+        # output_file_path = base_path + os.path.sep + '表头' + '.bin'
         hex_string_to_binary_file(self.table_head_hex, output_file_path)
         print(f"表头生成成功！\n文件所在目录：{base_path}")
         QMessageBox.information(None, "Success", f"表头生成成功！\n文件所在目录：{base_path}")
@@ -432,8 +454,15 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         base_path = os.path.abspath('./total_bin')
         if not os.path.exists(base_path):
             os.makedirs(base_path)
+
+        # 计算总表的校验和
+        checksum = self.calculate_checksum(self.total_table_hex)
+
+        # 生成文件名，格式为 总表_0x校验和_生成时间.bin
+        file_name = self.generate_table_name("总表", checksum) + '.bin'
+        output_file_path = os.path.join(base_path, file_name)
         # 生成总表的.bin文件
-        output_file_path = base_path + os.path.sep + '总表' + '.bin'
+        #output_file_path = base_path + os.path.sep + '总表' + '.bin'
         # 将十六进制字符串转换为字节对象
         hex_bytes = bytes.fromhex(self.total_table_hex)
         # 将字节写入二进制文件
@@ -460,8 +489,14 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         base_path = os.path.abspath('./total_bin')
         if not os.path.exists(base_path):
             os.makedirs(base_path)
+
+        # 计算最终总表的校验和
+        checksum = self.calculate_checksum(self.finally_total_table_hex)
+        # 生成文件名，格式为 总表+3总表_0x校验和_生成时间.bin
+        file_name = self.generate_table_name("总表+3总表", checksum) + '.bin'
+        output_file_path = os.path.join(base_path, file_name)
         # 生成总表的.bin文件
-        output_file_path = base_path + os.path.sep + '表头+3总表' + '.bin'
+        # output_file_path = base_path + os.path.sep + '表头+3总表' + '.bin'
         # 将十六进制字符串转换为字节对象
         hex_bytes = bytes.fromhex(self.finally_total_table_hex)
         # 将字节写入二进制文件
@@ -471,6 +506,20 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
         QMessageBox.information(None, "Success", f"总表+3总表生成成功！\n文件所在目录：{base_path}")
         # 关闭窗口
         self.close()
+
+    def calculate_checksum(self, hex_str):
+        """根据给定的十六进制字符串计算校验和"""
+        # 将十六进制字符串转换为字节数组
+        data = bytes.fromhex(hex_str)
+        # 计算所有字节的累加和，取低字节
+        checksum = sum(data) % 256
+        return checksum
+
+    def generate_table_name(self, base_name, checksum):
+        """生成表名，格式为 表名_0x校验和_生成时间"""
+        current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        table_name = f"{base_name}_0x{checksum:02X}_{current_time}"
+        return table_name
 
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>580</height>
+    <width>448</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>500</y>
+     <y>350</y>
      <width>75</width>
      <height>24</height>
     </rect>
@@ -45,8 +45,8 @@
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>500</y>
+     <x>350</x>
+     <y>350</y>
      <width>75</width>
      <height>24</height>
     </rect>
@@ -59,52 +59,9 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>70</y>
-     <width>291</width>
-     <height>201</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>20</number>
-    </property>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>起始时刻：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="startTimeLineEdit"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_6">
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>动作时间（s）：</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="durationLineEdit"/>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>400</y>
+     <y>240</y>
      <width>189</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -124,7 +81,7 @@
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>320</y>
+     <y>160</y>
      <width>291</width>
      <height>26</height>
     </rect>
@@ -222,6 +179,29 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLineEdit" name="startTimeLineEdit">
+   <property name="geometry">
+    <rect>
+     <x>146</x>
+     <y>90</y>
+     <width>133</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>90</y>
+     <width>60</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>起始时刻：</string>
+   </property>
   </widget>
  </widget>
  <resources/>
