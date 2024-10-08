@@ -411,7 +411,7 @@ class PIDTemperatureControlDlg(QDialog, Ui_PIDTemperatureControl):
                           self.PID3_val_4_hex + self.PID4_val_1_hex + self.PID4_val_2_hex + self.PID4_val_3_hex + \
                           self.PID4_val_4_hex
         # print(f"生成的16进制参数配置: {self.config_hex}")
-        self.action_id, self.is_new_action = get_action_id(self.config_hex, "B")
+        self.action_id, self.is_new_action = get_action_id_pid_temp_control(self.config_hex, "B")
         # id显示到界面
         self.actionIDLineEdit.setText(self.action_id)
 

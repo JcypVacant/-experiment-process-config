@@ -2,6 +2,7 @@ import os
 import sys
 from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
+import subprocess
 from PySide6.QtWidgets import QDialog, QTableWidgetItem, QMessageBox, QFileDialog
 
 from ui.dynamictable import Ui_DynamicTable
@@ -287,6 +288,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 导入动作表的数据
         self.loadDataPushButton.clicked.connect(self.load_data)
+
+        # 打开流程表
+        self.open_excel_file_PushButton.clicked.connect(self.open_excel_file)
 
     def load_data(self):
         """
@@ -593,6 +597,40 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         """
         dlg = TotalTableDlg()
         dlg.exec()
+
+    def open_excel_file(self):
+        # 打开文件选择对话框，选择 Excel 文件（支持 .xls 和 .xlsx）
+        file_dialog = QFileDialog(self)
+        file_dialog.setNameFilters(["Excel 文件 (*.xls *.xlsx)", "所有文件 (*)"])
+        file_dialog.setFileMode(QFileDialog.ExistingFile)
+
+        if file_dialog.exec():
+            selected_file = file_dialog.selectedFiles()[0]
+            # 检测文件是否被占用
+            if self.is_file_in_use(selected_file):
+                # 提示用户文件被占用
+                QMessageBox.warning(self, "文件被占用",
+                                    f"文件 {os.path.basename(selected_file)} 正在使用，请稍后再试。")
+                return
+            try:
+                # 在 Windows 上用 os.startfile 打开 Excel 文件
+                if sys.platform.startswith('win'):
+                    os.startfile(selected_file)
+                # 在 macOS 或 Linux 上使用 subprocess 打开 Excel 文件
+                else:
+                    subprocess.call(('open' if sys.platform == 'darwin' else 'xdg-open', selected_file))
+            except Exception as e:
+                # 弹出错误消息框
+                QMessageBox.critical(self, "错误", f"无法打开文件: {str(e)}")
+
+    def is_file_in_use(self, filepath):
+        # 尝试打开文件进行读写，如果无法打开则说明文件被占用
+        try:
+            file = open(filepath, 'r+')
+            file.close()
+            return False
+        except IOError:
+            return True
 
 
 if __name__ == "__main__":

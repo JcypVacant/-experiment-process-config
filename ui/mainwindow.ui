@@ -270,7 +270,7 @@
    <widget class="QPushButton" name="newItemButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>440</x>
       <y>80</y>
       <width>75</width>
       <height>24</height>
@@ -348,7 +348,7 @@
    <widget class="QPushButton" name="deleteItemPushButton">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>630</x>
       <y>80</y>
       <width>75</width>
       <height>24</height>
@@ -371,6 +371,19 @@
      <string>导入数据</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="open_excel_file_PushButton">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>80</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>打开流程表</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -378,7 +391,7 @@
      <x>0</x>
      <y>0</y>
      <width>1153</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

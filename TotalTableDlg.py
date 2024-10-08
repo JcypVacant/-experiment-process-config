@@ -431,10 +431,10 @@ class TotalTableDlg(QDialog, Ui_TotalTable):
             os.makedirs(base_path)
 
         # 生成文件名，格式为 表头_0x校验和_生成时间.bin
-        file_name = self.generate_table_name("表头", checksum) + '.bin'
-        output_file_path = os.path.join(base_path, file_name)
-        # # 生成静态表的.bin文件
-        # output_file_path = base_path + os.path.sep + '表头' + '.bin'
+        # file_name = self.generate_table_name("表头", checksum) + '.bin'
+        #output_file_path = os.path.join(base_path, file_name)
+        # 生成静态表的.bin文件
+        output_file_path = base_path + os.path.sep + f'AT_已_F000表(电机1关电机2关电机3关电机4关电机5关)00C0H(静态表长度{self.static_length})25H(动作表长度{self.action_length})25H(动态表长度{self.dynamic_length})25H(监控表长度{self.monitoring_length})25H(总长度{self.total_table_length})25H' + '.bin'
         hex_string_to_binary_file(self.table_head_hex, output_file_path)
         print(f"表头生成成功！\n文件所在目录：{base_path}")
         QMessageBox.information(None, "Success", f"表头生成成功！\n文件所在目录：{base_path}")

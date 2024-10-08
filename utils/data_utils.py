@@ -85,6 +85,56 @@ def get_action_id(config_hex, action_code):
     return final_id, 1
 
 
+def get_action_id_pid_temp_control(config_hex, action_code):
+    """
+    PID温度控制动作ID生成规则: 根据配置参数编码查询动作ID，若存在则返回已存在的ID，不存在递增生成一个新ID返回
+    :param config_hex: 配置参数编码
+    :param action_code: 动作代码
+    :return: 返回一个Tuple，(动作id, 是否是新动作：是 = 1，否 = 0)
+    """
+    config_hex = str(config_hex).upper()  # 配置参数编码转换为大写
+    final_id = str(action_code) + "000"  # 初始动作ID
+
+    # 读取文件内容
+    try:
+        with open(data_file_path + data_dict[action_code], 'r', encoding='utf-8') as data_file:
+            all_data = data_file.read()
+    except FileNotFoundError:
+        print(f"文件未找到：{data_file_path + data_dict[action_code]}")
+        return final_id, 1
+
+    # 如果文件为空，直接返回初始ID
+    if len(all_data) == 0:
+        return final_id, 1
+
+    list_all = all_data.strip().split("\n")
+    print(">>>>>>开始比对配置生成动作ID>>>>>")
+
+    for line in list_all:
+        if line.strip() == '':  # 跳过空行
+            continue
+        action_id, config = tuple(line.split(" "))
+        final_id = action_id  # 获取文件中的最后一个ID
+
+        # 特殊情况：config_hex 的前四个字符为 "0000"，只对比前四个字符
+        if config_hex[:4] == "0000":
+            print(f"特殊情况比对前四个字符:\n>>{config[:4]}\n>>{config_hex[:4]}")
+            if config[:4] == config_hex[:4]:
+                print(f">>>>>>比对结束，生成的动作ID为：{final_id}，是否为新ID：否>>>>>")
+                return final_id, 0
+        else:
+            # 正常情况下比对整个 config_hex
+            print(f"比对:\n>>{config}\n>>{config_hex}")
+            if config_hex == config:
+                print(f">>>>>>比对结束，生成的动作ID为：{final_id}，是否为新ID：否>>>>>")
+                return final_id, 0
+
+    # 没有找到匹配的配置参数，生成新的动作ID
+    final_id = format(int(final_id, 16) + 1, '04X')
+    print(f">>>>>>比对结束，生成的动作ID为：{final_id}，是否为新ID：是>>>>>")
+    return final_id, 1
+
+
 def hex_string_to_binary_file(hex_string, output_file_path):
     print("++++++准备写入文件：", hex_string)
     # 将十六进制字符串转换为字节对象
